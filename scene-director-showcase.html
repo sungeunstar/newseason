@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Scene Director Showcase</title>
+    <link rel="stylesheet" href="case-study.css">
+    <style>
+        body { overflow: hidden; background: #0d1117; }
+        .showcase {
+            width: 1080px;
+            height: 1080px;
+            padding: 78px;
+            background:
+                radial-gradient(circle at 72% 28%, rgba(77, 139, 255, .22), transparent 34%),
+                linear-gradient(145deg, #141a22 0%, #080b10 100%);
+            color: #fff;
+        }
+        .showcase-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 54px;
+        }
+        .showcase-label {
+            color: rgba(255,255,255,.38);
+            font-size: 17px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+        .showcase-pill {
+            padding: 11px 18px;
+            border: 1px solid rgba(255,255,255,.16);
+            border-radius: 999px;
+            color: rgba(255,255,255,.68);
+            font-size: 16px;
+        }
+        .showcase h1 {
+            max-width: 790px;
+            margin-bottom: 54px;
+            font-size: 88px;
+            font-weight: 300;
+            line-height: .96;
+            letter-spacing: -.055em;
+        }
+        .mini-app {
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,.14);
+            border-radius: 18px;
+            background: rgba(255,255,255,.06);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+        }
+        .mini-bar {
+            display: flex;
+            justify-content: space-between;
+            padding: 22px 26px;
+            border-bottom: 1px solid rgba(255,255,255,.1);
+        }
+        .mini-grid {
+            display: grid;
+            grid-template-columns: 210px 1fr 220px;
+            min-height: 470px;
+        }
+        .mini-side {
+            padding: 24px;
+            border-right: 1px solid rgba(255,255,255,.1);
+        }
+        .mini-side.right { border-right: 0; border-left: 1px solid rgba(255,255,255,.1); }
+        .mini-side span {
+            display: block;
+            margin-bottom: 20px;
+            color: rgba(255,255,255,.34);
+            font-size: 14px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+        .mini-row {
+            padding: 13px 0;
+            border-top: 1px solid rgba(255,255,255,.08);
+            color: rgba(255,255,255,.68);
+            font-size: 18px;
+        }
+        .mini-row.active { color: #fff; }
+        .mini-canvas {
+            position: relative;
+            overflow: hidden;
+            min-height: 470px;
+            background:
+                linear-gradient(0deg, rgba(42,72,91,.35) 0 1px, transparent 1px 100%),
+                linear-gradient(90deg, rgba(42,72,91,.35) 0 1px, transparent 1px 100%),
+                radial-gradient(circle at 50% 46%, rgba(84,145,255,.24), transparent 34%);
+            background-size: 42px 42px, 42px 42px, auto;
+        }
+        .mini-ship {
+            position: absolute;
+            left: 44%;
+            top: 51%;
+            width: 250px;
+            height: 88px;
+            transform: translate(-50%, -50%) skewX(-12deg);
+            border-radius: 18px 70px 34px 52px;
+            background: linear-gradient(135deg, #6b4d33, #25180e);
+            box-shadow: 0 42px 80px rgba(0,0,0,.35);
+        }
+        .mini-mast {
+            position: absolute;
+            left: 47%;
+            top: 28%;
+            width: 16px;
+            height: 210px;
+            border-radius: 999px;
+            background: #46301d;
+        }
+        .mini-camera {
+            position: absolute;
+            right: 42px;
+            bottom: 38px;
+            padding: 16px 18px;
+            border: 1px solid rgba(255,255,255,.16);
+            border-radius: 12px;
+            background: rgba(7,10,15,.72);
+        }
+        .mini-camera small {
+            display: block;
+            margin-bottom: 8px;
+            color: rgba(255,255,255,.4);
+            font-size: 12px;
+            letter-spacing: .12em;
+        }
+        .mini-camera b { font-size: 18px; font-weight: 500; }
+        .mini-slider {
+            margin: 24px 0;
+            color: rgba(255,255,255,.66);
+            font-size: 16px;
+        }
+        .mini-slider i {
+            display: block;
+            height: 5px;
+            margin-top: 10px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #75a7ff 68%, rgba(255,255,255,.14) 68%);
+        }
+    </style>
+</head>
+<body>
+<div class="showcase">
+    <div class="showcase-top">
+        <p class="showcase-label">AI-assisted 3D Web Builder</p>
+        <span class="showcase-pill">Human-directed scene editing</span>
+    </div>
+    <h1>Scene Director makes 3D web scenes adjustable.</h1>
+    <div class="mini-app">
+        <div class="mini-bar"><b>voyage_intro.scene</b><span>Export JSON</span></div>
+        <div class="mini-grid">
+            <aside class="mini-side">
+                <span>Scene</span>
+                <div class="mini-row active">Camera_Main</div>
+                <div class="mini-row">Ship_Hull</div>
+                <div class="mini-row">Compass</div>
+                <div class="mini-row">Mist_Layer</div>
+            </aside>
+            <main class="mini-canvas">
+                <div class="mini-ship"></div>
+                <div class="mini-mast"></div>
+                <div class="mini-camera"><small>Camera Point 03</small><b>x 4.2 · y 1.8 · z 7.6</b></div>
+            </main>
+            <aside class="mini-side right">
+                <span>Transform</span>
+                <div class="mini-slider">Position X<i></i></div>
+                <div class="mini-slider">Rotation Y<i></i></div>
+                <div class="mini-slider">Scroll Dolly<i></i></div>
+            </aside>
+        </div>
+    </div>
+</div>
+</body>
+</html>
