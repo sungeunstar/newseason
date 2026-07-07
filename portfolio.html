@@ -189,6 +189,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 6px;
+            grid-auto-flow: row dense;
         }
 
         /* 카드 */
@@ -199,10 +200,14 @@
             color: #fff;
             cursor: none;
             overflow: hidden;
-            height: 33vw;
+            aspect-ratio: 1 / 1;
+            height: auto;
         }
 
-        .card.span-2 { grid-column: span 2; }
+        .card.span-2 {
+            grid-column: span 2;
+            aspect-ratio: 2 / 1;
+        }
 
         /* AI 태그 */
         .card-ai-tag {
@@ -221,6 +226,14 @@
             padding: 4px 10px;
             border-radius: 100px;
             z-index: 3;
+            opacity: 0;
+            transform: translateY(-4px);
+            transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+
+        .card:hover .card-ai-tag {
+            opacity: 1;
+            transform: none;
         }
 
         /* 밝은 썸네일(PEACH 쇼케이스)용 태그 — 핑크 온 라이트 */
@@ -231,13 +244,6 @@
             backdrop-filter: none;
             -webkit-backdrop-filter: none;
         }
-
-        /* 밝은 썸네일 — 프로덕트명 상시 노출(어두운 글씨), hover 어둡게 안 함 */
-        .card--titled .card-info { opacity: 1; transform: none; }
-        .card--titled:hover .card-overlay { background: rgba(14,14,14,0); }
-        /* 밝은 썸네일은 어두운 글씨로 가독성 확보 */
-        .card--demo-light.card--titled .card-name { color: #111; }
-        .card--demo-light.card--titled .card-role { color: rgba(17,17,17,0.45); }
 
         .card-bg {
             position: absolute;
@@ -312,82 +318,6 @@
         .card--demo-light { background: #fff; }
         .card--demo-dark { background: #09090b; }
 
-        .myseed-thumb {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background:
-                radial-gradient(circle at 68% 22%, rgba(117, 151, 92, .34), transparent 34%),
-                linear-gradient(145deg, #edf4e7 0%, #cfdcc4 100%);
-        }
-
-        .myseed-phone {
-            width: min(64%, 280px);
-            aspect-ratio: 9 / 16;
-            padding: 22px;
-            border: 1px solid rgba(38,58,33,.12);
-            border-radius: 28px;
-            background: rgba(255,255,255,.74);
-            box-shadow: 0 32px 70px rgba(38,58,33,.18), inset 0 1px 0 rgba(255,255,255,.7);
-            transform: rotate(-5deg);
-        }
-
-        .myseed-top {
-            display: flex;
-            justify-content: space-between;
-            color: rgba(24,38,21,.46);
-            font-size: 10px;
-            letter-spacing: .08em;
-            text-transform: uppercase;
-        }
-
-        .myseed-top b { color: #24351f; font-weight: 500; }
-
-        .myseed-plant {
-            width: 118px;
-            height: 118px;
-            margin: 34px auto 26px;
-            border-radius: 50% 50% 44% 56%;
-            background:
-                radial-gradient(circle at 34% 34%, #7ba767 0 18%, transparent 19%),
-                radial-gradient(circle at 64% 38%, #5d8d4b 0 20%, transparent 21%),
-                radial-gradient(circle at 42% 68%, #446f3b 0 24%, transparent 25%),
-                #dfe9d8;
-            box-shadow: 0 18px 38px rgba(68,111,59,.18);
-        }
-
-        .myseed-note {
-            padding: 16px;
-            border-radius: 18px;
-            background: #24351f;
-            color: #fff;
-        }
-
-        .myseed-note b { display: block; font-size: 14px; font-weight: 500; }
-        .myseed-note span { display: block; margin-top: 6px; color: rgba(255,255,255,.56); font-size: 10px; }
-
-        .myseed-row {
-            margin-top: 16px;
-            color: rgba(24,38,21,.58);
-            font-size: 10px;
-        }
-
-        .myseed-row::after {
-            content: "";
-            display: block;
-            height: 4px;
-            margin-top: 7px;
-            border-radius: 999px;
-            background: rgba(36,53,31,.12);
-        }
-
-        .myseed-row i {
-            display: block;
-            height: 4px;
-            margin-top: -4px;
-            border-radius: 999px;
-            background: #5d8d4b;
-        }
 
         /* ─── ABOUT ─── */
         .about {
@@ -771,7 +701,8 @@
             .card.span-2 { grid-column: span 1; aspect-ratio: 1 / 1; height: auto; }
             /* 모바일엔 hover가 없으니 카드 제목 상시 노출 */
             .card-info { opacity: 1; transform: none; }
-            .card:not(.card--titled) .card-overlay { background: linear-gradient(to top, rgba(14,14,14,0.55), rgba(14,14,14,0) 55%); }
+            .card-ai-tag { opacity: 1; transform: none; }
+            .card .card-overlay { background: linear-gradient(to top, rgba(14,14,14,0.55), rgba(14,14,14,0) 55%); }
 
             .about-inner { grid-template-columns: 1fr; gap: 48px; }
 
@@ -859,12 +790,12 @@
             <span class="wr-desc">AI 인풋 구조화 · 브리프 자동화 도구</span>
             <span class="wr-year">2025</span>
         </a>
-        <div class="work-row">
+        <a class="work-row" href="peach.html">
             <span class="wr-num">05</span>
-            <span class="wr-name">myseed</span>
-            <span class="wr-desc">감성 반려식물 다이어리 앱 · 기획 중</span>
-            <span class="wr-year">2026</span>
-        </div>
+            <span class="wr-name">PEACH</span>
+            <span class="wr-desc">AI 콜드메일 랜딩 자동화 · 운영 경험</span>
+            <span class="wr-year">2025</span>
+        </a>
         <a class="work-row" href="flowing.html">
             <span class="wr-num">06</span>
             <span class="wr-name">Flowing</span>
@@ -916,7 +847,7 @@
     <div class="works-grid" id="worksGrid">
 
         <!-- Row A: 대표작 -->
-        <a class="card span-2 card--titled card--demo-dark" href="tomob.html" data-cat="ai">
+        <a class="card span-2 card--demo-dark" href="tomob.html" data-cat="ai">
             <div class="card-bg" style="background:url('assets/tomob/intro-page.png') center/cover, #07121a;"></div>
             <div class="card-ai-tag">Featured Build</div>
             <div class="card-overlay"></div>
@@ -926,7 +857,7 @@
             </div>
         </a>
 
-        <a class="card card--titled card--demo-dark" href="scene-director.html" data-cat="ai">
+        <a class="card card--demo-dark" href="scene-director.html" data-cat="ai">
             <iframe class="card-bg card-demo" data-nw="1080" data-nh="1080" src="scene-director-showcase.html" title="Scene Director 쇼케이스" loading="lazy" scrolling="no"></iframe>
             <div class="card-ai-tag">Prototype UI</div>
             <div class="card-overlay"></div>
@@ -937,7 +868,7 @@
         </a>
 
         <!-- Row B -->
-        <a class="card card--titled card--demo-dark" href="genesis.html" data-cat="ai">
+        <a class="card card--demo-dark" href="genesis.html" data-cat="ai">
             <iframe class="card-bg card-demo" data-nw="1080" data-nh="1080" src="genesis-showcase.html" title="Genesis 쇼케이스" loading="lazy" scrolling="no"></iframe>
             <div class="card-ai-tag">AI Builder</div>
             <div class="card-overlay"></div>
@@ -947,7 +878,7 @@
             </div>
         </a>
 
-        <a class="card card--titled card--demo-dark" href="tomob-seed.html" data-cat="ai">
+        <a class="card card--demo-dark" href="tomob-seed.html" data-cat="ai">
             <iframe class="card-bg card-demo" data-nw="1080" data-nh="1080" src="tomob-seed-showcase.html" title="TOMOB SEED 쇼케이스" loading="lazy" scrolling="no"></iframe>
             <div class="card-ai-tag">Harness</div>
             <div class="card-overlay"></div>
@@ -957,23 +888,15 @@
             </div>
         </a>
 
-        <div class="card card--titled card--demo-light" data-cat="ux">
-            <div class="card-ai-tag card-ai-tag--light">Planning</div>
-            <div class="card-bg myseed-thumb">
-                <div class="myseed-phone">
-                    <div class="myseed-top"><span>myseed</span><b>Today</b></div>
-                    <div class="myseed-plant"></div>
-                    <div class="myseed-note"><b>몬스테라</b><span>물주기까지 2일</span></div>
-                    <div class="myseed-row"><span>Light</span><i style="width:72%"></i></div>
-                    <div class="myseed-row"><span>Moisture</span><i style="width:48%"></i></div>
-                </div>
-            </div>
+        <a class="card card--demo-light" href="peach.html" data-cat="ai">
+            <iframe class="card-bg card-demo" data-nw="1280" data-nh="820" src="peach-showcase.html" title="PEACH 쇼케이스" loading="lazy" scrolling="no"></iframe>
+            <div class="card-ai-tag card-ai-tag--light">Automation</div>
             <div class="card-overlay"></div>
             <div class="card-info">
-                <div class="card-name">myseed</div>
-                <div class="card-role">감성 반려식물 다이어리 앱 · 기획 중 · 2026</div>
+                <div class="card-name">PEACH</div>
+                <div class="card-role">AI 콜드메일 랜딩 자동화 · 운영 경험 · 2025</div>
             </div>
-        </div>
+        </a>
 
         <!-- Row C -->
         <a class="card span-2" href="flowing.html" data-cat="ux">
@@ -985,8 +908,9 @@
             </div>
         </a>
 
-        <a class="card" href="topping-up.html" data-cat="ux">
-            <div class="card-bg" style="background: #CFD6F5;"></div>
+        <a class="card card--demo-light" href="topping-up.html" data-cat="ux">
+            <div class="card-bg" style="background: url('assets/topping/card.png') center/cover, #fff;"></div>
+            <div class="card-ai-tag card-ai-tag--light">Planning</div>
             <div class="card-overlay"></div>
             <div class="card-info">
                 <div class="card-name">토핑업</div>

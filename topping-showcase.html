@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Topping Up Showcase</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { overflow: hidden; background: #eaf1ff; font-family: Pretendard, -apple-system, sans-serif; }
+        .shot {
+            position: relative;
+            width: 1080px;
+            height: 1080px;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 18% 16%, rgba(255,255,255,.9), transparent 28%),
+                radial-gradient(circle at 80% 78%, rgba(82,150,255,.22), transparent 34%),
+                linear-gradient(145deg, #f7fbff 0%, #dce8ff 100%);
+            color: #101318;
+        }
+        .meta {
+            position: absolute;
+            top: 58px;
+            left: 64px;
+            right: 64px;
+            z-index: 4;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: rgba(16,19,24,.5);
+            font-size: 18px;
+            letter-spacing: .08em;
+        }
+        .meta b { color: #101318; font-weight: 600; letter-spacing: 0; }
+        .hero-copy {
+            position: absolute;
+            left: 64px;
+            top: 158px;
+            z-index: 4;
+            width: 430px;
+        }
+        .hero-copy small {
+            display: block;
+            margin-bottom: 20px;
+            color: #2d63ff;
+            font-size: 16px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+        }
+        .hero-copy h1 {
+            font-size: 72px;
+            font-weight: 300;
+            line-height: .98;
+            letter-spacing: -.06em;
+        }
+        .hero-copy p {
+            margin-top: 24px;
+            color: rgba(16,19,24,.55);
+            font-size: 22px;
+            line-height: 1.55;
+        }
+        .cover {
+            position: absolute;
+            right: -74px;
+            bottom: 118px;
+            width: 780px;
+            border-radius: 28px;
+            filter: drop-shadow(0 44px 72px rgba(45,99,255,.18));
+            transform: rotate(-4deg);
+        }
+        .panel {
+            position: absolute;
+            left: 64px;
+            bottom: 78px;
+            z-index: 5;
+            width: 420px;
+            padding: 24px;
+            border: 1px solid rgba(45,99,255,.14);
+            border-radius: 24px;
+            background: rgba(255,255,255,.72);
+            box-shadow: 0 26px 72px rgba(45,99,255,.12), inset 0 1px 0 rgba(255,255,255,.7);
+            backdrop-filter: blur(16px);
+        }
+        .panel-row {
+            display: grid;
+            grid-template-columns: 74px 1fr;
+            gap: 18px;
+            align-items: center;
+            padding: 14px 0;
+            border-top: 1px solid rgba(16,19,24,.08);
+        }
+        .panel-row:first-child { border-top: 0; }
+        .panel-row b { color: #2d63ff; font-size: 24px; font-weight: 600; }
+        .panel-row span { color: rgba(16,19,24,.58); font-size: 16px; line-height: 1.45; }
+    </style>
+</head>
+<body>
+<div class="shot">
+    <div class="meta"><b>Topping Up</b><span>Career growth planner</span></div>
+    <div class="hero-copy">
+        <small>PM / UX</small>
+        <h1>내일을 위한 성장 기록</h1>
+        <p>타인의 준비 루틴을 탐색하고 내 일정으로 가져오는 커리어 기록 앱.</p>
+    </div>
+    <img class="cover" src="assets/topping/cover.png" alt="토핑업 앱 대표 화면">
+    <div class="panel">
+        <div class="panel-row"><b>20</b><span>취준생·이직 준비자 대면 인터뷰</span></div>
+        <div class="panel-row"><b>2</b><span>페르소나와 핵심 진입 시나리오</span></div>
+        <div class="panel-row"><b>1</b><span>타인의 토핑을 복사해 시작하는 핵심 결정</span></div>
+    </div>
+</div>
+</body>
+</html>
