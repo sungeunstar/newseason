@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Scene Director — AI-assisted 3D Web Builder</title>
     <link rel="stylesheet" href="case-study.css">
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
 </head>
 <body>
 <nav class="nav"><a href="portfolio.html">Sungeun Jun</a><a href="portfolio.html#works">All works</a></nav>
@@ -58,8 +59,7 @@
                 <div class="scene-canvas">
                     <div class="scene-horizon"></div>
                     <div class="scene-gridline"></div>
-                    <div class="scene-object ship"></div>
-                    <div class="scene-object mast"></div>
+                    <model-viewer class="scene-model" src="assets/scene/caravel.glb" alt="Caravel ship GLB preview" camera-orbit="38deg 66deg 7m" field-of-view="32deg" exposure="0.9" shadow-intensity="0.75" auto-rotate auto-rotate-delay="0" rotation-per-second="18deg"></model-viewer>
                     <div class="scene-object compass"></div>
                     <div class="scene-camera-card">
                         <span>Camera Point 03</span>

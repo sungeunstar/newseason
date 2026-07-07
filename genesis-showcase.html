@@ -4,129 +4,231 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Genesis Showcase</title>
-    <link rel="stylesheet" href="case-study.css">
     <style>
-        body { overflow: hidden; background: #16130f; }
-        .showcase {
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { overflow: hidden; background: #0d0c09; font-family: Pretendard, -apple-system, sans-serif; }
+        .shot {
+            position: relative;
             width: 1080px;
             height: 1080px;
-            padding: 88px;
+            padding: 54px;
             background:
-                radial-gradient(circle at 12% 12%, rgba(219,187,124,.18), transparent 32%),
-                linear-gradient(135deg, #1f1a13 0%, #0f1115 100%);
+                radial-gradient(circle at 78% 18%, rgba(224, 184, 101, .22), transparent 30%),
+                radial-gradient(circle at 16% 82%, rgba(104, 138, 93, .18), transparent 34%),
+                linear-gradient(145deg, #211b12 0%, #0d0c09 100%);
             color: #fff;
         }
-        .showcase-top {
+        .brandline {
+            position: absolute;
+            top: 52px;
+            left: 58px;
+            right: 58px;
+            z-index: 3;
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 72px;
+            align-items: center;
+            color: rgba(255,255,255,.58);
+            font-size: 17px;
+            letter-spacing: .08em;
         }
-        .showcase-label {
-            color: rgba(255,255,255,.36);
-            font-size: 18px;
-            letter-spacing: .12em;
+        .brandline b { color: #fff; font-weight: 500; letter-spacing: 0; }
+        .app {
+            position: absolute;
+            left: 54px;
+            right: 54px;
+            bottom: 58px;
+            height: 828px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,.14);
+            border-radius: 28px;
+            background: rgba(18,16,13,.92);
+            box-shadow: 0 52px 110px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.08);
+        }
+        .bar {
+            height: 72px;
+            display: grid;
+            grid-template-columns: 220px 1fr 210px;
+            align-items: center;
+            padding: 0 28px;
+            border-bottom: 1px solid rgba(255,255,255,.1);
+            background: rgba(255,255,255,.035);
+        }
+        .bar b { font-size: 22px; font-weight: 500; }
+        .bar span { justify-self: center; color: rgba(255,255,255,.42); font-size: 16px; }
+        .bar i {
+            justify-self: end;
+            padding: 11px 18px;
+            border: 1px solid rgba(230,197,121,.3);
+            border-radius: 999px;
+            color: #e6c579;
+            font-size: 15px;
+            font-style: normal;
+        }
+        .workspace {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            height: calc(100% - 72px);
+        }
+        .side {
+            padding: 28px 24px;
+            border-right: 1px solid rgba(255,255,255,.08);
+            background: rgba(255,255,255,.035);
+        }
+        .label {
+            display: block;
+            margin-bottom: 16px;
+            color: rgba(255,255,255,.34);
+            font-size: 13px;
+            letter-spacing: .16em;
             text-transform: uppercase;
         }
-        .showcase-badge {
-            padding: 12px 18px;
-            border: 1px solid rgba(255,255,255,.16);
-            border-radius: 999px;
-            color: rgba(255,255,255,.68);
+        .nav {
+            padding: 16px 0;
+            border-top: 1px solid rgba(255,255,255,.08);
+            color: rgba(255,255,255,.52);
             font-size: 16px;
         }
-        .showcase h1 {
-            max-width: 760px;
-            margin-bottom: 56px;
-            font-size: 94px;
-            font-weight: 300;
-            line-height: .96;
-            letter-spacing: -.055em;
+        .nav.active { color: #fff; }
+        .controls { margin-top: 34px; }
+        .meter { margin-bottom: 22px; color: rgba(255,255,255,.66); font-size: 15px; }
+        .meter span {
+            display: block;
+            overflow: hidden;
+            height: 6px;
+            margin-top: 12px;
+            border-radius: 999px;
+            background: rgba(255,255,255,.12);
         }
-        .showcase-grid {
+        .meter i { display: block; height: 100%; border-radius: inherit; background: #e6c579; }
+        .main {
+            padding: 28px;
             display: grid;
-            grid-template-columns: 270px 1fr;
+            grid-template-rows: 170px 1fr 108px;
             gap: 18px;
         }
-        .showcase-side, .showcase-main {
-            border: 1px solid rgba(255,255,255,.12);
-            border-radius: 16px;
-            background: rgba(255,255,255,.07);
-            box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
-        }
-        .showcase-side { padding: 26px; }
-        .showcase-side span {
-            display: block;
-            padding: 18px 0;
-            border-bottom: 1px solid rgba(255,255,255,.1);
-            color: rgba(255,255,255,.54);
-            font-size: 18px;
-        }
-        .showcase-side span:first-child { color: #fff; }
-        .showcase-main { padding: 28px; }
-        .showcase-main-head {
-            display: flex;
-            justify-content: space-between;
-            padding-bottom: 24px;
-            border-bottom: 1px solid rgba(255,255,255,.1);
-        }
-        .showcase-main-head b { font-size: 26px; font-weight: 500; }
-        .showcase-main-head i { color: #e6c579; font-size: 18px; font-style: normal; }
-        .showcase-cards {
+        .brief {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 14px;
-            margin-top: 22px;
+            grid-template-columns: 1fr 250px;
+            gap: 18px;
         }
-        .showcase-card {
-            min-height: 146px;
-            padding: 22px;
-            border-radius: 12px;
-            background: rgba(255,255,255,.09);
+        .panel {
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 18px;
+            background: rgba(255,255,255,.065);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
         }
-        .showcase-card small {
-            color: rgba(255,255,255,.35);
+        .copy { padding: 24px; }
+        .copy small {
+            color: rgba(255,255,255,.36);
             font-size: 13px;
-            letter-spacing: .12em;
+            letter-spacing: .14em;
             text-transform: uppercase;
         }
-        .showcase-card strong {
-            display: block;
-            margin-top: 28px;
-            font-size: 24px;
-            font-weight: 500;
+        .copy h2 {
+            margin-top: 18px;
+            font-size: 36px;
+            font-weight: 300;
+            line-height: 1.08;
+            letter-spacing: -.04em;
         }
-        .showcase-card.full { grid-column: 1 / -1; }
+        .status {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .status strong { font-size: 24px; font-weight: 500; color: #e6c579; }
+        .preview {
+            position: relative;
+            overflow: hidden;
+            padding: 30px;
+            background: #f4efe7;
+            color: #1b1711;
+        }
+        .preview-top {
+            display: flex;
+            justify-content: space-between;
+            color: rgba(27,23,17,.45);
+            font-size: 14px;
+        }
+        .preview h3 {
+            width: 72%;
+            margin-top: 72px;
+            font-size: 58px;
+            font-weight: 300;
+            line-height: .98;
+            letter-spacing: -.055em;
+        }
+        .preview p {
+            width: 54%;
+            margin-top: 20px;
+            color: rgba(27,23,17,.58);
+            font-size: 18px;
+            line-height: 1.7;
+        }
+        .preview-card {
+            position: absolute;
+            right: 30px;
+            bottom: 30px;
+            width: 228px;
+            padding: 22px;
+            border-radius: 18px;
+            background: #17130f;
+            color: #fff;
+        }
+        .preview-card small { color: rgba(255,255,255,.38); font-size: 12px; }
+        .preview-card b { display: block; margin-top: 48px; font-size: 24px; font-weight: 400; }
+        .flow {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 20px;
+        }
+        .flow span {
+            padding: 11px 13px;
+            border-radius: 999px;
+            background: rgba(255,255,255,.08);
+            color: rgba(255,255,255,.72);
+            font-size: 15px;
+        }
     </style>
 </head>
 <body>
-<div class="showcase">
-    <div class="showcase-top">
-        <p class="showcase-label">AI Landing Builder</p>
-        <span class="showcase-badge">Applied to RASA / J&amp;H</span>
-    </div>
-    <h1>Genesis turns design rules into a working builder.</h1>
-    <div class="showcase-grid">
-        <aside class="showcase-side">
-            <span>Brief</span>
-            <span>Archetype</span>
-            <span>Parameters</span>
-            <span>Output</span>
-            <span>Gate Review</span>
-        </aside>
-        <main class="showcase-main">
-            <div class="showcase-main-head">
-                <b>Warm Editorial</b>
-                <i>Ready to generate</i>
-            </div>
-            <div class="showcase-cards">
-                <div class="showcase-card"><small>Variance</small><strong>06 / 10</strong></div>
-                <div class="showcase-card"><small>Motion</small><strong>04 / 10</strong></div>
-                <div class="showcase-card"><small>Density</small><strong>05 / 10</strong></div>
-                <div class="showcase-card"><small>Gate</small><strong>Pass</strong></div>
-                <div class="showcase-card full"><small>Generated Flow</small><strong>Hero → Social → Pain → Solution → Process → Proof → FAQ → CTA</strong></div>
-            </div>
-        </main>
+<div class="shot">
+    <div class="brandline"><b>Genesis</b><span>AI Landing Builder</span></div>
+    <div class="app">
+        <div class="bar"><b>rasa_landing.gen</b><span>Warm Editorial</span><i>Generate</i></div>
+        <div class="workspace">
+            <aside class="side">
+                <span class="label">Pipeline</span>
+                <div class="nav active">Brief</div>
+                <div class="nav">Archetype</div>
+                <div class="nav">Parameters</div>
+                <div class="nav">Output</div>
+                <div class="nav">Gate Review</div>
+                <div class="controls">
+                    <span class="label">Controls</span>
+                    <div class="meter">Variance<span><i style="width:62%"></i></span></div>
+                    <div class="meter">Motion<span><i style="width:38%"></i></span></div>
+                    <div class="meter">Density<span><i style="width:54%"></i></span></div>
+                </div>
+            </aside>
+            <main class="main">
+                <div class="brief">
+                    <div class="panel copy"><small>Project brief</small><h2>AI와 사람의 감각을 함께 쓰는 브랜딩 에이전시.</h2></div>
+                    <div class="panel status"><small>Gate review</small><strong>Pass</strong><small>Font · CTA · Motion · Image</small></div>
+                </div>
+                <div class="panel preview">
+                    <div class="preview-top"><span>Generated landing preview</span><span>RASA</span></div>
+                    <h3>Brand systems with human temperature.</h3>
+                    <p>속도보다 결과의 온도를 보여주는 브랜드 랜딩 구조.</p>
+                    <div class="preview-card"><small>SECTION</small><b>Hero → Proof → CTA</b></div>
+                </div>
+                <div class="panel flow">
+                    <span>Hero</span><span>Social</span><span>Pain</span><span>Solution</span><span>Process</span><span>Proof</span><span>FAQ</span><span>CTA</span>
+                </div>
+            </main>
+        </div>
     </div>
 </div>
 </body>

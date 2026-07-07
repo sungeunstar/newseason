@@ -198,6 +198,9 @@ main { max-width: 860px; margin: 0 auto; padding: 120px var(--pad) 20px; }
     gap: 0;
     overflow: hidden;
     margin-top: 44px;
+    width: min(1120px, calc(100vw - 48px));
+    margin-left: 50%;
+    transform: translateX(-50%);
     border: 1px solid rgba(14,14,14,.12);
     border-radius: 8px;
     background: #15130f;
@@ -312,6 +315,9 @@ main { max-width: 860px; margin: 0 auto; padding: 120px var(--pad) 20px; }
 .scene-product {
     overflow: hidden;
     margin-top: 44px;
+    width: min(1120px, calc(100vw - 48px));
+    margin-left: 50%;
+    transform: translateX(-50%);
     border: 1px solid rgba(14,14,14,.12);
     border-radius: 8px;
     background: #0c1118;
@@ -339,8 +345,8 @@ main { max-width: 860px; margin: 0 auto; padding: 120px var(--pad) 20px; }
 }
 .scene-workspace {
     display: grid;
-    grid-template-columns: 150px 1fr 170px;
-    min-height: 430px;
+    grid-template-columns: 180px 1fr 190px;
+    min-height: 520px;
 }
 .scene-panel {
     padding: 18px;
@@ -367,7 +373,7 @@ main { max-width: 860px; margin: 0 auto; padding: 120px var(--pad) 20px; }
 .scene-canvas {
     position: relative;
     overflow: hidden;
-    min-height: 430px;
+    min-height: 520px;
     background:
         linear-gradient(0deg, rgba(68,105,141,.18) 0 1px, transparent 1px 100%),
         linear-gradient(90deg, rgba(68,105,141,.18) 0 1px, transparent 1px 100%),
@@ -391,25 +397,12 @@ main { max-width: 860px; margin: 0 auto; padding: 120px var(--pad) 20px; }
     width: 1px;
     background: rgba(255,255,255,.1);
 }
-.scene-object.ship {
+.scene-model {
     position: absolute;
-    left: 38%;
-    top: 54%;
-    width: 190px;
-    height: 70px;
-    transform: translate(-50%, -50%) skewX(-12deg);
-    border-radius: 16px 62px 30px 48px;
-    background: linear-gradient(135deg, #6b4d33, #22170f);
-    box-shadow: 0 34px 70px rgba(0,0,0,.4);
-}
-.scene-object.mast {
-    position: absolute;
-    left: 41%;
-    top: 28%;
-    width: 10px;
-    height: 155px;
-    border-radius: 999px;
-    background: #45301f;
+    inset: -8px 10px 44px;
+    width: auto;
+    height: auto;
+    filter: drop-shadow(0 30px 44px rgba(0,0,0,.42));
 }
 .scene-object.compass {
     position: absolute;
