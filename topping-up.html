@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>토핑업 — Sungeun Jun</title>
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg: #F5F5F3;
+            --text: #0E0E0E;
+            --muted: #9A9A9A;
+            --border: rgba(14,14,14,0.1);
+            --accent: #CFD6F5;
+            --pad: clamp(24px, 5vw, 80px);
+            --f: 'Pretendard', -apple-system, sans-serif;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--f); background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; cursor: none; }
+
+        .cursor { position: fixed; top: 0; left: 0; width: 8px; height: 8px; background: #fff; border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); mix-blend-mode: difference; }
+        .cursor-ring { position: fixed; top: 0; left: 0; width: 32px; height: 32px; border: 1.5px solid #fff; border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); mix-blend-mode: difference; }
+
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 28px var(--pad); }
+        .logo { font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; color: var(--text); }
+        .nav-back { font-size: 11px; color: var(--muted); text-decoration: none; letter-spacing: 0.04em; transition: color 0.2s; }
+        .nav-back:hover { color: var(--text); }
+
+        /* HERO */
+        .project-hero {
+            min-height: 100vh;
+            background: var(--accent);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 120px var(--pad) 80px;
+        }
+        .project-tag {
+            font-size: 10px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(14,14,14,0.5);
+            margin-bottom: 32px;
+        }
+        .project-title {
+            font-size: clamp(40px, 7vw, 100px);
+            font-weight: 300;
+            line-height: 1.05;
+            letter-spacing: -0.04em;
+            margin-bottom: 24px;
+        }
+        .project-sub {
+            font-size: clamp(16px, 2vw, 22px);
+            font-weight: 300;
+            color: rgba(14,14,14,0.55);
+            letter-spacing: -0.02em;
+            margin-bottom: 64px;
+        }
+        .project-meta {
+            display: flex;
+            gap: 48px;
+            border-top: 1px solid rgba(14,14,14,0.15);
+            padding-top: 32px;
+        }
+        .meta-item { display: flex; flex-direction: column; gap: 6px; }
+        .meta-label { font-size: 10px; color: rgba(14,14,14,0.45); letter-spacing: 0.1em; text-transform: uppercase; }
+        .meta-value { font-size: 13px; font-weight: 400; }
+
+        /* CONTENT */
+        .content { max-width: 860px; margin: 0 auto; padding: 120px var(--pad); }
+
+        .section { margin-bottom: 100px; }
+
+        .section-label {
+            font-size: 10px;
+            color: var(--muted);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+        .section h2 {
+            font-size: clamp(22px, 2.8vw, 36px);
+            font-weight: 300;
+            line-height: 1.4;
+            letter-spacing: -0.025em;
+            margin-bottom: 28px;
+        }
+        .section p {
+            font-size: 15px;
+            color: rgba(14,14,14,0.65);
+            line-height: 2.1;
+        }
+        .section p + p { margin-top: 20px; }
+
+        /* 인터뷰 카드 */
+        .interview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 40px; }
+        .interview-card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 28px;
+        }
+        .interview-who { font-size: 10px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; }
+        .interview-quote { font-size: 14px; line-height: 1.95; color: rgba(14,14,14,0.75); }
+        .interview-quote::before { content: '"'; }
+        .interview-quote::after { content: '"'; }
+
+        /* 페르소나 */
+        .persona-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 40px; }
+        .persona-card { background: #fff; border-radius: 8px; padding: 32px; }
+        .persona-name { font-size: 16px; font-weight: 500; margin-bottom: 4px; }
+        .persona-role { font-size: 11px; color: var(--muted); letter-spacing: 0.06em; margin-bottom: 24px; }
+        .persona-quote { font-size: 13px; color: rgba(14,14,14,0.6); font-style: italic; border-left: 2px solid var(--accent); padding-left: 14px; margin-bottom: 24px; line-height: 1.8; }
+        .persona-section-title { font-size: 10px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+        .persona-list { list-style: none; font-size: 13px; color: rgba(14,14,14,0.7); line-height: 2; }
+        .persona-list + .persona-section-title { margin-top: 20px; }
+
+        /* 인사이트 박스 */
+        .insight-box {
+            background: var(--accent);
+            border-radius: 8px;
+            padding: 40px;
+            margin-top: 40px;
+        }
+        .insight-box p { font-size: 18px; font-weight: 300; line-height: 1.8; letter-spacing: -0.01em; color: rgba(14,14,14,0.8); }
+
+        /* 구분선 */
+        .divider { border: none; border-top: 1px solid var(--border); margin: 80px 0; }
+
+        /* 네비게이션 푸터 */
+        .project-nav {
+            border-top: 1px solid var(--border);
+            padding: 60px var(--pad);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .project-nav a { text-decoration: none; color: var(--text); font-size: 13px; transition: opacity 0.2s; }
+        .project-nav a:hover { opacity: 0.5; }
+        .project-nav .next { text-align: right; }
+        .nav-hint { font-size: 10px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+
+        [data-reveal] { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        [data-reveal].visible { opacity: 1; transform: none; }
+        [data-reveal-delay="1"] { transition-delay: 0.1s; }
+        [data-reveal-delay="2"] { transition-delay: 0.2s; }
+
+        /* ─── IMAGE BLOCKS ─── */
+        .img-block { margin-top: 48px; }
+        .img-wrap { position: relative; overflow: hidden; }
+        .img-wrap::after { content: ''; position: absolute; inset: 0; background: var(--bg); transform-origin: right; transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .img-wrap.revealed::after { transform: scaleX(0); }
+        .img-placeholder { background: #E4E4E2; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: var(--muted); }
+        .img-placeholder .img-tag { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; }
+        .img-placeholder .img-desc { font-size: 11px; letter-spacing: 0.04em; }
+        .img-block.medium .img-placeholder { aspect-ratio: 16 / 8; border-radius: 4px; }
+        .img-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 48px; }
+        .img-grid-2 .img-placeholder { aspect-ratio: 4 / 3; border-radius: 4px; }
+
+        @media (max-width: 768px) {
+            body { cursor: auto; }
+            .cursor, .cursor-ring { display: none; }
+            .interview-grid, .persona-grid { grid-template-columns: 1fr; }
+            .project-meta { flex-wrap: wrap; gap: 24px; }
+        }
+    </style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+    <a href="portfolio.html" class="logo">Sungeun Jun</a>
+    <a href="portfolio.html" class="nav-back">← Back</a>
+</nav>
+
+<!-- HERO -->
+<section class="project-hero">
+    <p class="project-tag">PM · UX Research · Service Planning</p>
+    <h1 class="project-title">토핑업</h1>
+    <p class="project-sub">내일을 위한 성장 기록</p>
+    <div class="project-meta">
+        <div class="meta-item">
+            <span class="meta-label">Role</span>
+            <span class="meta-value">팀 프로젝트 PM (기획/UX 100%)</span>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">Type</span>
+            <span class="meta-value">커리어 기록 앱 서비스</span>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">Year</span>
+            <span class="meta-value">2025</span>
+        </div>
+    </div>
+</section>
+
+<!-- CONTENT -->
+<div class="content">
+
+    <section class="section" data-reveal>
+        <p class="section-label">Overview</p>
+        <h2>취준생은 뭘 어떻게 준비해야 하는지<br>막막하다고 했어요</h2>
+        <p>토핑업은 취준생과 이직 준비자를 위한 커리어 기록 앱이에요. 목표 설정, 성과 추적, 우선순위 관리를 하나에서 할 수 있고, 다른 사람의 일정을 탐색해서 내 프로젝트로 가져오는 기능도 넣었어요.</p>
+        <p>팀 프로젝트 PM을 맡아서 기획과 UX를 담당했어요. 인터뷰 리서치부터 와이어프레임 설계까지 진행했어요.</p>
+
+        <div class="img-block medium">
+            <div class="img-wrap" data-img-reveal>
+                <div class="img-placeholder">
+                    <span class="img-tag">Overview</span>
+                    <span class="img-desc">서비스 전체 화면</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" data-reveal>
+        <p class="section-label">Background</p>
+        <h2>퇴준생이 급증하는 시대,<br>반복되는 이직의 어려움</h2>
+        <p>코로나19 장기화로 취업난이 길어지면서, 일단 입사하고 이직을 준비하는 '퇴준생'이 많아졌어요. 원하는 환경이 아니어도 우선 들어가고 나서 다시 준비하는 패턴이 반복되는 거예요.</p>
+        <p>이 사람들이 공통으로 겪는 어려움을 인터뷰로 직접 확인하고 싶었어요. 시장 데이터보다 실제 이야기가 기획의 방향을 잡는 데 훨씬 도움이 됐어요.</p>
+    </section>
+
+    <section class="section" data-reveal>
+        <p class="section-label">Research</p>
+        <h2>20명 대면 인터뷰를 통해<br>실제 문제를 들었어요</h2>
+        <p>취준생, 이직 준비자 20명을 직접 만나서 인터뷰를 진행했어요. (2021.12) 직군도 다양하게 섞었어요. 같은 어려움을 겪고 있어도 구체적인 내용은 직군마다 달랐어요.</p>
+
+        <div class="interview-grid">
+            <div class="interview-card">
+                <p class="interview-who">23대 · 6년차 개발자</p>
+                <p class="interview-quote">사실 너무 지식의 양이 방대해서 기술에 대한 지식이 맞는지도 판단하기 어렵기도 하고, 이게 앞으로 사람들이 잘 쓰일 건가? 뭘 배우고 뭘 배우지 말아야 할지 선택이 어려워요.</p>
+            </div>
+            <div class="interview-card">
+                <p class="interview-who">20대 · 2년차 유치원 교사</p>
+                <p class="interview-quote">전국의 유치원이 너무 많은데 다 등록되어 있는 게 아니니까, 아니면 지인을 통해 물어보기도 하는데 조금 이쪽에 필요한 정보들은 오픈된 데서 찾기가 어려워요.</p>
+            </div>
+        </div>
+
+        <div class="insight-box" style="margin-top: 24px;">
+            <p>다른 사람들이 어떻게 준비하는지 알면 좋을 텐데, 그 정보를 찾기가 너무 어렵다.</p>
+        </div>
+
+        <div class="img-grid-2">
+            <div class="img-wrap" data-img-reveal>
+                <div class="img-placeholder">
+                    <span class="img-tag">Research 01</span>
+                    <span class="img-desc">인터뷰 데이터 정리</span>
+                </div>
+            </div>
+            <div class="img-wrap" data-img-reveal>
+                <div class="img-placeholder">
+                    <span class="img-tag">Research 02</span>
+                    <span class="img-desc">인사이트 도출</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" data-reveal>
+        <p class="section-label">Persona</p>
+        <h2>인터뷰에서 두 패턴이 나왔고,<br>그걸 기준으로 기능의 결을 나눴어요</h2>
+        <p>인터뷰에서 나온 패턴을 정리해서 두 유형의 페르소나를 뽑았어요. 전공 전환을 원하는 취준생과, 더 큰 회사로 이직을 준비하는 직장인이에요. 두 유형 모두 "어디서부터 시작해야 할지 모르겠다"는 막막함을 공통으로 갖고 있었어요.</p>
+
+        <div class="persona-grid">
+            <div class="persona-card">
+                <p class="persona-name">김지아</p>
+                <p class="persona-role">전공 전환 희망 취준생</p>
+                <p class="persona-quote">"전공 말고 새로운 분야로 취업하고 싶어요"</p>
+                <p class="persona-section-title">Needs</p>
+                <ul class="persona-list">
+                    <li>UX/UI 디자인 관련 프로젝트 경험 필요</li>
+                    <li>포트폴리오 강화를 위한 멘토링 희망</li>
+                    <li>포트폴리오 완성도 향상을 위한 교육 필요</li>
+                </ul>
+                <p class="persona-section-title">Goal</p>
+                <ul class="persona-list">
+                    <li>UX/UI 디자인으로 커리어 전환</li>
+                    <li>UX/UI 분야에서 실무 경험 쌓기</li>
+                </ul>
+            </div>
+            <div class="persona-card">
+                <p class="persona-name">최하나</p>
+                <p class="persona-role">대기업 이직 준비생</p>
+                <p class="persona-quote">"조금 더 큰 기업으로 이직 준비 중이에요"</p>
+                <p class="persona-section-title">Needs</p>
+                <ul class="persona-list">
+                    <li>대기업 이직을 위한 면접 준비 및 코칭 필요</li>
+                    <li>포트폴리오 보완을 위한 프로젝트 경험</li>
+                    <li>커리어 성장을 위한 멘토링 및 네트워킹</li>
+                </ul>
+                <p class="persona-section-title">Goal</p>
+                <ul class="persona-list">
+                    <li>대기업으로 이직 성공</li>
+                    <li>면접에서의 강점 극대화</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" data-reveal>
+        <p class="section-label">Key Decision</p>
+        <h2>첫 토핑 생성을<br>다른 사람의 일정에서 시작하도록 했어요</h2>
+        <p>처음 앱을 켰을 때 '일정 추가' 버튼을 바로 보여주면 어디서부터 시작해야 할지 몰라서 이탈이 생겨요. 이 문제를 해결하기 위해, 다른 사람의 토핑(일정)을 먼저 보고 복사하는 방식으로 진입점을 설계했어요.</p>
+
+        <div class="insight-box">
+            <p>빈 화면에서 시작하게 하면 사람들이 막막해해요. 대신 "이런 식으로 짜는 사람이 있구나"를 먼저 보여주면, 거기서 복사해서 수정하는 게 훨씬 자연스럽게 시작점이 돼요.</p>
+        </div>
+
+        <div class="img-block medium">
+            <div class="img-wrap" data-img-reveal>
+                <div class="img-placeholder">
+                    <span class="img-tag">Key Decision</span>
+                    <span class="img-desc">토핑 생성 플로우</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" data-reveal>
+        <p class="section-label">Wireframes</p>
+        <h2>캘린더 기반 일정 관리와<br>공유 가능한 토핑 시스템</h2>
+        <p>내 일정과 남의 일정을 같은 화면에서 볼 수 있게 했어요. 캘린더로 내 일정을 관리하면서, 다른 사람의 토핑을 탐색하고 바로 가져올 수 있는 구조예요.</p>
+        <p>'토핑'은 여러 일정을 묶어서 공유할 수 있는 단위예요. 이직 준비 루틴이나 스터디 계획 같은 걸 통째로 공유하고, 가져다 쓸 수 있어요.</p>
+
+        <div class="img-grid-2">
+            <div class="img-wrap" data-img-reveal>
+                <div class="img-placeholder">
+                    <span class="img-tag">Wireframe 01</span>
+                    <span class="img-desc">캘린더 / 메인 화면</span>
+                </div>
+            </div>
+            <div class="img-wrap" data-img-reveal>
+                <div class="img-placeholder">
+                    <span class="img-tag">Wireframe 02</span>
+                    <span class="img-desc">토핑 생성 / 탐색 화면</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="section" data-reveal>
+        <p class="section-label">Reflection</p>
+        <h2>흐름은 맞았는데,<br>검증이 없었어요</h2>
+        <p>인터뷰, 페르소나, 핵심 의사결정, 와이어프레임까지 흐름은 갖춰져 있어요. 처음 토핑 생성을 다른 사람의 일정을 복사하는 것으로 시작한 결정은 지금도 맞다고 생각해요. 빈 화면보다 참고 지점이 있는 게 진입 장벽을 낮추는 데 효과적이에요.</p>
+        <p>다만 이 판단이 실제 사용에서 맞는지는 테스트를 못 했어요. 와이어프레임 이후에 프로토타입으로 넘어가서 실제로 취준생에게 써보게 했어야 했는데, 거기서 프로젝트가 멈췄어요. 다음에 비슷한 기획을 하면 검증 단계를 더 빨리 당길 거예요.</p>
+    </section>
+
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="project-nav">
+    <a href="portfolio.html">
+        <p class="nav-hint">Back</p>
+        <p>전체 작업물 보기</p>
+    </a>
+    <a href="flowing.html" class="next">
+        <p class="nav-hint">Next Project</p>
+        <p>Flowing →</p>
+    </a>
+</div>
+
+<script>
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+        rx += (e.clientX - rx) * 0.1;
+        ry += (e.clientY - ry) * 0.1;
+    });
+    (function lerpRing() { ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(lerpRing); })();
+
+    const io = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+
+    const imgObs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); imgObs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('[data-img-reveal]').forEach(el => imgObs.observe(el));
+</script>
+</body>
+</html>

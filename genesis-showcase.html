@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Genesis Showcase</title>
+    <link rel="stylesheet" href="case-study.css">
+    <style>
+        body { overflow: hidden; background: #16130f; }
+        .showcase {
+            width: 1080px;
+            height: 1080px;
+            padding: 88px;
+            background:
+                radial-gradient(circle at 12% 12%, rgba(219,187,124,.18), transparent 32%),
+                linear-gradient(135deg, #1f1a13 0%, #0f1115 100%);
+            color: #fff;
+        }
+        .showcase-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 72px;
+        }
+        .showcase-label {
+            color: rgba(255,255,255,.36);
+            font-size: 18px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+        .showcase-badge {
+            padding: 12px 18px;
+            border: 1px solid rgba(255,255,255,.16);
+            border-radius: 999px;
+            color: rgba(255,255,255,.68);
+            font-size: 16px;
+        }
+        .showcase h1 {
+            max-width: 760px;
+            margin-bottom: 56px;
+            font-size: 94px;
+            font-weight: 300;
+            line-height: .96;
+            letter-spacing: -.055em;
+        }
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: 270px 1fr;
+            gap: 18px;
+        }
+        .showcase-side, .showcase-main {
+            border: 1px solid rgba(255,255,255,.12);
+            border-radius: 16px;
+            background: rgba(255,255,255,.07);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+        }
+        .showcase-side { padding: 26px; }
+        .showcase-side span {
+            display: block;
+            padding: 18px 0;
+            border-bottom: 1px solid rgba(255,255,255,.1);
+            color: rgba(255,255,255,.54);
+            font-size: 18px;
+        }
+        .showcase-side span:first-child { color: #fff; }
+        .showcase-main { padding: 28px; }
+        .showcase-main-head {
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 24px;
+            border-bottom: 1px solid rgba(255,255,255,.1);
+        }
+        .showcase-main-head b { font-size: 26px; font-weight: 500; }
+        .showcase-main-head i { color: #e6c579; font-size: 18px; font-style: normal; }
+        .showcase-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            margin-top: 22px;
+        }
+        .showcase-card {
+            min-height: 146px;
+            padding: 22px;
+            border-radius: 12px;
+            background: rgba(255,255,255,.09);
+        }
+        .showcase-card small {
+            color: rgba(255,255,255,.35);
+            font-size: 13px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+        .showcase-card strong {
+            display: block;
+            margin-top: 28px;
+            font-size: 24px;
+            font-weight: 500;
+        }
+        .showcase-card.full { grid-column: 1 / -1; }
+    </style>
+</head>
+<body>
+<div class="showcase">
+    <div class="showcase-top">
+        <p class="showcase-label">AI Landing Builder</p>
+        <span class="showcase-badge">Applied to RASA / J&amp;H</span>
+    </div>
+    <h1>Genesis turns design rules into a working builder.</h1>
+    <div class="showcase-grid">
+        <aside class="showcase-side">
+            <span>Brief</span>
+            <span>Archetype</span>
+            <span>Parameters</span>
+            <span>Output</span>
+            <span>Gate Review</span>
+        </aside>
+        <main class="showcase-main">
+            <div class="showcase-main-head">
+                <b>Warm Editorial</b>
+                <i>Ready to generate</i>
+            </div>
+            <div class="showcase-cards">
+                <div class="showcase-card"><small>Variance</small><strong>06 / 10</strong></div>
+                <div class="showcase-card"><small>Motion</small><strong>04 / 10</strong></div>
+                <div class="showcase-card"><small>Density</small><strong>05 / 10</strong></div>
+                <div class="showcase-card"><small>Gate</small><strong>Pass</strong></div>
+                <div class="showcase-card full"><small>Generated Flow</small><strong>Hero → Social → Pain → Solution → Process → Proof → FAQ → CTA</strong></div>
+            </div>
+        </main>
+    </div>
+</div>
+</body>
+</html>

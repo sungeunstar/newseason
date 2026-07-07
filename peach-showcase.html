@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PEACH 쇼케이스</title>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<style>
+  html, body { margin: 0; }
+  body { font-family: 'Pretendard', sans-serif; }
+</style>
+</head>
+<body>
+
+<section class="peach-showcase-section">
+  <div class="peach-bg-orb peach-bg-orb-1"></div>
+  <div class="peach-bg-orb peach-bg-orb-2"></div>
+
+  <div class="peach-showcase-wrap">
+    <div class="peach-phone-area">
+      <div class="peach-phone-glow"></div>
+
+      <img
+        src="이미지/피치/1-cut.webp"
+        alt="PEACH 모바일 대시보드 화면"
+        class="peach-phone-img"
+      />
+
+      <div class="peach-flow-line peach-flow-line-left"></div>
+      <div class="peach-flow-line peach-flow-line-right-top"></div>
+      <div class="peach-flow-line peach-flow-line-right-bottom"></div>
+
+      <article class="peach-floating-card peach-card-target" data-step="1">
+        <div class="peach-card-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2.5a8.5 8.5 0 1 0 8.5 8.5h-2a6.5 6.5 0 1 1-6.5-6.5v-2Z"></path>
+            <path d="M12 6.5a4.5 4.5 0 1 0 4.5 4.5h-2a2.5 2.5 0 1 1-2.5-2.5v-2Z"></path>
+            <path d="M13 10h8v2h-8z"></path>
+          </svg>
+        </div>
+        <div>
+          <p class="peach-card-title">타겟 수집</p>
+          <p class="peach-card-desc">카페, 식당, 바버샵<br />서울 마포구</p>
+        </div>
+      </article>
+
+      <article class="peach-floating-card peach-card-mail" data-step="2">
+        <div class="peach-card-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 5.5A2.5 2.5 0 0 1 5.5 3h13A2.5 2.5 0 0 1 21 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 18.5v-13Zm3.2 1.1 5.8 4.5 5.8-4.5H6.2Zm12.3 2.1-5.9 4.6a1 1 0 0 1-1.2 0L5.5 8.7v8.8c0 .55.45 1 1 1h11c.55 0 1-.45 1-1V8.7Z"></path>
+          </svg>
+        </div>
+        <div>
+          <p class="peach-card-title">콜드메일 자동 발송</p>
+          <p class="peach-card-desc">AI가 작성한 맞춤 메일을<br />대량으로 발송해요</p>
+        </div>
+      </article>
+
+      <article class="peach-floating-card peach-card-report" data-step="3">
+        <div class="peach-card-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 19h14v2H3V3h2v16Z"></path>
+            <path d="M8 17V9h3v8H8Zm5 0V5h3v12h-3Zm5 0v-6h3v6h-3Z"></path>
+          </svg>
+        </div>
+        <div>
+          <p class="peach-card-title">응답률 분석</p>
+          <p class="peach-card-desc">실시간으로 응답을 추적하고<br />성과를 분석해요</p>
+        </div>
+      </article>
+
+      <div class="peach-progress-panel">
+        <div class="peach-progress-title">자동화 진행 흐름</div>
+        <div class="peach-progress-steps">
+          <span class="peach-progress-dot is-active"></span>
+          <span class="peach-progress-dot"></span>
+          <span class="peach-progress-dot"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .peach-showcase-section {
+    position: relative;
+    width: 100%;
+    min-height: 820px;
+    overflow: hidden;
+    padding: 80px 20px;
+    background:
+      radial-gradient(circle at 50% 42%, rgba(255, 95, 126, 0.16), transparent 34%),
+      linear-gradient(135deg, #fff 0%, #fff7f9 48%, #ffffff 100%);
+    box-sizing: border-box;
+  }
+
+  .peach-showcase-section * {
+    box-sizing: border-box;
+  }
+
+  .peach-bg-orb {
+    position: absolute;
+    border-radius: 999px;
+    pointer-events: none;
+    filter: blur(2px);
+  }
+
+  .peach-bg-orb-1 {
+    width: 520px;
+    height: 520px;
+    left: 50%;
+    top: 52%;
+    transform: translate(-50%, -50%);
+    border: 42px solid rgba(255, 95, 126, 0.08);
+  }
+
+  .peach-bg-orb-2 {
+    width: 280px;
+    height: 280px;
+    right: 12%;
+    top: 18%;
+    background: rgba(255, 95, 126, 0.06);
+  }
+
+  .peach-showcase-wrap {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1280px;
+    min-height: 680px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .peach-phone-area {
+    position: relative;
+    width: min(100%, 980px);
+    height: 680px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .peach-phone-glow {
+    position: absolute;
+    width: 420px;
+    height: 620px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -47%);
+    background: rgba(255, 105, 135, 0.16);
+    filter: blur(70px);
+    border-radius: 999px;
+  }
+
+  .peach-phone-img {
+    position: relative;
+    z-index: 5;
+    width: 360px;
+    max-width: 48vw;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 32px 46px rgba(20, 20, 20, 0.18));
+    animation: peachPhoneFloat 5.5s ease-in-out infinite;
+  }
+
+  .peach-floating-card {
+    position: absolute;
+    z-index: 8;
+    width: 240px;
+    min-height: 108px;
+    padding: 22px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border: 1px solid rgba(255, 126, 154, 0.15);
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: 0 24px 60px rgba(255, 95, 126, 0.13);
+    backdrop-filter: blur(18px);
+    transform: translateY(0);
+    transition:
+      transform 0.45s ease,
+      box-shadow 0.45s ease,
+      border-color 0.45s ease,
+      background 0.45s ease;
+  }
+
+  .peach-floating-card.is-active {
+    transform: translateY(-8px) scale(1.03);
+    border-color: rgba(255, 95, 126, 0.42);
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 30px 76px rgba(255, 95, 126, 0.24);
+  }
+
+  .peach-card-target {
+    left: 4%;
+    top: 44%;
+  }
+
+  .peach-card-mail {
+    right: 3%;
+    top: 20%;
+  }
+
+  .peach-card-report {
+    right: 2%;
+    bottom: 17%;
+  }
+
+  .peach-card-icon {
+    flex: 0 0 auto;
+    width: 52px;
+    height: 52px;
+    border-radius: 18px;
+    display: grid;
+    place-items: center;
+    background:
+      radial-gradient(circle at 35% 25%, rgba(255, 255, 255, 0.92), transparent 30%),
+      linear-gradient(135deg, #ff7d99 0%, #ff5575 100%);
+    box-shadow: 0 14px 30px rgba(255, 85, 117, 0.28);
+  }
+
+  .peach-card-icon svg {
+    width: 25px;
+    height: 25px;
+    fill: #ffffff;
+  }
+
+  .peach-card-title {
+    margin: 0 0 8px;
+    color: #151515;
+    font-size: 18px;
+    line-height: 1.25;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+  }
+
+  .peach-card-desc {
+    margin: 0;
+    color: #747474;
+    font-size: 14px;
+    line-height: 1.55;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+  }
+
+  .peach-flow-line {
+    position: absolute;
+    z-index: 3;
+    pointer-events: none;
+    opacity: 0.8;
+  }
+
+  .peach-flow-line::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 2px dashed rgba(255, 95, 126, 0.42);
+    border-radius: 999px;
+    animation: peachDashMove 1.4s linear infinite;
+  }
+
+  .peach-flow-line::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: #ff5f7e;
+    box-shadow: 0 0 0 8px rgba(255, 95, 126, 0.12);
+    animation: peachDotPulse 1.6s ease-in-out infinite;
+  }
+
+  .peach-flow-line-left {
+    width: 210px;
+    height: 96px;
+    left: 23%;
+    top: 50%;
+  }
+
+  .peach-flow-line-left::before {
+    border-top-color: transparent;
+    border-right-color: transparent;
+  }
+
+  .peach-flow-line-left::after {
+    left: -4px;
+    top: -4px;
+  }
+
+  .peach-flow-line-right-top {
+    width: 210px;
+    height: 130px;
+    right: 21%;
+    top: 33%;
+  }
+
+  .peach-flow-line-right-top::before {
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+  }
+
+  .peach-flow-line-right-top::after {
+    right: -4px;
+    top: -4px;
+  }
+
+  .peach-flow-line-right-bottom {
+    width: 220px;
+    height: 110px;
+    right: 20%;
+    bottom: 28%;
+  }
+
+  .peach-flow-line-right-bottom::before {
+    border-left-color: transparent;
+    border-top-color: transparent;
+  }
+
+  .peach-flow-line-right-bottom::after {
+    right: -4px;
+    bottom: -4px;
+  }
+
+  .peach-progress-panel {
+    position: absolute;
+    z-index: 9;
+    left: 50%;
+    bottom: 10px;
+    transform: translateX(-50%);
+    width: 280px;
+    padding: 14px 18px;
+    border: 1px solid rgba(255, 126, 154, 0.16);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 18px 50px rgba(255, 95, 126, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .peach-progress-title {
+    color: #555;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+
+  .peach-progress-steps {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .peach-progress-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: #ffd3dc;
+    transition:
+      width 0.35s ease,
+      background 0.35s ease,
+      box-shadow 0.35s ease;
+  }
+
+  .peach-progress-dot.is-active {
+    width: 24px;
+    background: #ff5f7e;
+    box-shadow: 0 0 0 6px rgba(255, 95, 126, 0.12);
+  }
+
+  @keyframes peachPhoneFloat {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-12px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes peachDashMove {
+    0% {
+      border-color: rgba(255, 95, 126, 0.25);
+    }
+    50% {
+      border-color: rgba(255, 95, 126, 0.72);
+    }
+    100% {
+      border-color: rgba(255, 95, 126, 0.25);
+    }
+  }
+
+  @keyframes peachDotPulse {
+    0% {
+      transform: scale(0.8);
+      opacity: 0.6;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(0.8);
+      opacity: 0.6;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .peach-showcase-section {
+      min-height: auto;
+      padding: 70px 20px;
+    }
+
+    .peach-showcase-wrap {
+      min-height: auto;
+    }
+
+    .peach-phone-area {
+      height: auto;
+      min-height: 760px;
+      padding-top: 40px;
+      padding-bottom: 210px;
+    }
+
+    .peach-phone-img {
+      width: 330px;
+      max-width: 76vw;
+    }
+
+    .peach-card-target {
+      left: 50%;
+      top: auto;
+      bottom: 118px;
+      transform: translateX(-50%);
+    }
+
+    .peach-card-mail {
+      left: calc(50% - 250px);
+      right: auto;
+      top: auto;
+      bottom: 0;
+    }
+
+    .peach-card-report {
+      right: calc(50% - 250px);
+      bottom: 0;
+    }
+
+    .peach-floating-card.is-active {
+      transform: translateY(-8px) scale(1.03);
+    }
+
+    .peach-card-target.is-active {
+      transform: translateX(-50%) translateY(-8px) scale(1.03);
+    }
+
+    .peach-flow-line {
+      display: none;
+    }
+
+    .peach-progress-panel {
+      bottom: -82px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .peach-showcase-section {
+      padding: 52px 16px 44px;
+    }
+
+    .peach-phone-area {
+      min-height: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 0;
+    }
+
+    .peach-phone-glow {
+      width: 280px;
+      height: 420px;
+    }
+
+    .peach-phone-img {
+      width: min(310px, 92vw);
+      max-width: none;
+      margin-bottom: 12px;
+    }
+
+    .peach-floating-card {
+      position: relative;
+      left: auto;
+      right: auto;
+      top: auto;
+      bottom: auto;
+      width: min(100%, 340px);
+      min-height: 96px;
+      padding: 18px 20px;
+    }
+
+    .peach-card-target,
+    .peach-card-mail,
+    .peach-card-report {
+      transform: none;
+    }
+
+    .peach-floating-card.is-active,
+    .peach-card-target.is-active {
+      transform: translateY(-6px) scale(1.02);
+    }
+
+    .peach-progress-panel {
+      position: relative;
+      left: auto;
+      bottom: auto;
+      transform: none;
+      width: min(100%, 340px);
+      margin-top: 4px;
+    }
+  }
+</style>
+
+<script>
+  const peachCards = document.querySelectorAll(".peach-floating-card");
+  const peachDots = document.querySelectorAll(".peach-progress-dot");
+
+  let peachCurrentStep = 0;
+
+  function updatePeachFlow() {
+    peachCards.forEach((card, index) => {
+      card.classList.toggle("is-active", index === peachCurrentStep);
+    });
+
+    peachDots.forEach((dot, index) => {
+      dot.classList.toggle("is-active", index === peachCurrentStep);
+    });
+
+    peachCurrentStep = (peachCurrentStep + 1) % peachCards.length;
+  }
+
+  updatePeachFlow();
+  setInterval(updatePeachFlow, 1800);
+</script>
+
+</body>
+</html>

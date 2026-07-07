@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PEACH 작동 방식</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    font-family: 'Pretendard', sans-serif; -webkit-font-smoothing: antialiased; word-break: keep-all;
+    margin: 0; background: #fff; overflow: hidden;
+    position: relative;
+  }
+  .mono { font-family: 'Geist Mono', monospace !important; }
+
+  /* dot-grid + pink glow (landing_B 톤) */
+  body::before {
+    content: ''; position: absolute; inset: 0; z-index: 0; opacity: .5;
+    background-image: radial-gradient(circle, rgba(0,0,0,.06) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  body::after {
+    content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background: radial-gradient(ellipse 80% 45% at 50% -5%, rgba(255,107,135,.10), transparent);
+  }
+
+  /* 장면 — intro / walk 페이드 전환 */
+  .scene {
+    position: absolute; inset: 0; z-index: 1;
+    display: flex; align-items: center; justify-content: center;
+    padding: clamp(20px, 3.5vw, 52px);
+    opacity: 0; transition: opacity .6s ease; pointer-events: none;
+  }
+  .scene.on { opacity: 1; pointer-events: auto; }
+
+  /* ── INTRO 히어로 (좌: 카피 / 우: 대시보드) ── */
+  .hero-grid {
+    width: 100%; max-width: 960px;
+    display: grid; grid-template-columns: 42% 58%; gap: clamp(24px, 3.5vw, 56px); align-items: center;
+  }
+  /* 좌상단 태그 — 다른 카드 card-ai-tag 컨벤션과 통일 */
+  .hero-tag {
+    position: absolute; top: clamp(16px, 2vw, 22px); left: clamp(16px, 2vw, 22px); z-index: 3;
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #fff0f4; color: #FF6B87; border: 1px solid rgba(255,107,135,.2);
+    font-size: 10px; font-weight: 600; letter-spacing: .08em;
+    padding: 5px 11px; border-radius: 100px;
+  }
+  .hero-tag .dot { width: 5px; height: 5px; border-radius: 50%; background: #FF6B87; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+  .pulse { animation: pulse 2s ease-in-out infinite; }
+  .lr { overflow: hidden; display: block; }
+  .lr-inner { display: block; transform: translateY(110%); transition: transform .8s cubic-bezier(.16,1,.3,1); }
+  .scene.on .lr-inner { transform: translateY(0); }
+  .scene.on .lr-inner[data-d="1"] { transition-delay: .08s; }
+  .scene.on .lr-inner[data-d="2"] { transition-delay: .16s; }
+  .hero-fade { opacity: 0; transform: translateY(12px); transition: opacity .6s ease .3s, transform .6s ease .3s; }
+  .scene.on .hero-fade { opacity: 1; transform: none; }
+
+  /* ── WALK (좌: 큰 숫자 / 우: 단계 목업) ── */
+  .wrap {
+    width: 100%; max-width: 920px;
+    display: grid; grid-template-columns: 34% 66%; gap: clamp(20px, 3vw, 48px); align-items: center;
+  }
+  #step-num, #step-title, #step-desc, #step-tags { transition: opacity .35s ease; }
+  .s-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(0,0,0,.12); transition: background .4s, transform .4s; }
+  .s-dot.on { background: #FF6B87; transform: scale(1.4); }
+
+  .stage { position: relative; }
+  .dstep { opacity: 0; position: absolute; inset: 0; transition: opacity .55s ease; pointer-events: none; }
+  .dstep.on { opacity: 1; position: relative; pointer-events: auto; }
+
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+  .type-cursor { display:inline-block; width:1.5px; height:.85em; background:currentColor; margin-left:1px; vertical-align:middle; animation:blink .8s step-end infinite; }
+
+  .mock-row { transition: background .15s ease, transform .15s ease; }
+  .mock-row.hl { background: rgba(255,107,135,.05); }
+
+  #ba-track { transition: transform .65s cubic-bezier(.16,1,.3,1); }
+
+  @media (max-width: 720px) {
+    .hero-grid, .wrap { grid-template-columns: 1fr; }
+    .hero-copy, .left-panel { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════ SCENE: INTRO 히어로 ════════ -->
+<div class="scene on" id="intro">
+  <!-- 좌상단 카테고리 태그 (다른 카드와 통일) -->
+  <div class="hero-tag"><span class="dot pulse"></span>AI System</div>
+  <div class="hero-grid">
+
+    <!-- 좌: 카피 -->
+    <div class="hero-copy">
+      <!-- 프로덕트 이름 -->
+      <div class="hero-fade mb-4">
+        <span class="mono text-[clamp(20px,2.2vw,28px)] font-bold text-[#FF6B87] tracking-widest leading-none">PEACH</span>
+      </div>
+      <h1 class="text-[clamp(22px,3.1vw,38px)] font-black leading-[1.12] tracking-tight text-[#111] mb-4">
+        <span class="lr"><span class="lr-inner" data-d="0">업체 수집부터 리디자인,</span></span>
+        <span class="lr"><span class="lr-inner" data-d="1">콜드메일 발송까지</span></span>
+        <span class="lr" style="color:#FF6B87"><span class="lr-inner" data-d="2" style="color:#FF6B87">전부 자동으로.</span></span>
+      </h1>
+      <p class="hero-fade text-[clamp(12px,1.4vw,16px)] text-[#888] leading-relaxed mb-5">
+        키워드 하나면 됩니다.<br>PEACH가 영업의 반복 작업을 전부 대신합니다.
+      </p>
+      <!-- role 라인 (card-role 포맷과 통일) -->
+      <div class="hero-fade text-[clamp(10px,1.1vw,12px)] text-[#aaa] tracking-wide">
+        영업 자동화 · 자동 리디자인 · 0→1 빌드 · 2025
+      </div>
+    </div>
+
+    <!-- 우: 라이브 대시보드 목업 (landing_B 그대로) -->
+    <div class="hero-fade">
+      <div class="bg-white border border-black/8 rounded-3xl shadow-[0_20px_80px_rgba(0,0,0,.10)] overflow-hidden">
+        <div class="px-5 py-3.5 border-b border-black/6 flex items-center gap-3 bg-[#fafafa]">
+          <div class="flex gap-1.5">
+            <div class="w-2.5 h-2.5 rounded-full bg-[#ff5f57]"></div>
+            <div class="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]"></div>
+            <div class="w-2.5 h-2.5 rounded-full bg-[#28c840]"></div>
+          </div>
+          <div class="flex-1 flex items-center gap-2 bg-white border border-black/7 rounded-lg px-3 py-1.5 max-w-[180px] mx-auto">
+            <iconify-icon icon="solar:lock-bold-duotone" width="11" style="color:#aaa"></iconify-icon>
+            <span class="mono text-[11px] text-[#999]">localhost:5000</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="mono text-[10px] text-[#FF6B87] font-medium">Live</span>
+            <span class="w-1.5 h-1.5 rounded-full bg-[#FF6B87] pulse"></span>
+          </div>
+        </div>
+        <div class="p-4 bg-white">
+          <div class="grid grid-cols-4 gap-2.5 mb-4">
+            <div class="bg-[#fafafa] border border-black/5 rounded-2xl p-3">
+              <div class="mono text-[19px] font-medium text-[#111]" data-count="247">0</div>
+              <div class="text-[10px] text-[#aaa] mt-0.5">전체 수집</div>
+            </div>
+            <div class="bg-[#fafafa] border border-black/5 rounded-2xl p-3">
+              <div class="mono text-[19px] font-medium text-[#111]" data-count="183">0</div>
+              <div class="text-[10px] text-[#aaa] mt-0.5">총 발송</div>
+            </div>
+            <div class="bg-[#fafafa] border border-black/5 rounded-2xl p-3">
+              <div class="mono text-[19px] font-medium text-[#111]" data-count="14">0</div>
+              <div class="text-[10px] text-[#aaa] mt-0.5">응답</div>
+            </div>
+            <div class="bg-[#fafafa] border border-black/5 rounded-2xl p-3">
+              <div class="mono text-[19px] font-medium text-[#FF6B87]" data-count="8.1" data-suffix="%">0%</div>
+              <div class="text-[10px] text-[#aaa] mt-0.5">응답률</div>
+            </div>
+          </div>
+          <div class="flex items-center justify-between mb-2 px-1">
+            <span class="text-[11px] font-semibold text-[#888] tracking-wide">최근 발송</span>
+            <span class="text-[11px] text-[#FF6B87] font-semibold">전체 보기 →</span>
+          </div>
+          <div class="rounded-2xl border border-black/5 overflow-hidden divide-y divide-black/4">
+            <div class="mock-row flex items-center gap-3 px-4 py-2.5">
+              <div class="w-7 h-7 rounded-xl bg-[#fff0f4] flex items-center justify-center flex-shrink-0">
+                <iconify-icon icon="solar:shop-bold-duotone" width="15" style="color:#FF6B87"></iconify-icon>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="text-[12px] font-semibold truncate">카페 리브레 홍대점</div>
+                <div class="text-[10px] text-[#bbb]">cafelibre.kr</div>
+              </div>
+              <span class="bg-[rgba(34,197,94,.1)] text-[#16a34a] text-[10px] font-bold px-2.5 py-1 rounded-full flex-shrink-0">발송 완료</span>
+            </div>
+            <div class="mock-row flex items-center gap-3 px-4 py-2.5">
+              <div class="w-7 h-7 rounded-xl bg-[#f0f4ff] flex items-center justify-center flex-shrink-0">
+                <iconify-icon icon="solar:scissor-bold-duotone" width="15" style="color:#3B6ADE"></iconify-icon>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="text-[12px] font-semibold truncate">바버샵 그루밍</div>
+                <div class="text-[10px] text-[#bbb]">grooming-kr.com</div>
+              </div>
+              <span class="bg-[rgba(255,107,135,.1)] text-[#FF6B87] text-[10px] font-bold px-2.5 py-1 rounded-full flex-shrink-0">리디자인 중</span>
+            </div>
+            <div class="mock-row flex items-center gap-3 px-4 py-2.5">
+              <div class="w-7 h-7 rounded-xl bg-[#f5f5f5] flex items-center justify-center flex-shrink-0">
+                <iconify-icon icon="solar:leaf-bold-duotone" width="15" style="color:#888"></iconify-icon>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="text-[12px] font-semibold truncate">플라워샵 모이</div>
+                <div class="text-[10px] text-[#bbb]">fleur-moi.co.kr</div>
+              </div>
+              <span class="bg-[#f0f0f0] text-[#888] text-[10px] font-bold px-2.5 py-1 rounded-full flex-shrink-0">수집 대기</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════ SCENE: WALK 01→02→03 ════════ -->
+<div class="scene" id="walk">
+  <div class="wrap">
+
+    <!-- 좌측 패널 -->
+    <div class="left-panel">
+      <div id="step-num" class="mono text-[clamp(48px,7vw,88px)] font-medium leading-none select-none mb-6" style="color:rgba(0,0,0,.07);">01</div>
+      <div id="step-title" class="text-[clamp(18px,2.4vw,26px)] font-black text-[#111] leading-tight mb-3">업체를 자동으로<br>수집합니다</div>
+      <div id="step-desc" class="text-[clamp(12px,1.3vw,15px)] text-[#666] leading-relaxed mb-8">네이버 플레이스와 카페24에서 이메일이 있는 업체만 필터링해 수집합니다.</div>
+      <div class="flex items-center gap-3 mb-8">
+        <div class="s-dot on" data-dot="0"></div>
+        <div class="s-dot" data-dot="1"></div>
+        <div class="s-dot" data-dot="2"></div>
+      </div>
+      <div id="step-tags" class="flex flex-wrap gap-2">
+        <span class="bg-white text-[#555] text-[12px] font-medium px-3.5 py-1.5 rounded-full border border-black/8">네이버 플레이스</span>
+        <span class="bg-white text-[#555] text-[12px] font-medium px-3.5 py-1.5 rounded-full border border-black/8">카페24</span>
+        <span class="bg-white text-[#555] text-[12px] font-medium px-3.5 py-1.5 rounded-full border border-black/8">이메일 자동 추출</span>
+      </div>
+    </div>
+
+    <!-- 우측 스테이지 -->
+    <div class="stage">
+
+      <!-- STEP 01 — collect mock -->
+      <div class="dstep on" data-step="0">
+        <div class="bg-white border border-black/8 rounded-3xl shadow-[0_12px_60px_rgba(0,0,0,.07)] overflow-hidden">
+          <div class="px-5 py-4 border-b border-black/6 flex items-center gap-3 bg-[#fafafa]">
+            <div class="flex gap-1.5">
+              <div class="w-2.5 h-2.5 rounded-full bg-[#ff5f57]"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-[#28c840]"></div>
+            </div>
+            <div class="flex-1 bg-white border border-black/7 rounded-lg px-3 py-1.5 flex items-center gap-2">
+              <iconify-icon icon="solar:magnifer-bold-duotone" width="11" style="color:#aaa"></iconify-icon>
+              <span id="collect-typetext" class="text-[12px] text-[#999]"></span><span class="type-cursor text-[#bbb]"></span>
+            </div>
+            <div class="bg-[#111] text-white text-[11px] font-bold px-3 py-1.5 rounded-lg">수집 시작</div>
+          </div>
+          <div class="divide-y divide-black/4">
+            <div class="mock-row px-5 py-3.5 flex items-center justify-between">
+              <div>
+                <div class="text-[13px] font-semibold text-[#111]">카페 리브레 홍대점</div>
+                <div class="mono text-[10px] text-[#bbb]">cafelibre.kr</div>
+              </div>
+              <div class="flex items-center gap-4">
+                <span class="mono text-[11px] text-[#888] hidden sm:block">contact@cafe···</span>
+                <span class="bg-[rgba(34,197,94,.1)] text-[#16a34a] text-[10px] font-bold px-2.5 py-1 rounded-full">완료</span>
+              </div>
+            </div>
+            <div class="mock-row px-5 py-3.5 flex items-center justify-between">
+              <div>
+                <div class="text-[13px] font-semibold text-[#111]">블루보틀 성수</div>
+                <div class="mono text-[10px] text-[#bbb]">bluebottle.kr</div>
+              </div>
+              <div class="flex items-center gap-4">
+                <span class="mono text-[11px] text-[#888] hidden sm:block">hello@blueb···</span>
+                <span class="bg-[rgba(34,197,94,.1)] text-[#16a34a] text-[10px] font-bold px-2.5 py-1 rounded-full">완료</span>
+              </div>
+            </div>
+            <div class="mock-row px-5 py-3.5 flex items-center justify-between">
+              <div>
+                <div class="text-[13px] font-semibold text-[#111]">브루어리 마포</div>
+                <div class="mono text-[10px] text-[#bbb]">brewery-mapo.com</div>
+              </div>
+              <div class="flex items-center gap-4">
+                <span class="mono text-[11px] text-[#888] hidden sm:block">info@brewe···</span>
+                <span class="bg-[rgba(255,107,135,.1)] text-[#FF6B87] text-[10px] font-bold px-2.5 py-1 rounded-full">수집 중</span>
+              </div>
+            </div>
+          </div>
+          <div class="px-5 py-3.5 bg-[#fafafa] border-t border-black/4 flex items-center justify-between">
+            <span class="text-[12px] text-[#aaa]">총 <span class="mono font-medium text-[#555]">42</span>개 발견</span>
+            <span class="text-[12px] text-[#aaa]">이메일 보유 <span class="mono font-medium text-[#16a34a]">31</span>개</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 02 — before/after mock -->
+      <div class="dstep" data-step="1">
+        <div class="bg-white border border-black/8 rounded-3xl shadow-[0_20px_80px_rgba(0,0,0,.10)] overflow-hidden">
+          <div class="px-4 py-3 border-b border-black/6 flex items-center gap-3 bg-[#fafafa]">
+            <div class="flex gap-1.5">
+              <div class="w-2.5 h-2.5 rounded-full bg-[#ff5f57]"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-[#28c840]"></div>
+            </div>
+            <div class="flex-1 bg-white border border-black/7 rounded-md px-3 py-1 flex items-center gap-1.5 max-w-[220px] mx-auto overflow-hidden">
+              <iconify-icon icon="solar:lock-bold-duotone" width="10" style="color:#aaa" class="flex-shrink-0"></iconify-icon>
+              <span class="mono text-[10px] truncate transition-all duration-500 text-[#888]" id="ba-domain">interior-home.kr</span>
+            </div>
+            <span id="ba-badge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full flex-shrink-0 bg-[#fff0f4] text-[#FF6B87]">BEFORE</span>
+          </div>
+          <div class="overflow-hidden" style="aspect-ratio:4/3;">
+            <div id="ba-track" class="flex h-full">
+              <!-- BEFORE -->
+              <div class="w-full h-full flex-shrink-0 bg-[#e8e8e8] flex flex-col">
+                <div class="flex items-center justify-between px-4 py-2.5 bg-white border-b border-[#ddd]">
+                  <div class="flex items-center gap-1.5">
+                    <div class="w-5 h-5 bg-[#3366cc] rounded-sm flex items-center justify-center flex-shrink-0">
+                      <span class="text-[8px] font-bold text-white">IH</span>
+                    </div>
+                    <span class="text-[10px] font-bold text-[#333]">인테리어홈</span>
+                  </div>
+                  <div class="flex gap-3">
+                    <span class="text-[8px] text-[#3366cc] underline">시공사례</span>
+                    <span class="text-[8px] text-[#3366cc] underline">견적문의</span>
+                  </div>
+                </div>
+                <div class="relative flex-1 overflow-hidden">
+                  <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&auto=format&fit=crop&q=80"
+                       alt="before" class="w-full h-full object-cover" style="filter:saturate(.65) brightness(.85);">
+                  <div class="absolute inset-0 flex items-center justify-center bg-[rgba(0,0,0,.4)]">
+                    <div class="text-center px-4">
+                      <div class="text-[13px] font-bold text-white mb-1">인테리어홈에 오신 것을 환영합니다</div>
+                      <div class="text-[9px] text-white/70">최고의 인테리어 서비스를 제공합니다</div>
+                      <div class="mt-3 inline-block border border-white text-white text-[8px] px-3 py-1">상담 문의하기</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="px-4 py-2.5 bg-white border-t border-[#eee]">
+                  <div class="text-[8px] text-[#999]">공지사항 · 최근 업데이트: 2024.01.05</div>
+                </div>
+              </div>
+              <!-- AFTER -->
+              <div class="w-full h-full flex-shrink-0 relative overflow-hidden bg-[#111]">
+                <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=900&auto=format&fit=crop&q=85"
+                     alt="after" class="absolute inset-0 w-full h-full object-cover opacity-70">
+                <div class="absolute top-0 left-0 right-0 z-10 flex items-center justify-between px-4 py-2.5"
+                     style="background:linear-gradient(to bottom,rgba(0,0,0,.5),transparent);">
+                  <span class="text-[10px] font-black text-white tracking-widest">INTERIOR HOME</span>
+                  <div class="flex gap-2.5 items-center">
+                    <span class="text-[7.5px] text-white/60">시공사례</span>
+                    <span class="text-[7.5px] text-white/60">견적문의</span>
+                    <span class="text-[7.5px] bg-[#FF6B87] text-white px-2.5 py-1 rounded-full font-bold">상담신청</span>
+                  </div>
+                </div>
+                <div class="absolute bottom-0 left-0 right-0 z-10 px-5 pb-4 pt-10"
+                     style="background:linear-gradient(to top,rgba(0,0,0,.78) 55%,transparent);">
+                  <div class="text-[7px] text-[#FF6B87] font-bold tracking-widest uppercase mb-1.5">Interior Design Studio</div>
+                  <div class="text-[14px] font-black text-white leading-[1.2] mb-3">공간이 달라지면,<br>삶이 달라집니다</div>
+                  <div class="flex items-center gap-2.5">
+                    <div class="inline-flex items-center gap-1 bg-white text-[#111] text-[8px] font-bold px-3 py-1.5 rounded-full">무료 상담 신청 →</div>
+                    <div class="text-[7.5px] text-white/55">⭐ 4.9 · 247건 시공</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center justify-center gap-2 py-3 bg-[#fafafa] border-t border-black/6">
+            <button id="ba-btn-before" onclick="baGoTo(0)"
+                    class="text-[12px] font-bold px-5 py-2 rounded-full transition-all duration-300 bg-[#fff0f4] text-[#FF6B87]">BEFORE</button>
+            <div class="w-6 h-px bg-[#ddd]"></div>
+            <button id="ba-btn-after" onclick="baGoTo(1)"
+                    class="text-[12px] font-bold px-5 py-2 rounded-full transition-all duration-300 bg-[#f5f5f5] text-[#aaa]">AFTER ✓</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 03 — email mock -->
+      <div class="dstep" data-step="2">
+        <div class="bg-white border border-black/8 rounded-3xl shadow-[0_12px_60px_rgba(0,0,0,.07)] overflow-hidden">
+          <div class="px-5 py-3 border-b border-black/6 bg-[#fafafa] flex items-center gap-3">
+            <div class="flex gap-1.5">
+              <div class="w-2.5 h-2.5 rounded-full bg-[#ff5f57]"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-[#28c840]"></div>
+            </div>
+            <div class="flex-1 text-center text-[12px] text-[#888] font-medium">새 메시지</div>
+          </div>
+          <div class="divide-y divide-black/4">
+            <div class="px-5 py-3 flex items-center gap-3">
+              <span class="text-[11px] text-[#aaa] w-12 flex-shrink-0">받는사람</span>
+              <span class="bg-[#f0f0f0] text-[#555] text-[11px] font-medium px-2.5 py-1 rounded-full">contact@cafelibre.kr</span>
+            </div>
+            <div class="px-5 py-3 flex items-center gap-3">
+              <span class="text-[11px] text-[#aaa] w-12 flex-shrink-0">제목</span>
+              <span class="text-[12px] text-[#111] font-semibold">카페 리브레 홈페이지 개선안 공유드립니다</span>
+            </div>
+          </div>
+          <div class="px-5 py-5 space-y-3">
+            <p class="text-[13px] text-[#444] leading-relaxed">안녕하세요, 카페 리브레 담당자님.</p>
+            <p class="text-[13px] text-[#444] leading-relaxed">방문객 전환율을 높일 수 있는 홈페이지 리디자인 시안을 무료로 만들어봤습니다.</p>
+            <div class="bg-[#f8f8f8] border border-black/6 rounded-xl p-4 flex items-center gap-3">
+              <div class="w-9 h-9 bg-[#111] rounded-xl flex items-center justify-center flex-shrink-0">
+                <iconify-icon icon="solar:arrow-right-up-bold-duotone" width="16" style="color:white"></iconify-icon>
+              </div>
+              <div>
+                <div class="text-[12px] font-semibold text-[#111]">미리보기 링크</div>
+                <div class="mono text-[11px] text-[#3B6ADE]">cafelibre-new.vercel.app</div>
+              </div>
+            </div>
+          </div>
+          <div class="px-5 py-3.5 bg-[#fafafa] border-t border-black/4 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <iconify-icon icon="solar:plain-2-bold-duotone" width="14" style="color:#111"></iconify-icon>
+              <span class="text-[12px] font-semibold">보내기</span>
+            </div>
+            <div class="flex items-center gap-1.5 text-[#16a34a]">
+              <iconify-icon icon="solar:verified-check-bold-duotone" width="14"></iconify-icon>
+              <span class="text-[11px] font-semibold">개인화 완료</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /stage -->
+  </div><!-- /wrap -->
+</div><!-- /walk -->
+
+<script>
+/* ── 숫자 카운터 (landing_B 그대로) ── */
+function runCounters(els) {
+  els.forEach(el => {
+    if (el.dataset.counted) return;
+    el.dataset.counted = '1';
+    const target = parseFloat(el.dataset.count);
+    const suffix = el.dataset.suffix || '';
+    const isFloat = target % 1 !== 0;
+    const start = performance.now();
+    const dur = 1200;
+    (function step(now) {
+      const p = Math.min((now - start) / dur, 1);
+      const v = target * (1 - Math.pow(1 - p, 3));
+      el.textContent = (isFloat ? v.toFixed(1) : Math.floor(v)) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+      else el.textContent = (isFloat ? target.toFixed(1) : target) + suffix;
+    })(start);
+  });
+}
+
+/* ── 수집 검색창 타이핑 (landing_B 그대로) ── */
+const keywords = ['강남구 카페', '홍대 꽃집', '성수 바버샵', '판교 식당'];
+let kwIdx = 0;
+function typeNext() {
+  const el = document.getElementById('collect-typetext');
+  if (!el) return;
+  const word = keywords[kwIdx % keywords.length];
+  let i = 0; el.textContent = '';
+  const t = setInterval(() => {
+    el.textContent = word.slice(0, ++i);
+    if (i >= word.length) { clearInterval(t); setTimeout(eraseWord, 1800); }
+  }, 80);
+}
+function eraseWord() {
+  const el = document.getElementById('collect-typetext');
+  if (!el) return;
+  const t = setInterval(() => {
+    el.textContent = el.textContent.slice(0, -1);
+    if (!el.textContent) { clearInterval(t); kwIdx++; setTimeout(typeNext, 400); }
+  }, 50);
+}
+setTimeout(typeNext, 900);
+
+/* ── mock row 하이라이트 순환 (landing_B 그대로) ── */
+const rows = document.querySelectorAll('.mock-row');
+let rIdx = 0;
+setInterval(() => {
+  rows.forEach(r => r.classList.remove('hl'));
+  if (rows[rIdx]) rows[rIdx].classList.add('hl');
+  rIdx = (rIdx + 1) % rows.length;
+}, 1800);
+
+/* ── Before/After 슬라이드 (landing_B 그대로) ── */
+let baCurrent = 0;
+function baGoTo(idx) {
+  baCurrent = idx;
+  const track  = document.getElementById('ba-track');
+  const domain = document.getElementById('ba-domain');
+  const badge  = document.getElementById('ba-badge');
+  const btnB   = document.getElementById('ba-btn-before');
+  const btnA   = document.getElementById('ba-btn-after');
+  if (!track) return;
+  track.style.transform = `translateX(-${idx * 100}%)`;
+  if (idx === 1) {
+    domain.textContent = 'interior-home-new.vercel.app';
+    domain.style.color = '#FF6B87';
+    badge.textContent  = 'AFTER ✓';
+    badge.className    = 'text-[10px] font-bold px-2.5 py-0.5 rounded-full flex-shrink-0 bg-[rgba(34,197,94,.1)] text-[#16a34a]';
+    btnB.className     = 'text-[12px] font-bold px-5 py-2 rounded-full transition-all duration-300 bg-[#f5f5f5] text-[#aaa]';
+    btnA.className     = 'text-[12px] font-bold px-5 py-2 rounded-full transition-all duration-300 bg-[rgba(34,197,94,.1)] text-[#16a34a]';
+  } else {
+    domain.textContent = 'interior-home.kr';
+    domain.style.color = '';
+    badge.textContent  = 'BEFORE';
+    badge.className    = 'text-[10px] font-bold px-2.5 py-0.5 rounded-full flex-shrink-0 bg-[#fff0f4] text-[#FF6B87]';
+    btnB.className     = 'text-[12px] font-bold px-5 py-2 rounded-full transition-all duration-300 bg-[#fff0f4] text-[#FF6B87]';
+    btnA.className     = 'text-[12px] font-bold px-5 py-2 rounded-full transition-all duration-300 bg-[#f5f5f5] text-[#aaa]';
+  }
+}
+setTimeout(() => baGoTo(1), 2000);
+setInterval(() => baGoTo(baCurrent === 0 ? 1 : 0), 5000);
+
+/* ── 좌측 패널 업데이트 (landing_B stepData 그대로) ── */
+const stepData = [
+  { num: '01', title: '업체를 자동으로<br>수집합니다',
+    desc: '네이버 플레이스와 카페24에서 이메일이 있는 업체만 필터링해 수집합니다.',
+    tags: ['네이버 플레이스', '카페24', '이메일 자동 추출'] },
+  { num: '02', title: '홈페이지를<br>리디자인합니다',
+    desc: '기존 홈페이지를 분석해 더 나은 디자인으로 재구성하고 GitHub Pages에 자동 배포합니다.',
+    tags: ['AI 리디자인', 'GitHub 자동 배포', '미리보기 링크'] },
+  { num: '03', title: '맞춤 메일을<br>자동 발송합니다',
+    desc: '업체별로 개인화된 콜드메일을 작성해 리디자인 링크와 함께 Gmail로 발송합니다.',
+    tags: ['개인화 메일', 'Gmail SMTP', '응답률 8.1%'] }
+];
+let curStep = -1;
+function updateSticky(idx) {
+  if (idx === curStep) return;
+  curStep = idx;
+  const d = stepData[idx];
+  const num = document.getElementById('step-num');
+  const title = document.getElementById('step-title');
+  const desc = document.getElementById('step-desc');
+  const tagsEl = document.getElementById('step-tags');
+  [num, title, desc, tagsEl].forEach(el => { if (el) el.style.opacity = '0'; });
+  setTimeout(() => {
+    if (num)   num.textContent = d.num;
+    if (title) title.innerHTML = d.title;
+    if (desc)  desc.textContent = d.desc;
+    if (tagsEl) tagsEl.innerHTML = d.tags.map(t =>
+      `<span class="bg-white text-[#555] text-[12px] font-medium px-3.5 py-1.5 rounded-full border border-black/8">${t}</span>`
+    ).join('');
+    [num, title, desc, tagsEl].forEach(el => { if (el) el.style.opacity = '1'; });
+  }, 200);
+  document.querySelectorAll('.s-dot').forEach((dot, i) => dot.classList.toggle('on', i === idx));
+}
+
+/* ── 장면 순환: intro → 01 → 02 → 03 → intro ── */
+const intro = document.getElementById('intro');
+const walk  = document.getElementById('walk');
+const dsteps = document.querySelectorAll('.dstep');
+// scene 0 = intro, scene 1~3 = step 0~2
+let scene = 0;
+const DUR = [5000, 3800, 5400, 3800]; // intro / 01 / 02(토글 한 번 더) / 03
+
+function showWalkStep(idx) {
+  dsteps.forEach((s, k) => s.classList.toggle('on', k === idx));
+  updateSticky(idx);
+}
+function tick() {
+  scene = (scene + 1) % 4;
+  if (scene === 0) {
+    walk.classList.remove('on');
+    intro.classList.add('on');
+  } else {
+    intro.classList.remove('on');
+    walk.classList.add('on');
+    showWalkStep(scene - 1);
+  }
+  setTimeout(tick, DUR[scene]);
+}
+// 인트로 카운터 첫 실행 후 순환 시작
+runCounters(document.querySelectorAll('#intro [data-count]'));
+setTimeout(tick, DUR[0]);
+</script>
+
+</body>
+</html>

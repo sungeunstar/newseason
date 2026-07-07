@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PEACH — Sungeun Jun</title>
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg: #F5F5F3; --text: #0E0E0E; --muted: #9A9A9A; --border: rgba(14,14,14,0.1);
+            --peach: #FF6B35; --dark: #0a0a0a; --dark-card: #161616;
+            --pad: clamp(24px, 5vw, 80px); --f: 'Pretendard', -apple-system, sans-serif;
+            --mono: 'Geist Mono', monospace;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--f); background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; cursor: none; }
+        .cursor { position: fixed; top: 0; left: 0; width: 6px; height: 6px; background: #fff; border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); mix-blend-mode: difference; }
+        .cursor-ring { position: fixed; top: 0; left: 0; width: 32px; height: 32px; border: 1px solid #fff; border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); mix-blend-mode: difference; }
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 28px var(--pad); }
+        .logo { font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; color: #fff; }
+        .nav-back { font-size: 11px; color: rgba(255,255,255,0.45); text-decoration: none; letter-spacing: 0.04em; transition: color 0.2s; }
+        .nav-back:hover { color: #fff; }
+
+        /* ─── HERO (PEACH 다크 스타일) ─── */
+        .project-hero {
+            min-height: 100vh;
+            background: var(--dark);
+            display: flex; flex-direction: column; justify-content: flex-end;
+            padding: 120px var(--pad) 80px;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-accent-line {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: var(--peach);
+        }
+        .project-tag { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 32px; }
+        .project-title { font-size: clamp(40px, 7vw, 100px); font-weight: 300; line-height: 1.05; letter-spacing: -0.04em; margin-bottom: 24px; }
+        .project-title span { color: var(--peach); }
+        .project-sub { font-size: clamp(16px, 2vw, 22px); font-weight: 300; color: rgba(255,255,255,0.45); letter-spacing: -0.02em; margin-bottom: 64px; }
+        .project-meta { display: flex; gap: 48px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 32px; flex-wrap: wrap; }
+        .meta-item { display: flex; flex-direction: column; gap: 6px; }
+        .meta-label { font-size: 10px; color: rgba(255,255,255,0.3); letter-spacing: 0.1em; text-transform: uppercase; }
+        .meta-value { font-size: 13px; color: rgba(255,255,255,0.8); }
+
+        /* ─── CONTENT ─── */
+        .content { max-width: 860px; margin: 0 auto; padding: 120px var(--pad); }
+        .section { margin-bottom: 100px; }
+        .section-label { font-size: 10px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 24px; }
+        .section h2 { font-size: clamp(22px, 2.8vw, 36px); font-weight: 300; line-height: 1.4; letter-spacing: -0.025em; margin-bottom: 28px; }
+        .section p { font-size: 15px; color: rgba(14,14,14,0.65); line-height: 2.1; }
+        .section p + p { margin-top: 20px; }
+
+        /* ─── PEACH DARK PANEL (랜딩 디자인 언어) ─── */
+        .dark-panel {
+            background: var(--dark);
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 40px;
+            color: #f0f0f0;
+        }
+        .dark-panel-label {
+            font-size: 10px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--peach);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .dark-panel-label::before {
+            content: '';
+            display: block;
+            width: 20px; height: 2px;
+            background: var(--peach);
+        }
+        .dark-panel p {
+            font-size: 18px;
+            font-weight: 300;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.82);
+            letter-spacing: -0.01em;
+        }
+
+        /* ─── MOCK DASHBOARD ─── */
+        .mock-dashboard {
+            background: var(--dark-card);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 40px;
+            color: #f0f0f0;
+        }
+        .mock-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .mock-title {
+            font-family: var(--mono);
+            font-size: 13px;
+            color: #f0f0f0;
+        }
+        .mock-badge {
+            font-size: 10px;
+            color: var(--peach);
+            background: rgba(255,107,53,0.08);
+            border: 1px solid rgba(255,107,53,0.2);
+            border-radius: 100px;
+            padding: 2px 8px;
+        }
+        .mock-dots { display: flex; gap: 5px; }
+        .mock-dot { width: 10px; height: 10px; border-radius: 50%; background: #333; }
+        .mock-dot.live { background: var(--peach); }
+        .mock-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .mock-stat {
+            background: #1a1a1a;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 10px;
+            padding: 14px;
+        }
+        .mock-stat.accent {
+            background: rgba(255,107,53,0.06);
+            border-color: rgba(255,107,53,0.15);
+        }
+        .mock-stat-label { font-size: 9px; color: rgba(255,255,255,0.6); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+        .mock-stat.accent .mock-stat-label { color: rgba(255,107,53,0.85); }
+        .mock-stat-val { font-family: var(--mono); font-size: 22px; color: #fff; font-weight: 500; letter-spacing: -0.03em; }
+        .mock-stat.accent .mock-stat-val { color: var(--peach); }
+        .mock-stat-unit { font-size: 9px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+        .mock-list {
+            background: #111;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .mock-list-header {
+            padding: 10px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 9px;
+            color: rgba(255,255,255,0.55);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        .mock-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .mock-row:last-child { border-bottom: none; }
+        .mock-row-left { display: flex; align-items: center; gap: 10px; }
+        .mock-icon {
+            width: 28px; height: 28px;
+            border-radius: 6px;
+            background: #1e1e1e;
+            border: 1px solid rgba(255,255,255,0.08);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; color: rgba(255,255,255,0.45);
+        }
+        .mock-name { font-size: 12px; color: #fff; font-weight: 500; letter-spacing: -0.01em; }
+        .mock-email { font-size: 10px; color: rgba(255,255,255,0.38); letter-spacing: 0.01em; margin-top: 2px; }
+        .mock-status {
+            font-size: 9px;
+            padding: 3px 10px;
+            border-radius: 100px;
+            letter-spacing: 0.04em;
+            font-weight: 500;
+        }
+        .mock-status.reply { color: #5cd65c; background: rgba(76,175,80,0.1); border: 1px solid rgba(76,175,80,0.2); }
+        .mock-status.sent { color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); }
+        .mock-status.read { color: #FFD54F; background: rgba(255,193,7,0.1); border: 1px solid rgba(255,193,7,0.2); }
+
+        /* ─── BEFORE/AFTER ─── */
+        .ba-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 40px;
+        }
+        .ba-card {
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .ba-label-bar {
+            padding: 10px 16px;
+            font-size: 9px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        .ba-label-bar.before { background: #E8E8E6; color: #999; }
+        .ba-label-bar.after { background: var(--peach); color: #fff; }
+        .ba-placeholder {
+            aspect-ratio: 3 / 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .ba-placeholder.before { background: #EEEEED; color: #bbb; }
+        .ba-placeholder.after { background: #fff; color: #aaa; border: 1px solid #eee; }
+        .ba-placeholder-text { font-size: 10px; letter-spacing: 0.06em; }
+
+        /* ─── PIPELINE ─── */
+        .pipeline-flow {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            margin-top: 40px;
+            background: var(--dark);
+            border-radius: 12px;
+            padding: 32px;
+            overflow-x: auto;
+            color: #f0f0f0;
+        }
+        .pf-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 100px;
+            flex: 1;
+        }
+        .pf-num {
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(255,107,53,0.35);
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--peach);
+            margin-bottom: 12px;
+        }
+        .pf-num.active {
+            background: var(--peach);
+            border-color: var(--peach);
+            color: #fff;
+        }
+        .pf-name { font-size: 12px; color: #f0f0f0; font-weight: 500; text-align: center; }
+        .pf-sub { font-size: 10px; color: rgba(255,255,255,0.55); margin-top: 4px; text-align: center; }
+        .pf-arrow { color: rgba(255,107,53,0.5); font-size: 18px; flex-shrink: 0; margin: 0 4px; padding-bottom: 28px; }
+
+        /* ─── JOURNEY ─── */
+        .journey { margin-top: 40px; }
+        .journey-step {
+            display: grid;
+            grid-template-columns: 110px 1fr;
+            gap: 28px;
+            padding: 28px 0;
+            border-top: 1px solid var(--border);
+        }
+        .journey-step:last-child { border-bottom: 1px solid var(--border); }
+        .journey-ver { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
+        .journey-ver.now { color: var(--text); }
+        .journey-tag {
+            display: inline-block;
+            font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+            padding: 3px 10px; border-radius: 100px;
+            background: #f0f0ee; color: var(--muted);
+            margin-bottom: 8px;
+        }
+        .journey-tag.active { background: var(--dark); color: #fff; }
+        .journey-tag.peach { background: rgba(255,107,53,0.1); color: var(--peach); border: 1px solid rgba(255,107,53,0.2); }
+        .journey-title { font-size: 15px; font-weight: 500; margin-bottom: 6px; letter-spacing: -0.01em; }
+        .journey-desc { font-size: 13px; color: rgba(14,14,14,0.6); line-height: 1.85; }
+
+        /* ─── STACK ─── */
+        .stack-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 28px; }
+        .stack-tag {
+            font-size: 11px; letter-spacing: 0.06em;
+            color: rgba(14,14,14,0.7);
+            background: #fff; border: 1px solid var(--border);
+            border-radius: 100px; padding: 6px 14px;
+        }
+
+        /* ─── ROADMAP ─── */
+        .roadmap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 40px; }
+        .roadmap-card { background: #fff; border-radius: 8px; padding: 28px; }
+        .roadmap-card.dark { background: var(--dark); color: #fff; }
+        .roadmap-card.peach-bg { background: var(--peach); color: #fff; }
+        .roadmap-phase { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+        .roadmap-card.dark .roadmap-phase { color: rgba(255,255,255,0.3); }
+        .roadmap-card.peach-bg .roadmap-phase { color: rgba(255,255,255,0.7); }
+        .roadmap-title { font-size: 15px; font-weight: 500; margin-bottom: 10px; }
+        .roadmap-card.dark .roadmap-title { color: #fff; }
+        .roadmap-card.peach-bg .roadmap-title { color: #fff; }
+        .roadmap-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+        .roadmap-list li { font-size: 12px; color: rgba(14,14,14,0.6); padding-left: 14px; position: relative; line-height: 1.6; }
+        .roadmap-list li::before { content: '—'; position: absolute; left: 0; color: var(--muted); font-size: 10px; top: 1px; }
+        .roadmap-card.dark .roadmap-list li { color: rgba(255,255,255,0.6); }
+        .roadmap-card.dark .roadmap-list li::before { color: rgba(255,255,255,0.2); }
+        .roadmap-card.peach-bg .roadmap-list li { color: rgba(255,255,255,0.8); }
+        .roadmap-card.peach-bg .roadmap-list li::before { color: rgba(255,255,255,0.4); }
+
+        /* ─── IMG BLOCKS ─── */
+        .img-block { margin-top: 48px; }
+        .img-wrap { position: relative; overflow: hidden; }
+        .img-wrap::after { content: ''; position: absolute; inset: 0; background: var(--bg); transform-origin: right; transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .img-wrap.revealed::after { transform: scaleX(0); }
+        .img-placeholder { background: #E4E4E2; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: #888; }
+        .img-placeholder .img-tag { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; }
+        .img-placeholder .img-desc { font-size: 11px; letter-spacing: 0.04em; }
+        .img-block.medium .img-placeholder { aspect-ratio: 16 / 8; border-radius: 4px; }
+
+        /* ─── PEACH LIVE DEMO (landing_B STEP 재구성) ─── */
+        .peach-demo { margin-top: 48px; background: #fff; border: 1px solid var(--border); border-radius: 18px; padding: clamp(20px, 3vw, 36px); }
+        .peach-demo-frame { display: block; width: 100%; height: clamp(460px, 56vw, 560px); border: 1px solid var(--border); border-radius: 14px; background: #fff; }
+        .pd-caption { text-align: center; font-size: 11px; color: var(--muted); letter-spacing: 0.04em; margin-top: 14px; }
+
+        /* ─── PROJECT NAV ─── */
+        .project-nav { border-top: 1px solid var(--border); padding: 60px var(--pad); display: flex; justify-content: space-between; align-items: center; }
+        .project-nav a { text-decoration: none; color: var(--text); font-size: 13px; transition: opacity 0.2s; }
+        .project-nav a:hover { opacity: 0.5; }
+        .project-nav .next { text-align: right; }
+        .nav-hint { font-size: 10px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+
+        /* ─── DARK COMPONENT COLOR OVERRIDES ─── */
+        .mock-dashboard p { color: #f0f0f0; }
+        .mock-dashboard .mock-stat-label { color: rgba(255,255,255,0.6); }
+        .mock-dashboard .mock-stat.accent .mock-stat-label { color: rgba(255,107,53,0.9); }
+        .mock-dashboard .mock-stat-unit { color: rgba(255,255,255,0.5); }
+        .pipeline-flow p { color: #f0f0f0; }
+        .pipeline-flow .pf-sub { color: rgba(255,255,255,0.55); }
+
+        /* ─── REVEAL ─── */
+        [data-reveal] { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        [data-reveal].visible { opacity: 1; transform: none; }
+
+        @media (max-width: 768px) {
+            body { cursor: auto; }
+            .cursor, .cursor-ring { display: none; }
+            .mock-stats { grid-template-columns: 1fr 1fr; }
+            .ba-grid { grid-template-columns: 1fr; }
+            .roadmap-grid { grid-template-columns: 1fr; }
+            .journey-step { grid-template-columns: 80px 1fr; gap: 16px; }
+            .pipeline-flow { gap: 0; padding: 24px 16px; }
+            .pf-step { min-width: 72px; }
+        }
+    </style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+    <a href="portfolio.html" class="logo">Sungeun Jun</a>
+    <a href="portfolio.html" class="nav-back">← Back</a>
+</nav>
+
+<section class="project-hero">
+    <div class="hero-accent-line"></div>
+    <p class="project-tag">AI · Sales Automation · 0 → 1 Build</p>
+    <h1 class="project-title">PEACH<span>.</span></h1>
+    <p class="project-sub">콜드메일 대신, 링크 하나로 영업한다</p>
+    <div class="project-meta">
+        <div class="meta-item"><span class="meta-label">Role</span><span class="meta-value">기획 / 설계 / 빌드 (100%)</span></div>
+        <div class="meta-item"><span class="meta-label">Type</span><span class="meta-value">영업 자동화 로컬 설치형 프로덕트</span></div>
+        <div class="meta-item"><span class="meta-label">Stack</span><span class="meta-value">Python · Flask · Playwright · SQLite · PyInstaller</span></div>
+        <div class="meta-item"><span class="meta-label">Year</span><span class="meta-value">2025 — 진행 중</span></div>
+    </div>
+</section>
+
+<div class="content">
+
+    <!-- CORE INSIGHT -->
+    <section class="section" data-reveal>
+        <p class="section-label">핵심 아이디어</p>
+        <h2>"제안서를 쓰는 게 아니라,<br>이미 만들어서 링크로 보낸다"</h2>
+        <p>콜드메일이 잘 안 읽히는 건, 받는 사람 입장에선 별로 볼 게 없기 때문이에요. "이렇게 개선하면 어떨까요"라는 말은 결국 상상에 기대는 설득이고, 바쁜 사람이 상상하며 답장을 보낼 이유는 없어요.</p>
+        <p>그래서 순서를 바꿨어요. 메일을 쓰기 전에 먼저 리디자인 페이지를 만들어요. GitHub Pages에 배포하고, 그 링크를 본문에 넣어서 보내요. 받는 사람은 자기 업체 이름이 들어간 완성된 페이지를 바로 보게 돼요.</p>
+
+        <div class="dark-panel">
+            <p class="dark-panel-label">Core Insight</p>
+            <p>설득은 말이 아니라 결과물이 한다.<br>링크를 누르지 않을 이유가 없다.</p>
+        </div>
+    </section>
+
+    <!-- REDESIGN — 핵심 -->
+    <section class="section" data-reveal>
+        <p class="section-label">Redesign</p>
+        <h2>메일 보내기 전에<br>이미 그 업체 사이트를 만들어뒀어요</h2>
+        <p>핵심은 받는 사람이 링크를 열었을 때 자기 업체 이름이 들어간 완성된 페이지가 보인다는 거예요. 임의로 만든 샘플이 아니에요. 업체 사이트를 크롤링해서 실제 텍스트(업체명, 소개, 서비스 항목)를 가져오고, Unsplash API로 업종에 맞는 이미지를 골라서 HTML 랜딩페이지를 만들어요.</p>
+        <p>만들어진 HTML은 GitHub Pages에 자동 배포돼서 공개 URL이 생겨요. 그 링크를 메일에 넣어서 보내요.</p>
+
+        <!-- Before/After -->
+        <div class="ba-grid">
+            <div class="ba-card">
+                <div class="ba-label-bar before">Before — 기존 업체 사이트</div>
+                <div class="ba-placeholder before">
+                    <span style="font-size:28px; opacity:0.3">🏥</span>
+                    <span class="ba-placeholder-text">조잡한 폰트 · 깨진 레이아웃 · 무거운 배너</span>
+                </div>
+            </div>
+            <div class="ba-card">
+                <div class="ba-label-bar after">After — PEACH 자동 리디자인</div>
+                <div class="ba-placeholder after">
+                    <span style="font-size:24px; opacity:0.35;">✦</span>
+                    <span class="ba-placeholder-text">Unsplash 이미지 · 업체 콘텐츠 · 깔끔한 레이아웃</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mock Dashboard -->
+        <div class="mock-dashboard">
+            <div class="mock-header">
+                <div style="display:flex;align-items:center;gap:10px;">
+                    <span class="mock-title">PEACH</span>
+                    <span class="mock-badge">v1.0</span>
+                </div>
+                <div class="mock-dots">
+                    <div class="mock-dot"></div>
+                    <div class="mock-dot"></div>
+                    <div class="mock-dot live"></div>
+                </div>
+            </div>
+            <div class="mock-stats">
+                <div class="mock-stat">
+                    <p class="mock-stat-label">총 수집</p>
+                    <p class="mock-stat-val">247</p>
+                    <p class="mock-stat-unit">건</p>
+                </div>
+                <div class="mock-stat">
+                    <p class="mock-stat-label">발송 완료</p>
+                    <p class="mock-stat-val">89</p>
+                    <p class="mock-stat-unit">건</p>
+                </div>
+                <div class="mock-stat accent">
+                    <p class="mock-stat-label">응답률</p>
+                    <p class="mock-stat-val">8.1%</p>
+                    <p class="mock-stat-unit">평균</p>
+                </div>
+            </div>
+            <div class="mock-list">
+                <div class="mock-list-header">최근 발송</div>
+                <div class="mock-row">
+                    <div class="mock-row-left">
+                        <div class="mock-icon">✦</div>
+                        <div>
+                            <p class="mock-name">lafco</p>
+                            <p class="mock-email">hello@lafco.kr</p>
+                        </div>
+                    </div>
+                    <span class="mock-status reply">답장</span>
+                </div>
+                <div class="mock-row">
+                    <div class="mock-row-left">
+                        <div class="mock-icon">◈</div>
+                        <div>
+                            <p class="mock-name">썸무드 디자인</p>
+                            <p class="mock-email">contact@summood.co.kr</p>
+                        </div>
+                    </div>
+                    <span class="mock-status sent">발송됨</span>
+                </div>
+                <div class="mock-row">
+                    <div class="mock-row-left">
+                        <div class="mock-icon">○</div>
+                        <div>
+                            <p class="mock-name">xpixel</p>
+                            <p class="mock-email">hi@xpixel.studio</p>
+                        </div>
+                    </div>
+                    <span class="mock-status read">열람</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW REDESIGN WORKS -->
+    <section class="section" data-reveal>
+        <p class="section-label">How It Works</p>
+        <h2>크롤링부터 배포까지,<br>4개 모듈이 자동으로 연결돼요</h2>
+        <p>리디자인 파이프라인은 4개의 독립 모듈로 나뉘어요. crawler.py가 업체 사이트에서 텍스트를 추출하면, Unsplash API가 업종 키워드로 이미지를 선택해요. redesigner.py가 콘텐츠를 HTML 템플릿에 주입하고, deployer.py가 GitHub API로 Pages에 올려서 공개 URL을 만들어요.</p>
+        <p>모듈을 분리한 건 각 단계를 독립적으로 테스트하기 위해서였어요. 크롤링이 실패해도 이미 수집된 데이터로 리디자인을 돌릴 수 있고, 배포 단계에서 오류가 나도 생성된 HTML 파일은 로컬에 남아요.</p>
+
+        <!-- 리디자인 플로우 다크 패널 -->
+        <div style="background:var(--dark);border-radius:12px;padding:32px;margin-top:40px;">
+            <p style="font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--peach);margin-bottom:24px;">Redesign 플로우</p>
+            <div style="display:flex;flex-direction:column;gap:16px;">
+                <div style="display:flex;align-items:flex-start;gap:16px;">
+                    <span style="font-family:var(--mono);font-size:11px;color:var(--peach);min-width:24px;padding-top:1px;">01</span>
+                    <div>
+                        <p style="font-size:13px;color:#f0f0f0;font-weight:500;margin-bottom:4px;">crawler.py — 업체 콘텐츠 추출</p>
+                        <p style="font-size:12px;color:rgba(255,255,255,0.4);line-height:1.7;">업체 사이트에서 업체명·소개·서비스·연락처를 파싱. 품질 점수 계산 후 낮은 곳만 선별.</p>
+                    </div>
+                </div>
+                <div style="display:flex;align-items:flex-start;gap:16px;">
+                    <span style="font-family:var(--mono);font-size:11px;color:var(--peach);min-width:24px;padding-top:1px;">02</span>
+                    <div>
+                        <p style="font-size:13px;color:#f0f0f0;font-weight:500;margin-bottom:4px;">Unsplash API — 업종 맞춤 이미지 선택</p>
+                        <p style="font-size:12px;color:rgba(255,255,255,0.4);line-height:1.7;">업종 키워드(clinic / interior / cafe 등)로 Unsplash에서 고품질 이미지를 자동 선택.</p>
+                    </div>
+                </div>
+                <div style="display:flex;align-items:flex-start;gap:16px;">
+                    <span style="font-family:var(--mono);font-size:11px;color:rgba(255,107,53,1);min-width:24px;padding-top:1px;">03</span>
+                    <div>
+                        <p style="font-size:13px;color:#f0f0f0;font-weight:500;margin-bottom:4px;">redesigner.py — HTML 랜딩페이지 생성</p>
+                        <p style="font-size:12px;color:rgba(255,255,255,0.4);line-height:1.7;">추출된 콘텐츠 + 이미지를 HTML 템플릿에 주입. 업체별 개인화된 랜딩페이지 생성.</p>
+                    </div>
+                </div>
+                <div style="display:flex;align-items:flex-start;gap:16px;">
+                    <span style="font-family:var(--mono);font-size:11px;color:var(--peach);min-width:24px;padding-top:1px;">04</span>
+                    <div>
+                        <p style="font-size:13px;color:#f0f0f0;font-weight:500;margin-bottom:4px;">deployer.py — GitHub Pages 자동 배포</p>
+                        <p style="font-size:12px;color:rgba(255,255,255,0.4);line-height:1.7;">생성된 HTML을 GitHub API로 push → 공개 URL 확보. 이 링크가 메일에 들어감.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PIPELINE -->
+    <section class="section" data-reveal>
+        <p class="section-label">Pipeline</p>
+        <h2>키워드 하나로 5단계가<br>자동으로 돌아간다</h2>
+        <p>리디자인은 파이프라인의 가운데에 있어요. 키워드를 입력하면 수집, 크롤링, 리디자인, 배포, 발송이 순서대로 자동으로 실행돼요. 사람이 개입하는 구간은 없어요.</p>
+
+        <div class="pipeline-flow">
+            <div class="pf-step">
+                <div class="pf-num">01</div>
+                <p class="pf-name">수집</p>
+                <p class="pf-sub">네이버/구글</p>
+            </div>
+            <div class="pf-arrow">→</div>
+            <div class="pf-step">
+                <div class="pf-num">02</div>
+                <p class="pf-name">크롤링</p>
+                <p class="pf-sub">콘텐츠 추출</p>
+            </div>
+            <div class="pf-arrow">→</div>
+            <div class="pf-step">
+                <div class="pf-num active">03</div>
+                <p class="pf-name" style="color:#FF6B35">리디자인</p>
+                <p class="pf-sub">HTML 생성</p>
+            </div>
+            <div class="pf-arrow">→</div>
+            <div class="pf-step">
+                <div class="pf-num">04</div>
+                <p class="pf-name">배포</p>
+                <p class="pf-sub">GitHub Pages</p>
+            </div>
+            <div class="pf-arrow">→</div>
+            <div class="pf-step">
+                <div class="pf-num">05</div>
+                <p class="pf-name">발송</p>
+                <p class="pf-sub">Gmail SMTP</p>
+            </div>
+        </div>
+
+        <div class="peach-demo">
+            <iframe class="peach-demo-frame" src="peach-demo.html" title="PEACH 작동 방식 — 수집 · 리디자인 · 발송" loading="lazy" scrolling="no"></iframe>
+            <p class="pd-caption">실제 흐름 — 수집 · 리디자인 · 발송</p>
+        </div>
+    </section>
+
+    <!-- JOURNEY -->
+    <section class="section" data-reveal>
+        <p class="section-label">Journey — PEACH 2까지</p>
+        <h2>LIME부터 v1, v2를 거쳐<br>지금의 구조가 됐어요</h2>
+        <p>PEACH가 지금 형태가 된 건 처음부터 계획한 게 아니에요. 먼저 LIME이라는 실험 프로젝트가 있었고, 거기서 리디자인 자동화가 가능하다는 걸 확인한 뒤에야 본격적으로 시작할 수 있었어요.</p>
+
+        <div class="journey">
+            <div class="journey-step">
+                <div><span class="journey-ver">LIME</span></div>
+                <div>
+                    <span class="journey-tag">선행 실험</span>
+                    <p class="journey-title">자동 리디자인이 가능하다는 걸 처음 증명</p>
+                    <p class="journey-desc">Unsplash API와 `redesigner.py`를 처음 만든 프로젝트예요. 업종 키워드로 이미지를 자동 선택하고 HTML을 생성하는 방식을 여기서 검증했어요. output/ 폴더에 28개 이상의 실제 결과물이 쌓였어요. 이 코드베이스가 PEACH 리디자인 로직의 기반이 됐어요.</p>
+                </div>
+            </div>
+            <div class="journey-step">
+                <div><span class="journey-ver">v1</span></div>
+                <div>
+                    <span class="journey-tag">첫 번째 버전</span>
+                    <p class="journey-title">네이버 지역검색 기반, 파이프라인 첫 완성</p>
+                    <p class="journey-desc">LIME의 리디자인 로직을 가져와서 수집→크롤링→리디자인→발송 전체 파이프라인을 처음 완성했어요. 네이버 지역검색으로 병원·학원·인테리어 업체를 타겟으로 했어요. 작동은 됐지만 HTML 템플릿이 단조롭고 타겟이 너무 광범위했어요.</p>
+                </div>
+            </div>
+            <div class="journey-step">
+                <div><span class="journey-ver">v2</span></div>
+                <div>
+                    <span class="journey-tag">타겟 전환</span>
+                    <p class="journey-title">Cafe24 쇼핑몰로 전환, 퍼널 세분화</p>
+                    <p class="journey-desc">Cafe24 쇼핑몰이 개선 포인트가 더 명확했어요. 전환율 개선(퍼널A)과 해외 확장(퍼널B)으로 메일 내용을 나눴어요. v1과 v2가 별도 코드베이스로 분리되면서 관리가 어려워졌어요.</p>
+                </div>
+            </div>
+            <div class="journey-step">
+                <div><span class="journey-ver now">Unified ⭐</span></div>
+                <div>
+                    <span class="journey-tag active">현재</span>
+                    <p class="journey-title">LIME + v1 + v2 통합, 버그 12개 수정, PEACH.exe 완성</p>
+                    <p class="journey-desc">흩어진 코드베이스를 하나로 합쳤어요. 로컬 비즈니스와 Cafe24를 동시 지원하고, SQLite WAL 모드로 안정성을 높였어요. PyInstaller로 PEACH.exe 패키징까지 완료해서 실제 배포 가능한 상태예요.</p>
+                </div>
+            </div>
+            <div class="journey-step">
+                <div><span class="journey-ver">PEACH 2</span></div>
+                <div>
+                    <span class="journey-tag peach">다음 단계</span>
+                    <p class="journey-title">로컬 설치형 → SaaS 전환</p>
+                    <p class="journey-desc">Flask-Login 멀티유저 인증, ngrok 베타, Railway 이전까지 설계가 완료된 상태예요. 베타 체험단 5~10명을 모집해서 실사용 데이터를 쌓을 계획이에요.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BUILD -->
+    <section class="section" data-reveal>
+        <p class="section-label">Build</p>
+        <h2>설치하면 바로 돌아가는<br>로컬 프로덕트</h2>
+        <p>PEACH.exe를 실행하면 Flask 대시보드가 브라우저에서 바로 열려요. 데이터는 전부 로컬 SQLite에 저장되고, 외부 서버로 업체 정보나 메일 내용이 나가지 않아요. PyInstaller로 Windows/Mac 패키징까지 해뒀어요.</p>
+
+        <div class="stack-row">
+            <span class="stack-tag">Python + Flask</span>
+            <span class="stack-tag">Playwright</span>
+            <span class="stack-tag">SQLite (WAL)</span>
+            <span class="stack-tag">PyInstaller · .exe</span>
+            <span class="stack-tag">Unsplash API</span>
+            <span class="stack-tag">GitHub Pages API</span>
+            <span class="stack-tag">Gmail SMTP</span>
+            <span class="stack-tag">SSE Streaming</span>
+        </div>
+    </section>
+
+    <!-- PEACH 2 -->
+    <section class="section" data-reveal>
+        <p class="section-label">Next — PEACH 2</p>
+        <h2>PEACH.exe는 완성됐고,<br>SaaS 전환을 준비하고 있어요</h2>
+
+        <div class="roadmap-grid">
+            <div class="roadmap-card">
+                <p class="roadmap-phase">완료</p>
+                <p class="roadmap-title">PEACH.exe 배포 가능</p>
+                <ul class="roadmap-list">
+                    <li>unified 버전 통합</li>
+                    <li>버그 12개 수정</li>
+                    <li>PyInstaller 패키징</li>
+                    <li>전체 파이프라인 검증</li>
+                </ul>
+            </div>
+            <div class="roadmap-card dark">
+                <p class="roadmap-phase">진행 중</p>
+                <p class="roadmap-title">실테스트 + 품질 개선</p>
+                <ul class="roadmap-list">
+                    <li>Gmail · GitHub 셋업</li>
+                    <li>실 발송 테스트</li>
+                    <li>리디자인 HTML 품질 향상</li>
+                    <li>업종별 템플릿 다양화</li>
+                </ul>
+            </div>
+            <div class="roadmap-card">
+                <p class="roadmap-phase">Beta</p>
+                <p class="roadmap-title">ngrok 베타 운영</p>
+                <ul class="roadmap-list">
+                    <li>Flask-Login 멀티유저</li>
+                    <li>체험단 5~10명 모집</li>
+                    <li>실사용 데이터 수집</li>
+                    <li>익명 애널리틱스 연동</li>
+                </ul>
+            </div>
+            <div class="roadmap-card" style="background:var(--dark);color:#fff;">
+                <p class="roadmap-phase" style="color:rgba(255,107,53,0.7);">PEACH 2</p>
+                <p class="roadmap-title" style="color:#fff;">SaaS 전환</p>
+                <ul class="roadmap-list">
+                    <li style="color:rgba(255,255,255,0.6);">Railway 서버 이전</li>
+                    <li style="color:rgba(255,255,255,0.6);">랜딩페이지 peach.tomob.kr</li>
+                    <li style="color:rgba(255,255,255,0.6);">멀티유저 대시보드</li>
+                    <li style="color:rgba(255,255,255,0.6);">HTML 품질 고도화</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="dark-panel" style="margin-top:48px;">
+            <p class="dark-panel-label">진행 중인 프로젝트</p>
+            <p>완성된 결과물만 포트폴리오에 넣는 게 맞는지 항상 고민해요.<br>문제를 어떻게 정의했고, 어떻게 만들어가고 있는지를 보여주는 게 더 정직한 것 같아요.</p>
+        </div>
+    </section>
+
+</div>
+
+<div class="project-nav">
+    <a href="portfolio.html"><p class="nav-hint">All Works</p><p>← 전체 보기</p></a>
+    <a href="tomob-seed.html" class="next"><p class="nav-hint">Next</p><p>TOMOB SEED →</p></a>
+</div>
+
+<script>
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => {
+        cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
+        rx += (e.clientX - rx) * 0.1; ry += (e.clientY - ry) * 0.1;
+    });
+    (function lerpRing() { ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(lerpRing); })();
+
+    const io = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+
+    const imgObs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); imgObs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('[data-img-reveal]').forEach(el => imgObs.observe(el));
+
+</script>
+</body>
+</html>

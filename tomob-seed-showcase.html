@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tomob seed 쇼케이스</title>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<style>
+  html, body { margin: 0; }
+  body { font-family: 'Pretendard', sans-serif; -webkit-font-smoothing: antialiased; word-break: keep-all; }
+
+  .seed-showcase-section {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 50% 14%, rgba(234,179,8,0.18), transparent 44%),
+      radial-gradient(circle at 84% 86%, rgba(234,179,8,0.07), transparent 38%),
+      #09090b;
+    box-sizing: border-box;
+  }
+  .seed-showcase-section * { box-sizing: border-box; }
+
+  /* 도트 그리드 */
+  .seed-grid {
+    position: absolute; inset: 0; z-index: 0; opacity: .5; pointer-events: none;
+    background-image: radial-gradient(circle, rgba(255,255,255,.05) 1px, transparent 1px);
+    background-size: 30px 30px;
+  }
+
+  .seed-wrap {
+    position: absolute; inset: 0; z-index: 2;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* ── 브라우저 윈도우 목업 ── */
+  .seed-window {
+    position: relative; z-index: 5;
+    width: 84%;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid #27272a;
+    background: #09090b;
+    box-shadow: 0 44px 110px rgba(0,0,0,.7), 0 0 0 1px rgba(234,179,8,.06);
+    animation: seedFloat 7s ease-in-out infinite;
+  }
+  .seed-chrome {
+    display: flex; align-items: center; gap: 14px;
+    padding: 12px 18px;
+    background: #18181b;
+    border-bottom: 1px solid #27272a;
+  }
+  .seed-traffic { display: flex; gap: 7px; }
+  .seed-traffic span { width: 11px; height: 11px; border-radius: 50%; }
+  .seed-traffic span:nth-child(1){ background:#ff5f57; }
+  .seed-traffic span:nth-child(2){ background:#ffbd2e; }
+  .seed-traffic span:nth-child(3){ background:#28c840; }
+  .seed-url {
+    flex: 1; display: flex; align-items: center; gap: 8px;
+    max-width: 62%; margin: 0 auto;
+    background: #09090b; border: 1px solid #27272a; border-radius: 8px;
+    padding: 6px 14px;
+    color: #a1a1aa; font-size: 13px;
+    font-family: 'Geist Mono', ui-monospace, monospace;
+  }
+  .seed-live { display: flex; align-items: center; gap: 6px; }
+  .seed-live span:first-child { color: #eab308; font-size: 12px; font-weight: 600; }
+  .seed-live .dot { width: 7px; height: 7px; border-radius: 50%; background: #eab308; animation: seedPulse 2s ease-in-out infinite; }
+
+  /* ── 풀페이지 오토 스크롤 뷰포트 ── */
+  .seed-screen {
+    position: relative;
+    width: 100%;
+    /* 화면 영역 = 윈도우의 메인 콘텐츠. 정사각 카드를 채우도록 충분히 큰 비율 */
+    aspect-ratio: 16 / 13;
+    overflow: hidden;
+    background: #09090b;
+  }
+  .seed-shot {
+    display: block;
+    /* 콘텐츠를 확대해서 시원하게 보이도록 폭을 키우고 가운데 정렬 */
+    width: 140%;
+    height: auto;
+    position: relative;
+    left: 50%;
+    /* 위 → 아래 → 다시 위로 천천히 흐르는 오토 스크롤 */
+    animation: seedScroll 18s cubic-bezier(0.45,0,0.55,1) infinite;
+  }
+  /* 하단 페이드 — 스크롤 경계가 부드럽게 사라지도록 */
+  .seed-screen::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 16%;
+    background: linear-gradient(to top, rgba(9,9,11,0.85), transparent);
+    pointer-events: none; z-index: 2;
+  }
+
+  @keyframes seedFloat {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(-1.6%); }
+    100% { transform: translateY(0); }
+  }
+  @keyframes seedPulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+
+  /* 이미지(2880×6130) 가 뷰포트보다 길어 끝까지 흐른 뒤 되돌아옴.
+     translateY(-100%) 는 이미지 자기 높이 기준 → 뷰포트 높이만큼 더해 끝선을 맞춤 */
+  @keyframes seedScroll {
+    0%, 6%    { transform: translateX(-50%) translateY(0); }
+    50%       { transform: translateX(-50%) translateY(-72.7%); } /* 140% 확대 기준 -(img_h - vp_h)/img_h */
+    94%, 100% { transform: translateX(-50%) translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .seed-window { animation: none; }
+    .seed-shot { animation: none; transform: translateX(-50%); }
+  }
+</style>
+</head>
+<body>
+
+<section class="seed-showcase-section">
+  <div class="seed-grid"></div>
+
+  <div class="seed-wrap">
+    <div class="seed-window">
+      <div class="seed-chrome">
+        <div class="seed-traffic"><span></span><span></span><span></span></div>
+        <div class="seed-url">tomob seed — 브리프 생성기</div>
+        <div class="seed-live"><span>Live</span><span class="dot"></span></div>
+      </div>
+      <div class="seed-screen">
+        <img class="seed-shot" src="이미지/tomob-seed-full.png" alt="tomob seed 브리프 생성기 전체 화면" />
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

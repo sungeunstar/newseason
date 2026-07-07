@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOMOB SEED — Sungeun Jun</title>
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg: #F5F5F3; --text: #0E0E0E; --muted: #9A9A9A; --border: rgba(14,14,14,0.1);
+            --accent: #1A1A2E; --pad: clamp(24px, 5vw, 80px); --f: 'Pretendard', -apple-system, sans-serif;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--f); background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; cursor: none; }
+
+        /* ─── CURSOR ─── */
+        .cursor { position: fixed; top: 0; left: 0; width: 8px; height: 8px; background: #fff; border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); mix-blend-mode: difference; }
+        .cursor-ring { position: fixed; top: 0; left: 0; width: 32px; height: 32px; border: 1.5px solid #fff; border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); mix-blend-mode: difference; }
+
+        /* ─── NAV ─── */
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 28px var(--pad); }
+        .logo { font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; color: #fff; }
+        .nav-back { font-size: 11px; color: rgba(255,255,255,0.4); text-decoration: none; letter-spacing: 0.04em; transition: color 0.2s; }
+        .nav-back:hover { color: #fff; }
+
+        /* ─── HERO ─── */
+        .project-hero {
+            min-height: 100vh;
+            background: var(--accent);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 120px var(--pad) 80px;
+            color: #fff;
+        }
+        .project-tag { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 32px; }
+        .project-title { font-size: clamp(40px, 7vw, 100px); font-weight: 300; line-height: 1.05; letter-spacing: -0.04em; margin-bottom: 24px; }
+        .project-sub { font-size: clamp(16px, 2vw, 22px); font-weight: 300; color: rgba(255,255,255,0.4); letter-spacing: -0.02em; margin-bottom: 64px; }
+        .project-meta { display: flex; gap: 48px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 32px; flex-wrap: wrap; }
+        .meta-item { display: flex; flex-direction: column; gap: 6px; }
+        .meta-label { font-size: 10px; color: rgba(255,255,255,0.28); letter-spacing: 0.1em; text-transform: uppercase; }
+        .meta-value { font-size: 13px; color: rgba(255,255,255,0.8); }
+
+        /* ─── CONTENT ─── */
+        .content { max-width: 860px; margin: 0 auto; padding: 120px var(--pad); }
+        .section { margin-bottom: 100px; }
+        .section-label { font-size: 10px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 24px; }
+        .section h2 { font-size: clamp(22px, 2.8vw, 36px); font-weight: 300; line-height: 1.4; letter-spacing: -0.025em; margin-bottom: 28px; }
+        .section p { font-size: 15px; color: rgba(14,14,14,0.65); line-height: 2.1; }
+        .section p + p { margin-top: 20px; }
+
+        /* ─── INSIGHT BOX ─── */
+        .insight-box { background: var(--accent); border-radius: 8px; padding: 40px; margin-top: 40px; color: #fff; }
+        .insight-box p { font-size: 18px; font-weight: 300; line-height: 1.8; letter-spacing: -0.01em; color: rgba(255,255,255,0.85); }
+
+        /* ─── PROBLEM BEFORE/AFTER ─── */
+        .compare-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 40px;
+        }
+        .compare-card {
+            border-radius: 8px;
+            padding: 32px;
+        }
+        .compare-card.before {
+            background: #EEEEED;
+        }
+        .compare-card.after {
+            background: var(--accent);
+            color: #fff;
+        }
+        .compare-label {
+            font-size: 9px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            opacity: 0.45;
+        }
+        .compare-card.after .compare-label { color: #fff; }
+        .compare-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .compare-list li {
+            font-size: 13px;
+            line-height: 1.6;
+            color: rgba(14,14,14,0.7);
+            padding-left: 16px;
+            position: relative;
+        }
+        .compare-list li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--muted);
+            font-size: 11px;
+        }
+        .compare-card.after .compare-list li {
+            color: rgba(255,255,255,0.75);
+        }
+        .compare-card.after .compare-list li::before {
+            color: rgba(255,255,255,0.3);
+        }
+
+        /* ─── HOW IT WORKS ─── */
+        .flow-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin-top: 40px;
+        }
+        .flow-step {
+            display: grid;
+            grid-template-columns: 32px 1fr;
+            gap: 24px;
+            padding: 28px 0;
+            border-top: 1px solid var(--border);
+            align-items: start;
+        }
+        .flow-step:last-child { border-bottom: 1px solid var(--border); }
+        .flow-num {
+            font-size: 11px;
+            color: var(--muted);
+            letter-spacing: 0.04em;
+            padding-top: 2px;
+        }
+        .flow-body {}
+        .flow-title {
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            letter-spacing: -0.01em;
+        }
+        .flow-desc {
+            font-size: 13px;
+            color: rgba(14,14,14,0.6);
+            line-height: 1.8;
+        }
+
+        /* ─── TECH STACK ─── */
+        .stack-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 32px;
+        }
+        .stack-tag {
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.06em;
+            color: rgba(14,14,14,0.7);
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            padding: 6px 14px;
+        }
+
+        /* ─── OUTCOME ─── */
+        .outcome-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 40px;
+        }
+        .outcome-card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 32px;
+        }
+        .outcome-num {
+            font-size: clamp(32px, 4vw, 52px);
+            font-weight: 300;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+        .outcome-desc {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        /* ─── IMAGE BLOCKS ─── */
+        .img-block { margin-top: 48px; }
+        .img-wrap { position: relative; overflow: hidden; }
+        .img-wrap::after { content: ''; position: absolute; inset: 0; background: var(--bg); transform-origin: right; transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .img-wrap.revealed::after { transform: scaleX(0); }
+        .img-real { display: block; width: 100%; height: auto; border-radius: 4px; }
+        .img-placeholder { background: #E4E4E2; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: var(--muted); }
+        .img-placeholder .img-tag { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; }
+        .img-placeholder .img-desc { font-size: 11px; letter-spacing: 0.04em; }
+        .img-block.medium .img-placeholder { aspect-ratio: 16 / 8; border-radius: 4px; }
+        .img-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 48px; }
+        .img-grid-2 .img-placeholder { aspect-ratio: 4 / 3; border-radius: 4px; }
+
+        /* ─── PROJECT NAV ─── */
+        .project-nav { border-top: 1px solid var(--border); padding: 60px var(--pad); display: flex; justify-content: space-between; align-items: center; }
+        .project-nav a { text-decoration: none; color: var(--text); font-size: 13px; transition: opacity 0.2s; }
+        .project-nav a:hover { opacity: 0.5; }
+        .project-nav .next { text-align: right; }
+        .nav-hint { font-size: 10px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+
+        /* ─── REVEAL ─── */
+        [data-reveal] { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        [data-reveal].visible { opacity: 1; transform: none; }
+
+        @media (max-width: 768px) {
+            body { cursor: auto; }
+            .cursor, .cursor-ring { display: none; }
+            .compare-grid { grid-template-columns: 1fr; }
+            .outcome-grid { grid-template-columns: 1fr; }
+            .img-grid-2 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+    <a href="portfolio.html" class="logo">Sungeun Jun</a>
+    <a href="portfolio.html" class="nav-back">← Back</a>
+</nav>
+
+<section class="project-hero">
+    <p class="project-tag">Harness Engineering · AI Tool · 0 → 1</p>
+    <h1 class="project-title">TOMOB SEED</h1>
+    <p class="project-sub">AI가 잘 작동하도록 만드는 인풋 구조화 도구</p>
+    <div class="project-meta">
+        <div class="meta-item"><span class="meta-label">Role</span><span class="meta-value">기획 / 설계 / 빌드 (100%)</span></div>
+        <div class="meta-item"><span class="meta-label">Type</span><span class="meta-value">AI 브리프 자동화 웹앱 (0→1 개인 프로젝트)</span></div>
+        <div class="meta-item"><span class="meta-label">Stack</span><span class="meta-value">Vanilla JS · File System Access API · IndexedDB</span></div>
+        <div class="meta-item"><span class="meta-label">Year</span><span class="meta-value">2025</span></div>
+    </div>
+</section>
+
+<div class="content">
+
+    <!-- OVERVIEW -->
+    <section class="section" data-reveal>
+        <p class="section-label">Overview</p>
+        <h2>AI에게 뭘 시키느냐보다,<br>어떻게 시키느냐가 결과를 바꾼다</h2>
+        <p>TOMOB SEED는 AI 에이전트가 잘 작동하도록 인풋을 구조화하는 브리프 생성 도구예요. 브랜드 이야기, 레퍼런스, 무드를 단계별로 정리해서, AI가 일관된 결과를 낼 수 있는 입력 파일을 만들어줘요.</p>
+        <p>PEACH 시스템을 운영하다가 생긴 문제에서 시작됐어요. AI 에이전트 자체는 충분히 좋은데, 인풋이 모호하면 결과물이 매번 달라졌어요.</p>
+
+        <div class="img-block medium">
+            <div class="img-wrap" data-img-reveal>
+                <img class="img-real" src="이미지/seed-overview.png" alt="TOMOB SEED 메인 화면 — 저장 폴더 설정부터 기본 정보·타입·스타일까지 한 흐름으로 입력">
+            </div>
+        </div>
+    </section>
+
+    <!-- PROBLEM -->
+    <section class="section" data-reveal>
+        <p class="section-label">Problem</p>
+        <h2>AI가 멍청한 게 아니었다.<br>인풋이 모호했던 거였다.</h2>
+        <p>같은 AI 에이전트를 두 클라이언트에게 투입했는데 결과물 수준이 달랐어요. 왜 그런지 파악해보니, 문제는 AI가 아니라 인풋 구조에 있었어요.</p>
+        <p>"세련된 느낌으로", "젊은 감성으로" 같은 지시는 에이전트 입장에서 해석할 여지가 너무 많아요. 반면 레퍼런스 이미지, 무드, 타겟 페르소나, 핵심 메시지가 구조화된 브리프를 줬을 때는 결과물이 완전히 달라졌어요.</p>
+
+        <div class="insight-box">
+            <p>AI에게 0→90을 시키는 게 아니라,<br>내가 0→10을 만들면 AI가 10→90을 빠르게 채워요.<br>그게 Harness Engineering이에요.</p>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section" data-reveal>
+        <p class="section-label">How It Works</p>
+        <h2>브리프를 구조화하면<br>에이전트가 달라진다</h2>
+        <p>TOMOB SEED는 브랜드 정보를 단계별로 수집해서 구조화된 브리프 파일을 자동으로 만들어요. AI 에이전트가 읽기 좋은 형식으로 정리된 인풋을 만드는 게 전부예요.</p>
+
+        <div class="flow-steps">
+            <div class="flow-step">
+                <span class="flow-num">01</span>
+                <div class="flow-body">
+                    <p class="flow-title">브랜드 인터뷰</p>
+                    <p class="flow-desc">브랜드가 무엇을 말하고 싶은지, 누구에게 말하는지, 어떤 분위기인지를 단계별로 질문해요. 추상적인 답변은 구체화 질문으로 이어져요.</p>
+                </div>
+            </div>
+            <div class="flow-step">
+                <span class="flow-num">02</span>
+                <div class="flow-body">
+                    <p class="flow-title">레퍼런스 분리</p>
+                    <p class="flow-desc">스타일 레퍼런스(구조/레이아웃)와 무드 레퍼런스(분위기/감성)를 분리해서 받아요. 두 가지를 섞으면 에이전트가 혼란스러워하기 때문이에요.</p>
+                </div>
+            </div>
+            <div class="flow-step">
+                <span class="flow-num">03</span>
+                <div class="flow-body">
+                    <p class="flow-title">브리프 자동 생성</p>
+                    <p class="flow-desc">수집된 정보를 _brief.md + _config.json 형식으로 자동 생성해요. AI 에이전트가 읽고 바로 작업을 시작할 수 있는 구조예요.</p>
+                </div>
+            </div>
+            <div class="flow-step">
+                <span class="flow-num">04</span>
+                <div class="flow-body">
+                    <p class="flow-title">로컬 저장 및 관리</p>
+                    <p class="flow-desc">File System Access API와 IndexedDB를 활용해 브라우저에서 바로 파일로 저장돼요. 서버 없이도 데이터가 안전하게 유지돼요.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="img-grid-2">
+            <div class="img-wrap" data-img-reveal>
+                <img class="img-real" src="이미지/seed-interview.png" alt="브랜드 인터뷰 화면 — 고객/우리/고통/할 일/존재 이유를 5W로 구조화">
+            </div>
+            <div class="img-wrap" data-img-reveal>
+                <img class="img-real" src="이미지/seed-brief.png" alt="브리프 생성 결과 — 입력이 _brief.md 산출물로 자동 변환">
+            </div>
+        </div>
+    </section>
+
+    <!-- BEFORE/AFTER -->
+    <section class="section" data-reveal>
+        <p class="section-label">Before / After</p>
+        <h2>구조화된 인풋이<br>에이전트 결과를 바꾼다</h2>
+
+        <div class="compare-grid">
+            <div class="compare-card before">
+                <p class="compare-label">Before — 모호한 인풋</p>
+                <ul class="compare-list">
+                    <li>"세련된 느낌으로 만들어줘"</li>
+                    <li>"젊은 감성의 브랜딩"</li>
+                    <li>"고급스러우면서도 친근하게"</li>
+                    <li>레퍼런스: 구두로 설명</li>
+                    <li>타겟: "20-30대 여성"</li>
+                </ul>
+            </div>
+            <div class="compare-card after">
+                <p class="compare-label">After — 구조화된 브리프</p>
+                <ul class="compare-list">
+                    <li>핵심 메시지: 확정 문장</li>
+                    <li>타겟 페르소나: 구체적 설명</li>
+                    <li>스타일 레퍼런스: 파일 경로</li>
+                    <li>무드 레퍼런스: 분리된 파일</li>
+                    <li>금지 방향: 명시적 제한</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- BUILD -->
+    <section class="section" data-reveal>
+        <p class="section-label">Build</p>
+        <h2>Notion 폼으로는 안 됐어요,<br>그래서 직접 만들었어요</h2>
+        <p>Notion 템플릿이나 구글폼으로 먼저 시도해봤는데, AI가 읽기 좋은 형식으로 자동 변환하는 기능이 없었어요. 그냥 쓰기엔 단계마다 손이 너무 많이 갔어요.</p>
+        <p>어떤 정보를 AI에게 줘야 하는지, 어떤 순서로 물어야 하는지는 실제로 에이전트를 운영해본 사람이 설계해야 맞아요. 그래서 직접 만들었어요.</p>
+
+        <div class="stack-row">
+            <span class="stack-tag">Vanilla JS</span>
+            <span class="stack-tag">File System Access API</span>
+            <span class="stack-tag">IndexedDB</span>
+            <span class="stack-tag">Markdown Export</span>
+            <span class="stack-tag">JSON Export</span>
+        </div>
+
+        <div class="img-block medium">
+            <div class="img-wrap" data-img-reveal>
+                <img class="img-real" src="이미지/seed-build.png" alt="실제 빌드 — File System Access API와 IndexedDB로 서버 없이 브라우저에서 파일 생성">
+            </div>
+        </div>
+    </section>
+
+    <!-- OUTCOME -->
+    <section class="section" data-reveal>
+        <p class="section-label">Outcome</p>
+        <h2>인풋을 바꿨더니<br>에이전트 결과가 달라졌어요</h2>
+
+        <div class="outcome-grid">
+            <div class="outcome-card">
+                <p class="outcome-num">3×</p>
+                <p class="outcome-desc">브리프 구조화 후<br>에이전트 1차 결과물 채택률 향상</p>
+            </div>
+            <div class="outcome-card">
+                <p class="outcome-num">80%</p>
+                <p class="outcome-desc">재작업 요청 감소.<br>모호한 인풋이 재작업의 주원인이었음</p>
+            </div>
+            <div class="outcome-card">
+                <p class="outcome-num">0→1</p>
+                <p class="outcome-desc">기획자가 직접 빌드.<br>아이디어에서 실제 도구까지</p>
+            </div>
+            <div class="outcome-card">
+                <p class="outcome-num">실사용</p>
+                <p class="outcome-desc">내 프로젝트마다 실제로 돌리고 있어요.<br>브리프 없이는 에이전트 안 켜요</p>
+            </div>
+        </div>
+
+        <div class="insight-box" style="margin-top: 48px;">
+            <p>AI를 잘 쓰는 게 프롬프트를 잘 쓰는 거라고 생각했는데, 실제로 해보니 달랐어요.<br>결과를 결정하는 건 AI에게 무엇을 줬느냐였어요.<br>TOMOB SEED는 그 구조를 만드는 도구예요.</p>
+        </div>
+    </section>
+
+</div>
+
+<div class="project-nav">
+    <a href="peach.html"><p class="nav-hint">Previous</p><p>← PEACH</p></a>
+    <a href="seedlog.html" class="next"><p class="nav-hint">Next</p><p>SeedLog →</p></a>
+</div>
+
+<script>
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+        rx += (e.clientX - rx) * 0.1;
+        ry += (e.clientY - ry) * 0.1;
+    });
+    (function lerpRing() { ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(lerpRing); })();
+
+    const io = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+
+    const imgObs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); imgObs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('[data-img-reveal]').forEach(el => imgObs.observe(el));
+</script>
+</body>
+</html>

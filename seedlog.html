@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeedLog — Sungeun Jun</title>
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg: #F5F5F3; --text: #0E0E0E; --muted: #9A9A9A; --border: rgba(14,14,14,0.1);
+            --accent: #131E13; --accent-light: #1E2E1E; --pad: clamp(24px, 5vw, 80px); --f: 'Pretendard', -apple-system, sans-serif;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--f); background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; cursor: none; }
+        .cursor { position: fixed; top: 0; left: 0; width: 8px; height: 8px; background: #fff; border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); mix-blend-mode: difference; }
+        .cursor-ring { position: fixed; top: 0; left: 0; width: 32px; height: 32px; border: 1.5px solid #fff; border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); mix-blend-mode: difference; }
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 28px var(--pad); }
+        .logo { font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; color: #fff; }
+        .nav-back { font-size: 11px; color: rgba(255,255,255,0.4); text-decoration: none; letter-spacing: 0.04em; transition: color 0.2s; }
+        .nav-back:hover { color: #fff; }
+        .project-hero { min-height: 100vh; background: var(--accent); display: flex; flex-direction: column; justify-content: flex-end; padding: 120px var(--pad) 80px; color: #fff; }
+        .project-tag { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 32px; }
+        .project-title { font-size: clamp(40px, 7vw, 100px); font-weight: 300; line-height: 1.05; letter-spacing: -0.04em; margin-bottom: 24px; }
+        .project-sub { font-size: clamp(16px, 2vw, 22px); font-weight: 300; color: rgba(255,255,255,0.4); letter-spacing: -0.02em; margin-bottom: 64px; }
+        .project-meta { display: flex; gap: 48px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 32px; flex-wrap: wrap; }
+        .meta-item { display: flex; flex-direction: column; gap: 6px; }
+        .meta-label { font-size: 10px; color: rgba(255,255,255,0.28); letter-spacing: 0.1em; text-transform: uppercase; }
+        .meta-value { font-size: 13px; color: rgba(255,255,255,0.8); }
+        .content { max-width: 860px; margin: 0 auto; padding: 120px var(--pad); }
+        .section { margin-bottom: 100px; }
+        .section-label { font-size: 10px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 24px; }
+        .section h2 { font-size: clamp(22px, 2.8vw, 36px); font-weight: 300; line-height: 1.4; letter-spacing: -0.025em; margin-bottom: 28px; }
+        .section p { font-size: 15px; color: rgba(14,14,14,0.65); line-height: 2.1; }
+        .section p + p { margin-top: 20px; }
+        .insight-box { background: var(--accent); border-radius: 8px; padding: 40px; margin-top: 40px; color: #fff; }
+        .insight-box p { font-size: 18px; font-weight: 300; line-height: 1.8; letter-spacing: -0.01em; color: rgba(255,255,255,0.8); }
+        .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 40px; }
+        .feature-card { background: #fff; border-radius: 8px; padding: 32px; }
+        .feature-title { font-size: 15px; font-weight: 500; margin-bottom: 10px; }
+        .feature-desc { font-size: 13px; color: rgba(14,14,14,0.6); line-height: 1.8; }
+        .placeholder-img { background: #E8E8E6; border-radius: 8px; height: 400px; margin-top: 40px; display: flex; align-items: center; justify-content: center; }
+        .placeholder-img p { font-size: 12px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+        .project-nav { border-top: 1px solid var(--border); padding: 60px var(--pad); display: flex; justify-content: space-between; align-items: center; }
+        .project-nav a { text-decoration: none; color: var(--text); font-size: 13px; transition: opacity 0.2s; }
+        .project-nav a:hover { opacity: 0.5; }
+        .project-nav .next { text-align: right; }
+        .nav-hint { font-size: 10px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+        [data-reveal] { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        [data-reveal].visible { opacity: 1; transform: none; }
+
+        /* ─── IMAGE BLOCKS ─── */
+        .img-block { margin-top: 48px; }
+        .img-wrap { position: relative; overflow: hidden; }
+        .img-wrap::after { content: ''; position: absolute; inset: 0; background: var(--bg); transform-origin: right; transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .img-wrap.revealed::after { transform: scaleX(0); }
+        .img-placeholder { background: #E4E4E2; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: var(--muted); }
+        .img-placeholder .img-tag { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; }
+        .img-placeholder .img-desc { font-size: 11px; letter-spacing: 0.04em; }
+        .img-block.medium .img-placeholder { aspect-ratio: 16 / 8; border-radius: 4px; }
+        .img-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 48px; }
+        .img-grid-2 .img-placeholder { aspect-ratio: 4 / 3; border-radius: 4px; }
+        @media (max-width: 768px) { body { cursor: auto; } .cursor, .cursor-ring { display: none; } .feature-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<nav>
+    <a href="portfolio.html" class="logo">Sungeun Jun</a>
+    <a href="portfolio.html" class="nav-back">← Back</a>
+</nav>
+<section class="project-hero">
+    <p class="project-tag">AI · Product Build · 0 → 1</p>
+    <h1 class="project-title">SeedLog</h1>
+    <p class="project-sub">농업 데이터를 기록하는 도구</p>
+    <div class="project-meta">
+        <div class="meta-item"><span class="meta-label">Role</span><span class="meta-value">기획 / 디자인 / 빌드 (100%)</span></div>
+        <div class="meta-item"><span class="meta-label">Type</span><span class="meta-value">농업 기록 웹앱 (0→1 개인 프로젝트)</span></div>
+        <div class="meta-item"><span class="meta-label">Stack</span><span class="meta-value">Next.js · Supabase · Vercel</span></div>
+        <div class="meta-item"><span class="meta-label">Year</span><span class="meta-value">2025</span></div>
+    </div>
+</section>
+<div class="content">
+    <section class="section" data-reveal>
+        <p class="section-label">Overview</p>
+        <h2>농업 현장의 데이터를<br>기록하고 패턴으로 보는 도구</h2>
+        <p>SeedLog는 수직농장을 직접 운영하면서 생긴 불편함에서 시작됐어요. 재배 기록, 환경 데이터, 수확량을 한 곳에서 보고 싶었는데, 딱 맞는 도구가 없었어요.</p>
+        <p>기획, 디자인, 개발, 배포까지 혼자 했어요. 0에서 1까지 만든 개인 프로젝트예요.</p>
+
+        <div class="img-block medium">
+            <div class="img-wrap" data-img-reveal>
+                <div class="img-placeholder">
+                    <span class="img-tag">Overview</span>
+                    <span class="img-desc">앱 메인 화면</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section" data-reveal>
+        <p class="section-label">Problem</p>
+        <h2>농장 데이터는 흩어져 있고,<br>패턴을 보기가 어려워요</h2>
+        <p>재배 일지는 메모장에, 환경 데이터는 엑셀에, 수확량은 머릿속에 있었어요. 데이터가 쌓이긴 했는데, 어디에 뭐가 있는지 찾기도 어렵고, 한눈에 연결해서 볼 수가 없었어요.</p>
+        <div class="insight-box">
+            <p>데이터가 없는 게 문제가 아니었어요. 데이터를 한 곳에 쌓고, 연결해서 볼 수 있는 도구가 없었던 거예요.</p>
+        </div>
+    </section>
+    <section class="section" data-reveal>
+        <p class="section-label">Features</p>
+        <h2>핵심은 '다음에 같은 걸 심을 때<br>비교할 수 있는가'였어요</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <p class="feature-title">작물별 재배 기록</p>
+                <p class="feature-desc">파종일, 발아일, 수확일, 수확량을 작물별로 남겨요. '지난번에 언제 파종했더라'를 찾는 게 시작이었어요. 이걸 남기지 않으면 매 시즌이 처음 시작이에요.</p>
+            </div>
+            <div class="feature-card">
+                <p class="feature-title">환경 데이터 추적</p>
+                <p class="feature-desc">온도, 습도, EC, pH를 날짜별로 기록하고 그래프로 확인해요. 수치를 쌓는 게 목적이 아니에요. '수확량 좋았던 날 환경이 어땠지'를 역으로 찾는 게 목적이에요.</p>
+            </div>
+            <div class="feature-card">
+                <p class="feature-title">대시보드</p>
+                <p class="feature-desc">지금 어느 작물이 어느 단계인지, 전체를 한 화면에서 봐요. 여러 작물을 동시에 재배할 때 어느 하나를 놓치지 않기 위해서예요.</p>
+            </div>
+            <div class="feature-card">
+                <p class="feature-title">처음부터 다 넣지 않았어요</p>
+                <p class="feature-desc">뭐가 필요한지 몰랐어요. 직접 써보면서 필요한 기능을 하나씩 추가했어요. 지금 구조는 3번 바꾼 결과예요. 만들고 써봐야 뭐가 부족한지 보여요.</p>
+            </div>
+        </div>
+
+        <div class="img-grid-2">
+            <div class="img-wrap" data-img-reveal>
+                <div class="img-placeholder">
+                    <span class="img-tag">Feature 01</span>
+                    <span class="img-desc">작물 기록 / 대시보드</span>
+                </div>
+            </div>
+            <div class="img-wrap" data-img-reveal>
+                <div class="img-placeholder">
+                    <span class="img-tag">Feature 02</span>
+                    <span class="img-desc">환경 데이터 그래프</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section" data-reveal>
+        <p class="section-label">Build</p>
+        <h2>스택 선택부터 배포까지<br>직접 했어요</h2>
+        <p>Next.js + Supabase + Vercel로 직접 빌드했어요. 기획만 하는 PM이 아니라, 스스로 만들고 운영할 수 있다는 걸 보여주고 싶었어요. 스택을 고르는 것도 직접 했고, 배포 후 실제 농장에서 쓰면서 계속 고치고 있어요.</p>
+        <div class="img-block medium">
+            <div class="img-wrap" data-img-reveal>
+                <div class="img-placeholder">
+                    <span class="img-tag">App Screenshots</span>
+                    <span class="img-desc">실제 빌드 화면</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section" data-reveal>
+        <p class="section-label">Outcome</p>
+        <h2>데이터가 쌓이면서<br>처음 몰랐던 게 보이기 시작했어요</h2>
+        <p>농장에서 직접 쓰기 전까지는 어떤 데이터가 필요한지 몰랐어요. 써보면서 "이 작물은 EC가 올라가기 전에 수확량이 떨어지네"처럼 이전엔 막연하게 느꼈던 것들이 숫자로 보이기 시작했어요.</p>
+        <p>도구를 만드는 것보다 계속 쓰는 게 더 어려워요. SeedLog는 지금도 농장에서 실제로 쓰고 있어요. 쓰면서 바뀐 기능이 처음 설계한 것보다 더 유용한 경우가 많았어요.</p>
+    </section>
+</div>
+<div class="project-nav">
+    <a href="peach.html"><p class="nav-hint">Previous</p><p>← PEACH</p></a>
+    <a href="portfolio.html" class="next"><p class="nav-hint">All Works</p><p>전체 보기 →</p></a>
+</div>
+<script>
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; rx += (e.clientX - rx) * 0.1; ry += (e.clientY - ry) * 0.1; });
+    (function lerpRing() { ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(lerpRing); })();
+    const io = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } }); }, { threshold: 0.08 });
+    document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+
+    const imgObs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); imgObs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('[data-img-reveal]').forEach(el => imgObs.observe(el));
+</script>
+</body>
+</html>

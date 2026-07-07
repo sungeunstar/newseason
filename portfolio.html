@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sungeun Jun</title>
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #F5F5F3;
+            --text: #0E0E0E;
+            --muted: #9A9A9A;
+            --border: rgba(14,14,14,0.1);
+            --pad: clamp(24px, 5vw, 80px);
+            --f: 'Pretendard', -apple-system, sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--f);
+            background: var(--bg);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+            cursor: none;
+        }
+
+        /* ─── CURSOR ─── */
+        .cursor {
+            position: fixed;
+            top: 0; left: 0;
+            width: 8px; height: 8px;
+            background: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+        }
+
+        .cursor-ring {
+            position: fixed;
+            top: 0; left: 0;
+            width: 32px; height: 32px;
+            border: 1.5px solid #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+            transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+        }
+
+        body.card-hover .cursor-ring {
+            width: 56px; height: 56px;
+        }
+
+        /* ─── NAV ─── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 160;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 28px var(--pad);
+            transition: transform 0.4s ease;
+        }
+
+        nav.hidden { transform: translateY(-100%); }
+
+        .logo {
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .nav-links {
+            display: none;
+            gap: 36px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 11px;
+            font-weight: 400;
+            color: var(--muted);
+            text-decoration: none;
+            letter-spacing: 0.04em;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--text); }
+
+        /* ─── HERO ─── */
+        .hero {
+            padding: 160px var(--pad) 120px;
+        }
+
+        .hero-label {
+            font-size: 10px;
+            font-weight: 400;
+            color: var(--muted);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-size: clamp(32px, 4.2vw, 62px);
+            font-weight: 300;
+            line-height: 1.15;
+            letter-spacing: -0.04em;
+            max-width: 100%;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            color: var(--muted);
+        }
+
+        .hero h1 b {
+            font-weight: 600;
+        }
+
+
+        .hero-top {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            padding-right: 8%;
+        }
+
+        .hero-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-right: clamp(40px, 6vw, 120px);
+            flex-shrink: 0;
+        }
+
+        .hero-nav a {
+            font-size: 11px;
+            font-weight: 400;
+            color: var(--muted);
+            text-decoration: none;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
+
+        .hero-nav a:hover { color: var(--text); }
+
+        .hero-meta {
+            margin-top: 64px;
+        }
+
+        .hero-desc {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 2;
+            max-width: 560px;
+        }
+
+        .hero-scroll {
+            display: block;
+            text-align: center;
+            margin-top: 56px;
+            font-size: 10px;
+            color: var(--muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* ─── WORKS ─── */
+        .works {
+            padding: 0 var(--pad) 200px;
+        }
+
+        /* 그리드 */
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+        }
+
+        /* 카드 */
+        .card {
+            position: relative;
+            display: block;
+            text-decoration: none;
+            color: #fff;
+            cursor: none;
+            overflow: hidden;
+            height: 33vw;
+        }
+
+        .card.span-2 { grid-column: span 2; }
+
+        /* AI 태그 */
+        .card-ai-tag {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border: 1px solid rgba(255,255,255,0.18);
+            color: rgba(255,255,255,0.85);
+            font-size: 9px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 100px;
+            z-index: 3;
+        }
+
+        /* 밝은 썸네일(PEACH 쇼케이스)용 태그 — 핑크 온 라이트 */
+        .card-ai-tag--light {
+            background: #fff0f4;
+            border-color: rgba(255,107,135,0.2);
+            color: #FF6B87;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+        }
+
+        /* 밝은 썸네일 — 프로덕트명 상시 노출(어두운 글씨), hover 어둡게 안 함 */
+        .card--titled .card-info { opacity: 1; transform: none; }
+        .card--titled:hover .card-overlay { background: rgba(14,14,14,0); }
+        /* 밝은 썸네일은 어두운 글씨로 가독성 확보 */
+        .card--demo-light.card--titled .card-name { color: #111; }
+        .card--demo-light.card--titled .card-role { color: rgba(17,17,17,0.45); }
+
+        .card-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .card:hover .card-bg { transform: scale(1.05); }
+
+        /* hover 오버레이 */
+        .card-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(14,14,14,0);
+            transition: background 0.4s ease;
+            z-index: 1;
+        }
+
+        .card:hover .card-overlay { background: rgba(14,14,14,0.45); }
+
+        /* 카드 텍스트 — 기본 숨김, hover 노출 */
+        .card-info {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 24px;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+
+        .card:hover .card-info {
+            opacity: 1;
+            transform: none;
+        }
+
+        .card-name {
+            font-size: 15px;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            line-height: 1.3;
+        }
+
+        .card-role {
+            font-size: 10px;
+            color: rgba(255,255,255,0.6);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        /* ═══ 쇼케이스 카드 — iframe 임베드, JS로 contain 스케일 ═══ */
+        /* 자연 크기(width/height)는 JS가 data-nw/data-nh로 주입 */
+        iframe.card-demo {
+            border: 0;
+            pointer-events: none; /* 클릭은 카드 링크로 통과 */
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform-origin: center center;
+            transform: translate(-50%, -50%) scale(var(--demo-scale, 0.5));
+            transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        /* hover 시 카드 줌(다른 카드와 동일 결) — 중앙정렬 유지 */
+        .card:hover iframe.card-demo {
+            transform: translate(-50%, -50%) scale(calc(var(--demo-scale, 0.5) * 1.05));
+        }
+        /* 레터박스가 쇼케이스 배경과 자연스럽게 섞이도록 카드 배경 지정 */
+        .card--demo-light { background: #fff; }
+        .card--demo-dark { background: #09090b; }
+
+        /* ─── ABOUT ─── */
+        .about {
+            padding: 120px var(--pad);
+            border-top: 1px solid var(--border);
+        }
+
+        .about-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        .about-label {
+            font-size: 10px;
+            color: var(--muted);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+        }
+
+        .about h2 {
+            font-size: clamp(28px, 3.5vw, 48px);
+            font-weight: 300;
+            line-height: 1.3;
+            letter-spacing: -0.03em;
+        }
+
+        .about-body {
+            padding-top: 8px;
+        }
+
+        .about-body p {
+            font-size: 13.5px;
+            color: var(--muted);
+            line-height: 2.1;
+        }
+
+        .about-body p + p { margin-top: 24px; }
+
+        .about-skills {
+            margin-top: 48px;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .skill-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-top: 1px solid var(--border);
+            font-size: 12px;
+        }
+
+        .skill-row:last-child { border-bottom: 1px solid var(--border); }
+
+        .skill-name { font-weight: 400; }
+        .skill-level { color: var(--muted); font-size: 11px; letter-spacing: 0.04em; }
+
+        /* ─── FOOTER ─── */
+        footer {
+            background: #0E0E0E;
+            color: #fff;
+            padding: 100px var(--pad) 64px;
+        }
+
+        .footer-eyebrow {
+            font-size: 10px;
+            color: rgba(255,255,255,0.35);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 32px;
+        }
+
+        footer h2 {
+            font-size: clamp(48px, 8vw, 120px);
+            font-weight: 300;
+            line-height: 1.0;
+            letter-spacing: -0.04em;
+            margin-bottom: 64px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 32px;
+            margin-bottom: 80px;
+        }
+
+        .footer-links a {
+            font-size: 12px;
+            color: rgba(255,255,255,0.45);
+            text-decoration: none;
+            letter-spacing: 0.04em;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 3px;
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+            border-color: rgba(255,255,255,0.4);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-top: 1px solid rgba(255,255,255,0.07);
+            padding-top: 24px;
+        }
+
+        .footer-bottom span {
+            font-size: 10px;
+            color: rgba(255,255,255,0.2);
+            letter-spacing: 0.05em;
+        }
+
+        /* ─── VIEW TOGGLE PILL ─── */
+        .view-pill {
+            position: fixed;
+            bottom: 36px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 300;
+            display: flex;
+            align-items: center;
+            background: rgba(245,245,243,0.88);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(14,14,14,0.1);
+            border-radius: 100px;
+            padding: 5px;
+        }
+
+        .view-btn {
+            position: relative;
+            z-index: 1;
+            padding: 8px 22px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--muted);
+            cursor: none;
+            transition: color 0.35s ease;
+            white-space: nowrap;
+            border: none;
+            background: none;
+            font-family: var(--f);
+        }
+
+        .view-btn.active { color: #fff; }
+
+        .view-indicator {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            height: calc(100% - 10px);
+            background: var(--text);
+            border-radius: 100px;
+            transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1), width 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+        }
+
+        /* ─── TEXT VIEW LAYER ─── */
+        #textView {
+            position: fixed;
+            inset: 0;
+            background: #0E0E0E;
+            z-index: 150;
+            overflow-y: auto;
+            clip-path: inset(0 100% 0 0);
+            -webkit-clip-path: inset(0 100% 0 0);
+            transition: clip-path 0.72s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        #textView.active {
+            clip-path: inset(0 0% 0 0);
+            -webkit-clip-path: inset(0 0% 0 0);
+        }
+
+        .tv-inner { padding: 160px var(--pad) 200px; }
+
+        .tv-label {
+            font-size: 10px;
+            color: rgba(255,255,255,0.28);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+        }
+
+        .tv-h1 {
+            font-size: clamp(32px, 4.2vw, 62px);
+            font-weight: 300;
+            line-height: 1.15;
+            letter-spacing: -0.04em;
+            color: #fff;
+            margin-bottom: 24px;
+        }
+
+        .tv-h1 em { font-style: normal; color: rgba(255,255,255,0.28); }
+        .tv-h1 b { font-weight: 600; }
+
+        .tv-desc {
+            font-size: 14px;
+            color: rgba(255,255,255,0.38);
+            line-height: 2;
+            max-width: 560px;
+            margin-bottom: 80px;
+        }
+
+        .tv-section-label {
+            font-size: 10px;
+            color: rgba(255,255,255,0.28);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .tv-about {
+            border-top: 1px solid rgba(255,255,255,0.07);
+            padding: 100px 0;
+        }
+
+        .tv-about-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        .tv-about-h {
+            font-size: clamp(26px, 3vw, 44px);
+            font-weight: 300;
+            line-height: 1.3;
+            letter-spacing: -0.03em;
+            color: #fff;
+        }
+
+        .tv-about-body p {
+            font-size: 13.5px;
+            color: rgba(255,255,255,0.38);
+            line-height: 2.1;
+        }
+
+        .tv-about-body p + p { margin-top: 20px; }
+
+        .tv-skills { margin-top: 40px; }
+
+        .tv-skill-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 13px 0;
+            border-top: 1px solid rgba(255,255,255,0.07);
+            font-size: 12px;
+            color: #fff;
+        }
+
+        .tv-skill-row:last-child { border-bottom: 1px solid rgba(255,255,255,0.07); }
+        .tv-skill-val { color: rgba(255,255,255,0.35); }
+
+        .tv-footer {
+            border-top: 1px solid rgba(255,255,255,0.07);
+            padding: 80px 0 60px;
+        }
+
+        .tv-footer-big {
+            font-size: clamp(48px, 8vw, 120px);
+            font-weight: 300;
+            line-height: 1.0;
+            letter-spacing: -0.04em;
+            color: #fff;
+            margin: 24px 0 48px;
+        }
+
+        .tv-footer-link {
+            display: inline-block;
+            font-size: 12px;
+            color: rgba(255,255,255,0.45);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 3px;
+            margin-bottom: 64px;
+        }
+
+        .tv-footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid rgba(255,255,255,0.07);
+            padding-top: 20px;
+            font-size: 10px;
+            color: rgba(255,255,255,0.2);
+            letter-spacing: 0.05em;
+        }
+
+        @media (max-width: 768px) {
+            .tv-about-inner { grid-template-columns: 1fr; gap: 40px; }
+        }
+
+        .work-row {
+            display: grid;
+            grid-template-columns: 32px 1fr 1fr auto;
+            align-items: baseline;
+            gap: 24px;
+            padding: 28px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            text-decoration: none;
+            color: #fff;
+            transition: opacity 0.2s;
+        }
+
+        .work-row:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
+        .work-row:hover { opacity: 0.4; }
+
+        .wr-num { font-size: 11px; color: rgba(255,255,255,0.22); letter-spacing: 0.04em; }
+        .wr-name { font-size: clamp(16px, 2vw, 22px); font-weight: 500; letter-spacing: -0.02em; color: #fff; }
+        .wr-desc { font-size: 12px; color: rgba(255,255,255,0.38); letter-spacing: 0.02em; }
+        .wr-year { font-size: 11px; color: rgba(255,255,255,0.22); letter-spacing: 0.04em; }
+
+        @media (max-width: 640px) {
+            .work-row { grid-template-columns: 24px 1fr auto; }
+            .wr-desc { display: none; }
+        }
+
+        /* nav / pill / cursor — textView 위로 떠있음 */
+        body.text-active .logo { color: #fff; }
+        /* cursor color handled by mix-blend-mode: difference */
+        body.text-active .view-pill {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.1);
+        }
+        body.text-active .view-btn { color: rgba(255,255,255,0.4); }
+        body.text-active .view-btn.active { color: #0E0E0E; }
+        body.text-active .view-indicator { background: #fff; }
+
+        /* ─── REVEAL ─── */
+        [data-reveal] {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        [data-reveal].visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        [data-reveal-delay="1"] { transition-delay: 0.1s; }
+        [data-reveal-delay="2"] { transition-delay: 0.2s; }
+        [data-reveal-delay="3"] { transition-delay: 0.3s; }
+
+        /* ─── MOBILE ─── */
+        @media (max-width: 768px) {
+            body { cursor: auto; }
+            .cursor, .cursor-ring { display: none; }
+
+            /* Works/About/Contact → 상단 네비바 우측 */
+            nav { padding-top: 20px; padding-bottom: 20px; }
+            .nav-links { display: flex; gap: 18px; }
+            .nav-links a { font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; }
+            .hero-nav { display: none; }
+
+            /* 헤드카피 — 풀폭, 여백 리듬 정돈 */
+            .hero { padding: 92px var(--pad) 56px; }
+            .hero-top { padding-right: 0; }
+            .hero h1 { font-size: clamp(27px, 7.6vw, 40px); line-height: 1.3; }
+            .hero-label { font-size: 10px; line-height: 1.6; margin-bottom: 22px; }
+            .hero-meta { margin-top: 30px; }
+            .hero-desc { font-size: 13.5px; line-height: 1.75; max-width: 100%; }
+            .hero-desc br { display: none; }
+
+            .hero-scroll { text-align: left; margin-top: 40px; }
+
+            /* 카드 — 1단으로 쭉, 전체 1:1 통일 */
+            .works-grid { grid-template-columns: 1fr; gap: 12px; }
+            .card,
+            .card.span-2 { grid-column: span 1; aspect-ratio: 1 / 1; height: auto; }
+            /* 모바일엔 hover가 없으니 카드 제목 상시 노출 */
+            .card-info { opacity: 1; transform: none; }
+            .card:not(.card--titled) .card-overlay { background: linear-gradient(to top, rgba(14,14,14,0.55), rgba(14,14,14,0) 55%); }
+
+            .about-inner { grid-template-columns: 1fr; gap: 48px; }
+
+            footer h2 { margin-bottom: 40px; }
+            .footer-links { flex-wrap: wrap; gap: 20px; }
+            .footer-bottom { flex-direction: column; gap: 8px; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="nav">
+    <a href="#" class="logo">Sungeun Jun</a>
+    <ul class="nav-links">
+        <li><a href="#works">Works</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <p class="hero-label" data-reveal>AI Product Planner · Harness Engineering · 0→1 Build</p>
+    <div class="hero-top">
+        <h1 data-reveal data-reveal-delay="1">
+            <em>기획에서 멈추지 않고,</em><br>
+            AI로 0에서 1까지 직접 만드는<br><b>Builder</b>입니다.
+        </h1>
+        <div class="hero-nav">
+            <a href="#works">Works</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </div>
+    <div class="hero-meta">
+        <p class="hero-desc" data-reveal data-reveal-delay="2">
+            모호한 인풋이 AI 결과를 망친다는 걸 알기에,<br>
+            문제를 구조화하고 에이전트가 일관되게 작동하도록 설계합니다.
+        </p>
+    </div>
+</section>
+
+<!-- VIEW TOGGLE -->
+<div class="view-pill" id="viewPill">
+    <div class="view-indicator" id="viewIndicator"></div>
+    <button class="view-btn active" data-view="visual">Visual</button>
+    <button class="view-btn" data-view="text">Text</button>
+</div>
+
+<!-- TEXT VIEW LAYER (clip-path reveal) -->
+<div id="textView">
+    <div class="tv-inner">
+        <p class="tv-label">AI Product Planner · Harness Engineering · 0→1 Build</p>
+        <h2 class="tv-h1">
+            <em>기획에서 멈추지 않고,</em><br>
+            AI로 0에서 1까지 직접 만드는<br><b>Builder</b>입니다.
+        </h2>
+        <p class="tv-desc">모호한 인풋이 AI 결과를 망친다는 걸 알기에,<br>문제를 구조화하고 에이전트가 일관되게 작동하도록 설계합니다.</p>
+
+        <a class="work-row" href="tomob.html">
+            <span class="wr-num">01</span>
+            <span class="wr-name">tomob</span>
+            <span class="wr-desc">Three.js 기반 웹게임 제작 · 시스템 설계</span>
+            <span class="wr-year">2026</span>
+        </a>
+        <a class="work-row" href="scene-director.html">
+            <span class="wr-num">02</span>
+            <span class="wr-name">Scene Director</span>
+            <span class="wr-desc">AI-assisted 3D 웹 제작 도구 · 기획 중</span>
+            <span class="wr-year">2026</span>
+        </a>
+        <a class="work-row" href="genesis.html">
+            <span class="wr-num">03</span>
+            <span class="wr-name">Genesis</span>
+            <span class="wr-desc">AI Landing Builder · 적용 사례 RASA/J&amp;H</span>
+            <span class="wr-year">2026</span>
+        </a>
+        <a class="work-row" href="tomob-seed.html">
+            <span class="wr-num">04</span>
+            <span class="wr-name">TOMOB SEED</span>
+            <span class="wr-desc">AI 인풋 구조화 · 브리프 자동화 도구</span>
+            <span class="wr-year">2025</span>
+        </a>
+        <div class="work-row">
+            <span class="wr-num">05</span>
+            <span class="wr-name">myseed</span>
+            <span class="wr-desc">감성 반려식물 다이어리 앱 · 기획 중</span>
+            <span class="wr-year">2026</span>
+        </div>
+        <a class="work-row" href="flowing.html">
+            <span class="wr-num">06</span>
+            <span class="wr-name">Flowing</span>
+            <span class="wr-desc">가치관 기반 소개팅 서비스 · PM/UX</span>
+            <span class="wr-year">2025</span>
+        </a>
+        <a class="work-row" href="topping-up.html">
+            <span class="wr-num">07</span>
+            <span class="wr-name">토핑업</span>
+            <span class="wr-desc">커리어 성장 기록 앱 · PM/UX</span>
+            <span class="wr-year">2025</span>
+        </a>
+
+        <!-- ABOUT in text mode -->
+        <div class="tv-about">
+            <div class="tv-about-inner">
+                <div>
+                    <p class="tv-section-label">About</p>
+                    <h3 class="tv-about-h">Crafting services<br>people actually use.</h3>
+                </div>
+                <div class="tv-about-body">
+                    <p>사용자 경험을 구조적으로 설계하고,<br>문제를 데이터로 정의하는 기획자입니다.</p>
+                    <p>비즈니스 목표를 이해하고 이를 사용자<br>여정 안에서 풀어내는 과정을 즐깁니다.</p>
+                    <div class="tv-skills">
+                        <div class="tv-skill-row"><span>Design</span><span class="tv-skill-val">Photoshop · Illustrator · Figma</span></div>
+                        <div class="tv-skill-row"><span>Generative AI</span><span class="tv-skill-val">ChatGPT · Midjourney · Stable Diffusion</span></div>
+                        <div class="tv-skill-row"><span>Claude Code</span><span class="tv-skill-val">Harness Engineering · AI 에이전트 시스템 설계</span></div>
+                        <div class="tv-skill-row"><span>UX Planning</span><span class="tv-skill-val">Figma 구조 설계 · Notion 협업 · 데이터 기반 의사결정</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER in text mode -->
+        <div class="tv-footer">
+            <p class="tv-section-label">Contact</p>
+            <p class="tv-footer-big">Thank<br>You.</p>
+            <a href="mailto:sltime99@gmail.com" class="tv-footer-link">sltime99@gmail.com →</a>
+            <div class="tv-footer-bottom">
+                <span>Sungeun Jun — PM · UX · AI</span>
+                <span>Seoul, 2026</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- WORKS -->
+<section class="works" id="works">
+    <div class="works-grid" id="worksGrid">
+
+        <!-- Row A: 대표작 -->
+        <a class="card span-2 card--titled card--demo-dark" href="tomob.html" data-cat="ai">
+            <div class="card-bg" style="background:url('tomob 아카이빙/intro페이지 작업.png') center/cover, #07121a;"></div>
+            <div class="card-ai-tag">Featured Build</div>
+            <div class="card-overlay"></div>
+            <div class="card-info">
+                <div class="card-name">tomob</div>
+                <div class="card-role">Three.js 기반 웹게임 제작 · 시스템 설계 · 2026</div>
+            </div>
+        </a>
+
+        <a class="card card--titled card--demo-dark" href="scene-director.html" data-cat="ai">
+            <div class="card-bg" style="background:#101419;"></div>
+            <div class="card-ai-tag">Product Concept</div>
+            <div class="card-overlay"></div>
+            <div class="card-info">
+                <div class="card-name">Scene Director</div>
+                <div class="card-role">AI-assisted 3D Web Builder · 기획 중 · 2026</div>
+            </div>
+        </a>
+
+        <!-- Row B -->
+        <a class="card card--titled card--demo-dark" href="genesis.html" data-cat="ai">
+            <iframe class="card-bg card-demo" data-nw="1080" data-nh="1080" src="genesis-showcase.html" title="Genesis 쇼케이스" loading="lazy" scrolling="no"></iframe>
+            <div class="card-ai-tag">AI Builder</div>
+            <div class="card-overlay"></div>
+            <div class="card-info">
+                <div class="card-name">Genesis</div>
+                <div class="card-role">Parameterized Landing Builder · RASA/J&amp;H · 2026</div>
+            </div>
+        </a>
+
+        <a class="card card--titled card--demo-dark" href="tomob-seed.html" data-cat="ai">
+            <iframe class="card-bg card-demo" data-nw="1080" data-nh="1080" src="tomob-seed-showcase.html" title="TOMOB SEED 쇼케이스" loading="lazy" scrolling="no"></iframe>
+            <div class="card-ai-tag">Harness</div>
+            <div class="card-overlay"></div>
+            <div class="card-info">
+                <div class="card-name">TOMOB SEED</div>
+                <div class="card-role">AI 인풋 구조화 · 브리프 자동화 · 2025</div>
+            </div>
+        </a>
+
+        <div class="card card--titled card--demo-light" data-cat="ux">
+            <div class="card-ai-tag card-ai-tag--light">Planning</div>
+            <div class="card-bg" style="background:#D9E4D1;"></div>
+            <div class="card-overlay"></div>
+            <div class="card-info">
+                <div class="card-name">myseed</div>
+                <div class="card-role">감성 반려식물 다이어리 앱 · 기획 중 · 2026</div>
+            </div>
+        </div>
+
+        <!-- Row C -->
+        <a class="card span-2" href="flowing.html" data-cat="ux">
+            <div class="card-bg" style="background: url('이미지/flowing/cover.webp') center/cover, #221320;"></div>
+            <div class="card-overlay"></div>
+            <div class="card-info">
+                <div class="card-name">Flowing</div>
+                <div class="card-role">가치관 기반 소개팅 서비스 · PM/UX · 2025</div>
+            </div>
+        </a>
+
+        <a class="card" href="topping-up.html" data-cat="ux">
+            <div class="card-bg" style="background: #CFD6F5;"></div>
+            <div class="card-overlay"></div>
+            <div class="card-info">
+                <div class="card-name">토핑업</div>
+                <div class="card-role">커리어 성장 기록 앱 · PM/UX · 2025</div>
+            </div>
+        </a>
+
+    </div>
+</section>
+
+
+<!-- ABOUT -->
+<section class="about" id="about">
+    <div class="about-inner">
+        <div>
+            <p class="about-label" data-reveal>About</p>
+            <h2 data-reveal data-reveal-delay="1">
+                Crafting services<br>
+                people actually use.
+            </h2>
+        </div>
+        <div class="about-body" data-reveal data-reveal-delay="1">
+            <p>사용자 경험을 구조적으로 설계하고,<br>
+            문제를 데이터로 정의하는 기획자입니다.</p>
+            <p>비즈니스 목표를 이해하고 이를 사용자<br>
+            여정 안에서 풀어내는 과정을 즐깁니다.</p>
+
+            <div class="about-skills">
+                <div class="skill-row">
+                    <span class="skill-name">Design</span>
+                    <span class="skill-level">Photoshop · Illustrator · Figma</span>
+                </div>
+                <div class="skill-row">
+                    <span class="skill-name">Communication</span>
+                    <span class="skill-level">Slack · Discord · Notion · Slash Page</span>
+                </div>
+                <div class="skill-row">
+                    <span class="skill-name">Generative AI</span>
+                    <span class="skill-level">ChatGPT · Midjourney · Stable Diffusion</span>
+                </div>
+                <div class="skill-row">
+                    <span class="skill-name">Claude Code</span>
+                    <span class="skill-level">Harness Engineering · AI 에이전트 시스템 설계</span>
+                </div>
+                <div class="skill-row">
+                    <span class="skill-name">UX Planning</span>
+                    <span class="skill-level">Figma 구조 설계 · Notion 협업 · 데이터 기반 의사결정</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+    <p class="footer-eyebrow">Contact</p>
+    <h2 data-reveal>Thank<br>You.</h2>
+    <div class="footer-links">
+        <a href="mailto:sltime99@gmail.com">sltime99@gmail.com →</a>
+    </div>
+    <div class="footer-bottom">
+        <span>Sungeun Jun — PM · UX · AI</span>
+        <span>Seoul, 2026</span>
+    </div>
+</footer>
+
+<script>
+    // CURSOR
+    const cursor = document.getElementById('cursor');
+    const ring   = document.getElementById('cursorRing');
+    let rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top  = e.clientY + 'px';
+        rx += (e.clientX - rx) * 0.1;
+        ry += (e.clientY - ry) * 0.1;
+    });
+
+    (function lerpRing() {
+        ring.style.left = rx + 'px';
+        ring.style.top  = ry + 'px';
+        requestAnimationFrame(lerpRing);
+    })();
+
+    document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('mouseenter', () => document.body.classList.add('card-hover'));
+        card.addEventListener('mouseleave', () => document.body.classList.remove('card-hover'));
+    });
+
+    // 쇼케이스 iframe — 카드 비율에 맞춰 contain 스케일 (잘림 없음)
+    document.querySelectorAll('iframe.card-demo').forEach(demo => {
+        const card = demo.closest('.card');
+        if (!card) return;
+        const NW = parseFloat(demo.dataset.nw) || 1280;
+        const NH = parseFloat(demo.dataset.nh) || 820;
+        demo.style.width = NW + 'px';
+        demo.style.height = NH + 'px';
+        function fit() {
+            const r = card.getBoundingClientRect();
+            if (!r.width) return;
+            const scale = Math.min(r.width / NW, r.height / NH);
+            card.style.setProperty('--demo-scale', scale.toFixed(4));
+        }
+        fit();
+        window.addEventListener('resize', fit, { passive: true });
+        demo.addEventListener('load', fit);
+    });
+
+    // NAV
+    const nav = document.getElementById('nav');
+    let lastY = 0;
+    window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        nav.classList.toggle('hidden', y > lastY && y > 100);
+        lastY = y;
+    }, { passive: true });
+
+    // VIEW TOGGLE
+    const viewBtns = document.querySelectorAll('.view-btn');
+    const viewIndicator = document.getElementById('viewIndicator');
+    const textView = document.getElementById('textView');
+    let currentView = 'visual';
+
+    function moveViewIndicator(btn) {
+        viewIndicator.style.width = btn.offsetWidth + 'px';
+        viewIndicator.style.transform = `translateX(${btn.offsetLeft - 5}px)`;
+    }
+    moveViewIndicator(viewBtns[0]);
+
+    function switchView(toView) {
+        if (toView === currentView) return;
+        currentView = toView;
+        if (toView === 'text') {
+            textView.classList.add('active');
+            document.body.classList.add('text-active');
+            textView.scrollTop = 0;
+        } else {
+            textView.classList.remove('active');
+            document.body.classList.remove('text-active');
+        }
+    }
+
+    viewBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            viewBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            moveViewIndicator(btn);
+            switchView(btn.dataset.view);
+        });
+    });
+
+    // SCROLL REVEAL
+    const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                io.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+
+    document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>

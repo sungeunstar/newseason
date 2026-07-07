@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Genesis — Parameterized Landing Builder</title>
+    <link rel="stylesheet" href="case-study.css">
+</head>
+<body>
+<nav class="nav"><a href="portfolio.html">Sungeun Jun</a><a href="portfolio.html#works">All works</a></nav>
+<header class="hero">
+    <p class="eyebrow">Internal System · Landing Automation</p>
+    <h1>Genesis</h1>
+    <p class="hero-copy">감각에 의존하던 랜딩 제작을 반복 가능한 시스템으로 바꿨습니다. 브리프와 브랜드 재료를 입력하고, 수치화된 디자인 규칙으로 구조와 표현을 통제합니다.</p>
+    <div class="hero-meta">
+        <div><span>Role</span><strong>System Design · Product Strategy · QA</strong></div>
+        <div><span>Output</span><strong>RASA · J&amp;H</strong></div>
+        <div><span>Status</span><strong>Internal system · Applied</strong></div>
+    </div>
+</header>
+
+<main>
+    <section class="section"><div class="section-inner">
+        <p class="section-label">01 · Problem</p>
+        <h2>AI로 랜딩을 만들 수는 있었지만, 결과를 일관되게 만들 수는 없었습니다.</h2>
+        <p class="lead">같은 지시를 해도 익숙한 카드와 그라디언트, 임의의 섹션 구조가 반복됐습니다. 문제는 생성 속도가 아니라 매번 처음부터 판단해야 하는 구조와 품질 편차였습니다.</p>
+        <div class="grid">
+            <article class="card"><span class="card-num">01</span><h3>방향의 흔들림</h3><p>브리프가 모호하면 업종과 브랜드에 맞지 않는 스타일이 선택됐습니다.</p></article>
+            <article class="card"><span class="card-num">02</span><h3>기본값 침투</h3><p>AI가 학습한 익숙한 폰트, 카드, 그라디언트가 결과물에 다시 들어왔습니다.</p></article>
+            <article class="card"><span class="card-num">03</span><h3>검수의 반복</h3><p>페이지마다 같은 오류를 사람이 다시 찾고 수정해야 했습니다.</p></article>
+        </div>
+    </div></section>
+
+    <section class="section dark"><div class="section-inner">
+        <p class="section-label">02 · Core Idea</p>
+        <h2>디자인을 템플릿 목록이 아니라 결정 가능한 파라미터로 바꿨습니다.</h2>
+        <p class="lead">고정 블록을 조합하는 대신 업종과 브랜드 톤에 맞는 아키타입을 선택하고, 변주·모션·밀도를 수치로 지정합니다. 결과를 복제하지 않으면서도 품질 기준은 유지할 수 있게 했습니다.</p>
+        <div class="grid">
+            <article class="card"><span class="card-num">ARCHETYPE</span><h3>Vantablack Luxe</h3><p>프리미엄·하이엔드 브랜드를 위한 깊은 다크와 절제된 광택.</p></article>
+            <article class="card"><span class="card-num">ARCHETYPE</span><h3>Warm Editorial</h3><p>라이프스타일과 브랜드 스토리를 위한 따뜻한 톤과 매거진 여백.</p></article>
+            <article class="card"><span class="card-num">ARCHETYPE</span><h3>Clean Structural</h3><p>테크·전문 서비스를 위한 구조적 그리드와 명확한 정보 위계.</p></article>
+        </div>
+    </div></section>
+
+    <section class="section"><div class="section-inner">
+        <p class="section-label">03 · Product Prototype</p>
+        <h2>포트폴리오에서는 이 시스템을 실제 Landing Builder처럼 보이게 재구성했습니다.</h2>
+        <p class="lead">전체 SaaS를 구현하는 대신, 핵심 의사결정이 드러나는 화면만 제품화했습니다. 사용자는 브리프를 넣고 아키타입과 파라미터를 조정한 뒤, 생성될 섹션 구조와 검수 게이트를 한 화면에서 확인합니다.</p>
+        <div class="builder-preview">
+            <div class="builder-sidebar">
+                <div class="builder-logo">Genesis</div>
+                <div class="builder-nav active">Brief</div>
+                <div class="builder-nav">Archetype</div>
+                <div class="builder-nav">Parameters</div>
+                <div class="builder-nav">Output</div>
+                <div class="builder-nav">Review Gate</div>
+            </div>
+            <div class="builder-main">
+                <div class="builder-top">
+                    <div>
+                        <span class="builder-kicker">Project Input</span>
+                        <strong>RASA landing rebuild</strong>
+                    </div>
+                    <span class="builder-status">Ready to generate</span>
+                </div>
+                <div class="builder-grid">
+                    <div class="builder-panel tall">
+                        <span>Brief</span>
+                        <p>AI와 사람의 감각을 함께 쓰는 브랜딩 에이전시. 속도보다 결과의 온도를 보여주는 랜딩.</p>
+                        <div class="builder-field">Target · 브랜드 리뉴얼을 고민하는 초기 팀</div>
+                        <div class="builder-field">Tone · confident / warm / precise</div>
+                    </div>
+                    <div class="builder-panel">
+                        <span>Archetype</span>
+                        <strong>Warm Editorial</strong>
+                        <p>브랜드 스토리와 작업 철학을 읽게 만드는 넓은 여백.</p>
+                    </div>
+                    <div class="builder-panel">
+                        <span>Parameters</span>
+                        <div class="meter"><b>Variance</b><span><i style="width:62%"></i></span></div>
+                        <div class="meter"><b>Motion</b><span><i style="width:38%"></i></span></div>
+                        <div class="meter"><b>Density</b><span><i style="width:54%"></i></span></div>
+                    </div>
+                    <div class="builder-panel wide">
+                        <span>Generated Structure</span>
+                        <ol class="mini-flow">
+                            <li>Hero</li><li>Social</li><li>Pain</li><li>Solution</li><li>Process</li><li>Proof</li><li>FAQ</li><li>CTA</li>
+                        </ol>
+                    </div>
+                    <div class="builder-panel wide gate-pass">
+                        <span>Gate Review</span>
+                        <p>Font · CTA · Social proof · Motion count · Image usage checked</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div></section>
+
+    <section class="section"><div class="section-inner">
+        <p class="section-label">04 · Parameters</p>
+        <h2>스타일의 차이를 세 개의 숫자와 확정 토큰으로 전달합니다.</h2>
+        <div class="grid">
+            <article class="card"><span class="card-num">01–10</span><h3>DESIGN_VARIANCE</h3><p>레이아웃과 타이포가 기본 구조에서 얼마나 과감하게 변주되는지 결정합니다.</p></article>
+            <article class="card"><span class="card-num">01–10</span><h3>MOTION_INTENSITY</h3><p>스크롤·카드·이미지 연출의 빈도와 강도를 제한합니다.</p></article>
+            <article class="card"><span class="card-num">01–10</span><h3>VISUAL_DENSITY</h3><p>한 화면에 담기는 정보량과 여백의 밀도를 결정합니다.</p></article>
+            <article class="card wide"><span class="card-num">TOKENS</span><h3>확정값</h3><p>컬러 HEX, 타이포 clamp, 스페이싱, 버튼과 입력 상태를 코드 작성 전에 고정합니다.</p></article>
+            <article class="card wide"><span class="card-num">GUARDRAILS</span><h3>금지값</h3><p>폰트·효과·레이아웃·CTA·이미지 사용에서 반복되는 AI 기본값을 명시적으로 차단합니다.</p></article>
+        </div>
+    </div></section>
+
+    <section class="section dark"><div class="section-inner">
+        <p class="section-label">05 · Generation Flow</p>
+        <h2>입력부터 코드 검수까지 한 방향으로 흐르게 만들었습니다.</h2>
+        <div class="flow">
+            <div class="flow-step"><span>01</span><b>Brief</b></div>
+            <div class="flow-step"><span>02</span><b>Materials</b></div>
+            <div class="flow-step"><span>03</span><b>Parameters</b></div>
+            <div class="flow-step"><span>04</span><b>Build</b></div>
+            <div class="flow-step"><span>05</span><b>Gate Review</b></div>
+        </div>
+        <div class="grid">
+            <article class="card wide"><span class="card-num">INPUT</span><h3>브리프와 실제 재료</h3><p>타깃, 메시지, 컬러, 이미지, 연락처처럼 확인된 값만 입력합니다. 없는 것은 임의로 만들지 않습니다.</p></article>
+            <article class="card wide"><span class="card-num">OUTPUT</span><h3>구조화된 제작 지시</h3><p>섹션 순서, 카피, 토큰, 모션 계획이 확정된 뒤 코드를 작성하고 동일 기준으로 검수합니다.</p></article>
+        </div>
+    </div></section>
+
+    <section class="section"><div class="section-inner">
+        <p class="section-label">06 · Applied Samples</p>
+        <h2>같은 시스템을 사용해 성격이 다른 두 기업 사이트를 만들었습니다.</h2>
+        <div class="site-list">
+            <article class="site-case">
+                <div class="site-case-head">
+                    <div><p class="section-label">Sample A · Branding Agency</p><h3>RASA</h3></div>
+                    <p>AI 속도와 인간 감성을 전면에 둔 브랜딩 에이전시. 콘텐츠와 캠페인 탐색을 중심으로 구성했습니다.</p>
+                </div>
+                <div class="browser-shell">
+                    <div class="browser-bar"><span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-url">rasa.kr</span></div>
+                    <iframe class="site-frame" src="https://www.rasa.kr/" title="RASA 실제 사이트 인터랙티브 미리보기" loading="lazy" allow="autoplay" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
+                </div>
+                <div class="site-case-foot"><span>미리보기 안에서 스크롤과 인터랙션을 확인할 수 있습니다.</span><a href="https://www.rasa.kr/" target="_blank" rel="noreferrer">전체 화면으로 보기 ↗</a></div>
+            </article>
+
+            <article class="site-case">
+                <div class="site-case-head">
+                    <div><p class="section-label">Sample B · Financial Company</p><h3>J&amp;H</h3></div>
+                    <p>투자정보 기업에 필요한 신뢰, 전문성, 정보 위계를 다크·골드와 시네마틱 영상으로 표현했습니다.</p>
+                </div>
+                <div class="browser-shell">
+                    <div class="browser-bar"><span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-url">jandhgroup01-ai.github.io/jh</span></div>
+                    <iframe class="site-frame" src="https://jandhgroup01-ai.github.io/jh/" title="J&H 실제 사이트 인터랙티브 미리보기" loading="lazy" allow="autoplay" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
+                </div>
+                <div class="site-case-foot"><span>미리보기 안에서 스크롤과 인터랙션을 확인할 수 있습니다.</span><a href="https://jandhgroup01-ai.github.io/jh/" target="_blank" rel="noreferrer">전체 화면으로 보기 ↗</a></div>
+            </article>
+        </div>
+    </div></section>
+
+    <section class="section dark"><div class="section-inner">
+        <p class="section-label">07 · Same System, Different Decisions</p>
+        <h2>자동화한 것은 판단을 없애는 일이 아니라, 판단이 필요한 위치를 고정하는 일이었습니다.</h2>
+        <div class="grid">
+            <article class="card wide"><span class="card-num">SYSTEM</span><h3>반복 가능한 영역</h3><p>브리프 형식, 섹션 순서, 토큰 구조, 반응형 원칙, 금지 패턴, 코드 검수.</p></article>
+            <article class="card wide"><span class="card-num">HUMAN</span><h3>직접 판단하는 영역</h3><p>브랜드 아키타입, 메시지 위계, 이미지 선택, 모션 강도, 최종 화면의 감각.</p></article>
+        </div>
+    </div></section>
+
+    <blockquote class="quote">Genesis는 랜딩페이지 두 개가 아니라, <em>다음 랜딩도 같은 품질로 만들기 위한 내부 제작 시스템</em>입니다.</blockquote>
+
+    <section class="section"><div class="section-inner">
+        <p class="section-label">08 · Portfolio Strategy</p>
+        <h2>구현 범위는 데모로 제한하고, 제품 사고와 적용 결과를 전면에 둡니다.</h2>
+        <p class="lead">Genesis는 실제로 RASA와 J&amp;H 제작에 쓰인 규칙 체계입니다. 포트폴리오에서는 그 규칙을 Builder 콘솔 화면으로 번역해, “AI로 만들었다”가 아니라 “AI가 일관되게 만들 수 있는 조건을 설계했다”는 역량을 보여줍니다.</p>
+    </div></section>
+</main>
+<footer class="footer"><div class="footer-inner"><a href="scene-director.html">← Scene Director</a><a class="next" href="tomob-seed.html">Next · TOMOB SEED →</a></div></footer>
+</body>
+</html>
