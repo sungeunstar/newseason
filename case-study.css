@@ -280,6 +280,63 @@ main { max-width: 860px; margin: 0 auto; padding: 120px var(--pad) 20px; }
     color: rgba(255,255,255,.6);
     font-size: 11px;
 }
+.landing-mock {
+    position: relative;
+    overflow: hidden;
+    min-height: 300px;
+    padding: 26px;
+    background: #f4efe7;
+    color: #1b1711;
+}
+.landing-mock-top {
+    display: flex;
+    justify-content: space-between;
+    color: rgba(27,23,17,.45);
+    font-size: 11px;
+}
+.landing-mock-top span {
+    display: inline;
+    margin: 0;
+    color: inherit;
+    font-size: inherit;
+    letter-spacing: 0;
+    text-transform: none;
+}
+.landing-mock-top b { font-weight: 500; }
+.landing-mock h3 {
+    width: 68%;
+    margin-top: 56px;
+    font-size: clamp(34px, 4vw, 54px);
+    font-weight: 300;
+    line-height: .98;
+    letter-spacing: -.055em;
+}
+.landing-mock p {
+    width: 54%;
+    margin-top: 18px;
+    color: rgba(27,23,17,.58);
+    font-size: 13px;
+    line-height: 1.75;
+}
+.landing-mini-card {
+    position: absolute;
+    right: 26px;
+    bottom: 26px;
+    width: 210px;
+    padding: 20px;
+    border-radius: 8px;
+    background: #17130f;
+    color: #fff;
+}
+.landing-mini-card span {
+    display: block;
+    margin-bottom: 42px;
+    color: rgba(255,255,255,.38);
+    font-size: 9px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+}
+.landing-mini-card b { font-size: 19px; font-weight: 400; line-height: 1.2; }
 .meter { margin-top: 18px; }
 .meter b { display: block; color: rgba(255,255,255,.62); font-size: 11px; font-weight: 400; }
 .meter span {

@@ -312,6 +312,83 @@
         .card--demo-light { background: #fff; }
         .card--demo-dark { background: #09090b; }
 
+        .myseed-thumb {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:
+                radial-gradient(circle at 68% 22%, rgba(117, 151, 92, .34), transparent 34%),
+                linear-gradient(145deg, #edf4e7 0%, #cfdcc4 100%);
+        }
+
+        .myseed-phone {
+            width: min(64%, 280px);
+            aspect-ratio: 9 / 16;
+            padding: 22px;
+            border: 1px solid rgba(38,58,33,.12);
+            border-radius: 28px;
+            background: rgba(255,255,255,.74);
+            box-shadow: 0 32px 70px rgba(38,58,33,.18), inset 0 1px 0 rgba(255,255,255,.7);
+            transform: rotate(-5deg);
+        }
+
+        .myseed-top {
+            display: flex;
+            justify-content: space-between;
+            color: rgba(24,38,21,.46);
+            font-size: 10px;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        .myseed-top b { color: #24351f; font-weight: 500; }
+
+        .myseed-plant {
+            width: 118px;
+            height: 118px;
+            margin: 34px auto 26px;
+            border-radius: 50% 50% 44% 56%;
+            background:
+                radial-gradient(circle at 34% 34%, #7ba767 0 18%, transparent 19%),
+                radial-gradient(circle at 64% 38%, #5d8d4b 0 20%, transparent 21%),
+                radial-gradient(circle at 42% 68%, #446f3b 0 24%, transparent 25%),
+                #dfe9d8;
+            box-shadow: 0 18px 38px rgba(68,111,59,.18);
+        }
+
+        .myseed-note {
+            padding: 16px;
+            border-radius: 18px;
+            background: #24351f;
+            color: #fff;
+        }
+
+        .myseed-note b { display: block; font-size: 14px; font-weight: 500; }
+        .myseed-note span { display: block; margin-top: 6px; color: rgba(255,255,255,.56); font-size: 10px; }
+
+        .myseed-row {
+            margin-top: 16px;
+            color: rgba(24,38,21,.58);
+            font-size: 10px;
+        }
+
+        .myseed-row::after {
+            content: "";
+            display: block;
+            height: 4px;
+            margin-top: 7px;
+            border-radius: 999px;
+            background: rgba(36,53,31,.12);
+        }
+
+        .myseed-row i {
+            display: block;
+            height: 4px;
+            margin-top: -4px;
+            border-radius: 999px;
+            background: #5d8d4b;
+        }
+
         /* ─── ABOUT ─── */
         .about {
             padding: 120px var(--pad);
@@ -882,7 +959,15 @@
 
         <div class="card card--titled card--demo-light" data-cat="ux">
             <div class="card-ai-tag card-ai-tag--light">Planning</div>
-            <div class="card-bg" style="background:#D9E4D1;"></div>
+            <div class="card-bg myseed-thumb">
+                <div class="myseed-phone">
+                    <div class="myseed-top"><span>myseed</span><b>Today</b></div>
+                    <div class="myseed-plant"></div>
+                    <div class="myseed-note"><b>몬스테라</b><span>물주기까지 2일</span></div>
+                    <div class="myseed-row"><span>Light</span><i style="width:72%"></i></div>
+                    <div class="myseed-row"><span>Moisture</span><i style="width:48%"></i></div>
+                </div>
+            </div>
             <div class="card-overlay"></div>
             <div class="card-info">
                 <div class="card-name">myseed</div>
