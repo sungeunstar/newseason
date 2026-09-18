@@ -1,0 +1,501 @@
+@page {
+  size: 338.667mm 190.5mm;
+  margin: 0;
+}
+
+:root {
+  --paper: #f5f3ee;
+  --paper-deep: #ebe7df;
+  --ink: #10151c;
+  --navy: #16283f;
+  --navy-deep: #0d1b2c;
+  --accent: #2c5fa8;
+  --muted: #6e7681;
+  --faint: #9aa0a8;
+  --rule: #cfcac0;
+  --rule-dark: #2c4059;
+  --page-x: 18mm;
+  --page-y: 12mm;
+  --sans: Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #8f8c86;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 4.2mm;
+  line-height: 1.7;
+  word-break: keep-all;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+ol,
+li,
+figure,
+dl,
+dd,
+dt {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  display: block;
+}
+
+/* ── 지면 ─────────────────────────────────────────── */
+
+.sheet {
+  position: relative;
+  width: 338.667mm;
+  height: 190.5mm;
+  margin: 0 auto;
+  padding: var(--page-y) var(--page-x);
+  background: var(--paper);
+  overflow: hidden;
+  page-break-after: always;
+  display: flex;
+  flex-direction: column;
+}
+
+.sheet:last-child {
+  page-break-after: auto;
+}
+
+.sheet--dark {
+  background: var(--navy);
+  color: var(--paper);
+}
+
+@media screen {
+  .sheet {
+    margin-bottom: 8mm;
+    box-shadow: 0 2mm 6mm rgba(0, 0, 0, 0.28);
+  }
+}
+
+/* ── 러닝헤드와 쪽번호 ─────────────────────────────── */
+
+.running {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: baseline;
+  gap: 8mm;
+  font-size: 2.7mm;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-bottom: 2.4mm;
+  border-bottom: 0.25mm solid var(--rule);
+  flex: 0 0 auto;
+}
+
+.sheet--dark .running {
+  color: #8fa3bd;
+  border-bottom-color: var(--rule-dark);
+}
+
+.running > :last-child {
+  text-align: right;
+}
+
+.folio {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── 공통 조판 요소 ────────────────────────────────── */
+
+.eyebrow {
+  font-size: 2.8mm;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.sheet--dark .eyebrow {
+  color: #7ea5db;
+}
+
+.label {
+  font-size: 2.8mm;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+  font-weight: 500;
+}
+
+.sheet--dark .label {
+  color: #7d90a6;
+}
+
+.body {
+  font-size: 4.2mm;
+  line-height: 1.75;
+  color: #33393f;
+}
+
+.sheet--dark .body {
+  color: #c6d1de;
+}
+
+/* ── 01 표지 ───────────────────────────────────────── */
+
+.cover__stage {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 6mm;
+}
+
+.cover__mark {
+  width: 4.4mm;
+  height: 4.4mm;
+  background: var(--navy);
+  margin-bottom: 9mm;
+}
+
+.cover__name {
+  font-size: 28mm;
+  line-height: 0.98;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+
+.cover__sub {
+  margin-top: 7mm;
+  font-size: 6.4mm;
+  line-height: 1.4;
+  font-weight: 500;
+  color: #2c343d;
+}
+
+.cover__foot {
+  flex: 0 0 auto;
+  border-top: 0.4mm solid var(--navy);
+  padding-top: 4mm;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8mm;
+  font-size: 3.1mm;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cover__foot span:last-child {
+  text-align: right;
+}
+
+/* ── 02 소개와 경력 ────────────────────────────────── */
+
+.intro {
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: 1.05fr 1.25fr;
+  gap: 16mm;
+  padding-top: 9mm;
+  align-content: start;
+}
+
+.intro__lead {
+  font-size: 10.5mm;
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.intro__body {
+  margin-top: 8mm;
+  max-width: 108mm;
+}
+
+.career {
+  display: flex;
+  flex-direction: column;
+  gap: 7mm;
+}
+
+.career__head {
+  display: flex;
+  align-items: baseline;
+  gap: 4mm;
+  padding-bottom: 2.5mm;
+  border-bottom: 0.25mm solid var(--rule);
+}
+
+.job {
+  display: grid;
+  grid-template-columns: 46mm 1fr;
+  gap: 6mm;
+}
+
+.job__when {
+  font-size: 3.4mm;
+  line-height: 1.55;
+  color: var(--muted);
+  letter-spacing: 0.01em;
+}
+
+.job__org {
+  font-size: 5mm;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.job__role {
+  margin-top: 0.8mm;
+  font-size: 3.4mm;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.job__tasks {
+  margin-top: 2.6mm;
+  font-size: 3.6mm;
+  line-height: 1.62;
+  color: #40474e;
+}
+
+.job__tasks li {
+  padding-left: 4mm;
+  position: relative;
+}
+
+.job__tasks li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 2.5mm;
+  width: 1.6mm;
+  height: 0.3mm;
+  background: var(--faint);
+}
+
+.closing {
+  flex: 0 0 auto;
+  margin-top: 8mm;
+  padding-top: 4mm;
+  border-top: 0.4mm solid var(--navy);
+  font-size: 4mm;
+  line-height: 1.7;
+  color: #2c343d;
+  max-width: 210mm;
+}
+
+/* ── 03 프로젝트 오프닝 ────────────────────────────── */
+
+.opening {
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.12fr;
+  margin: 0 calc(-1 * var(--page-x)) calc(-1 * var(--page-y));
+  min-height: 0;
+}
+
+.opening__text {
+  padding: 12mm var(--page-x) var(--page-y);
+  display: flex;
+  flex-direction: column;
+}
+
+.opening__title {
+  margin-top: 6mm;
+  font-size: 11mm;
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.opening__body {
+  margin-top: 7mm;
+  max-width: 116mm;
+}
+
+.meta {
+  margin-top: auto;
+  padding-top: 7mm;
+  border-top: 0.25mm solid var(--rule-dark);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4mm 8mm;
+}
+
+.meta div {
+  font-size: 3.4mm;
+  line-height: 1.5;
+}
+
+.meta dt {
+  font-size: 2.7mm;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #7d90a6;
+  margin-bottom: 0.8mm;
+}
+
+.meta dd {
+  color: #d3dce6;
+}
+
+.opening__visual {
+  background: var(--paper);
+  padding: 12mm var(--page-x) var(--page-y);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.opening__visual figure {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  background: #fff;
+  border: 0.25mm solid var(--rule);
+  padding: 8mm;
+}
+
+.opening__visual img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.caption {
+  flex: 0 0 auto;
+  margin-top: 6mm;
+  padding-top: 3mm;
+  border-top: 0.25mm solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8mm;
+}
+
+.caption p {
+  font-size: 3.3mm;
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 105mm;
+}
+
+.evidence {
+  flex: 0 0 auto;
+  font-size: 2.7mm;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 0.25mm solid var(--accent);
+  padding: 1mm 2.4mm;
+  white-space: nowrap;
+}
+
+/* ── 04 프로젝트 본문 ──────────────────────────────── */
+
+.case {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  padding-top: 8mm;
+  min-height: 0;
+}
+
+.case__head {
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 16mm;
+  align-items: start;
+}
+
+.case__title {
+  font-size: 9.5mm;
+  line-height: 1.32;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  max-width: 150mm;
+}
+
+.case__side {
+  padding-top: 1.5mm;
+}
+
+.flow {
+  margin-top: 4mm;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 3.4mm;
+  line-height: 1.9;
+  color: #40474e;
+}
+
+.flow li {
+  white-space: nowrap;
+}
+
+.flow li + li::before {
+  content: "→";
+  color: var(--faint);
+  margin: 0 2.2mm;
+}
+
+.bleed {
+  flex: 1 1 auto;
+  margin: 7mm calc(-1 * var(--page-x)) 0;
+  padding: 0 7mm;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.bleed__strip {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+}
+
+.bleed__strip img {
+  width: 100%;
+  height: auto;
+}
+
+.shot-labels {
+  flex: 0 0 auto;
+  margin: 3mm 0 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 5mm;
+  font-size: 3mm;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.shot-labels span {
+  padding-top: 2mm;
+  border-top: 0.25mm solid var(--rule);
+}

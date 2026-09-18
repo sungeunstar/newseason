@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>스타딜리버리 — Sungeun Jun</title>
+<link rel="stylesheet" href="cs2.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="portfolio.html">Sungeun Jun</a>
+  <a href="portfolio.html">Index</a>
+</nav>
+
+<!-- ── Hero ─────────────────────────────── -->
+<header class="hero">
+  <div class="wrap">
+    <h1 class="hero__title">스타딜리버리</h1>
+    <p class="hero__sub">브랜드 메시지를 배너가 아니라 <b>플레이 경험</b>으로 번역한, 가상 하이퍼로컬 배송 브랜드의 참여형 웹게임 캠페인.</p>
+
+    <div class="hero__meta">
+      <div><span class="k">Role</span><span class="v">브리프 · 기획 · 디자인 · 개발 · 배포 (1인)</span></div>
+      <div><span class="k">Type</span><span class="v">브랜드 참여형 웹 캠페인 (가상 브랜드)</span></div>
+      <div><span class="k">Stack</span><span class="v">Three.js · Vanilla JS · Vercel</span></div>
+      <div><span class="k">Year</span><span class="v">2026</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ── 01 Overview (그레이지) ────────────── -->
+<section class="sec s-greige">
+  <div class="wrap">
+    <div class="split" data-reveal>
+      <div>
+        <p class="label">01 &nbsp; The Brief</p>
+        <h2 class="title">A Delivery Brand, Played</h2>
+        <p class="subtitle">배너는 3초 만에 스킵돼요. 그럼 뭘로 붙잡을까.</p>
+      </div>
+      <div class="split__body body">
+        <p>경기 별내 생활권 전용이라는 <b>가상의 하이퍼로컬 배송 브랜드</b>를 세우고, 그 브랜드의 참여형 웹 캠페인을 만들었어요. 클라이언트 프로젝트가 아니라 <b>브리프부터 배포까지 혼자</b> 세운 자기주도 프로젝트예요.</p>
+        <p>스스로 낸 과제는 하나였어요. 스킵되는 배너 대신, 사용자가 <b>2분 동안 자발적으로 머무는 브랜드 경험</b>을 만들 수 있는가.</p>
+      </div>
+    </div>
+    <div class="shot--duo" style="margin-top:110px" data-reveal-media>
+      <img class="shot" src="assets/starlight/intro.png" alt="스타딜리버리 인트로 — 우주 배송 항로">
+      <img class="shot" src="assets/starlight/menu.png" alt="메인 메뉴 — 배송 시작·랭킹·배송원 수첩">
+    </div>
+    <p class="media__cap" style="margin-top:20px">인트로 연출(좌)과 메인 메뉴 — 배송 시작 · 랭킹 · 배송원 수첩(업적)</p>
+  </div>
+</section>
+
+<!-- ── 02 Approach (다크 · 인용) ──────────── -->
+<section class="sec sec--dark s-ink">
+  <div class="wrap">
+    <div class="split" data-reveal>
+      <div>
+        <p class="label">02 &nbsp; Translation</p>
+        <h2 class="title">Translate the Brand Into Rules</h2>
+        <p class="subtitle">재미를 먼저 만들고 로고를 붙이는 순서가 아니었어요.</p>
+      </div>
+      <div class="split__body body">
+        <p>게임을 먼저 만들고 브랜드를 얹으면, 로고만 떼면 아무 관계 없는 게임이 돼요. 그래서 반대로 갔어요. 배송 브랜드의 약속 — <b>빠르게, 안전하게, 끝까지</b> — 을 먼저 적고 각각을 규칙 하나로 옮겼어요.</p>
+        <p><b>거리 완주</b>는 '끝까지 도착', <b>화물 상태와 배송 요건</b>은 '안전하게', <b>S~C 등급</b>은 '서비스 품질'. 규칙이 먼저 정해지니 메커닉은 따라왔어요.</p>
+      </div>
+    </div>
+    <div style="margin-top:130px" data-reveal>
+      <p class="quote">레퍼런스도 <b>구조만</b> 참고했어요. 데스스트랜딩 배송 결과 화면은 정보 위계와 컬러 역할만 분석하고, 카피·로고는 참고하지 않는다고 분석표에 명시했어요.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── 03 배송 미션 (화이트) ─────────────── -->
+<section class="sec">
+  <div class="wrap">
+    <div class="split" data-reveal>
+      <div>
+        <p class="label">03 &nbsp; The Run</p>
+        <h2 class="title">Collect Starlight, Blast Asteroids</h2>
+        <p class="subtitle">브랜드 약속을 그대로 HUD 숫자로 바꿨어요.</p>
+      </div>
+      <div class="split__body body">
+        <p>사용자는 배송 캡슐을 몰고 항로를 완주해요. <b>배송 요건</b>을 채우고, 다가오는 <b>소행성을 레이저로 파괴</b>하고, 화물을 지키며 도착해요.</p>
+        <p>화면 위 HUD에 스코어·콤보·속도·거리·남은 요건이 실시간으로 떠요. 플레이어가 보는 건 게임 점수지만, 실제로 계측되는 건 <b>이 브랜드가 약속한 배송 품질</b>이에요.</p>
+      </div>
+    </div>
+    <div class="shot--duo" style="margin-top:110px" data-reveal-media>
+      <img class="shot" src="assets/starlight/play-hud.png" alt="게임플레이 HUD — 스코어·콤보·속도·거리·요건">
+      <img class="shot" src="assets/starlight/play-action.png" alt="소행성 격파 — 콤보">
+    </div>
+    <p class="media__cap" style="margin-top:20px">실제 플레이 — 스코어·콤보·배송 요건(0→18)·거리·속도를 실시간 계측</p>
+  </div>
+</section>
+
+<!-- ── 04 연출 (그레이지) ────────────────── -->
+<section class="sec s-greige">
+  <div class="wrap">
+    <div class="split" data-reveal>
+      <div>
+        <p class="label">04 &nbsp; The Route</p>
+        <h2 class="title">One Delivery, Intro to Arrival</h2>
+        <p class="subtitle">튜토리얼 화면을 따로 두지 않은 게 이 캠페인의 조건이었어요.</p>
+      </div>
+      <div class="split__body body">
+        <p>캠페인은 설치한 앱이 아니라 링크로 들어와요. 로딩과 설명이 길면 그 자리에서 나가요. 그래서 메뉴 → 카운트다운 → 항로 진입 → 배송 → 결과를 <b>한 번도 끊기지 않는 흐름</b>으로 붙였어요.</p>
+        <p>조작 설명도 별도 화면 없이 <b>플레이 안에서</b> 필요한 순간에만 띄웠어요. 우주·행성·엔진 트레일은 Three.js로 직접 연출했어요.</p>
+      </div>
+    </div>
+    <figure class="media" style="margin-top:110px" data-reveal-media>
+      <img class="shot" src="assets/starlight/play-journey.png" alt="항로 연출 — 지구 워프">
+      <figcaption class="media__cap">Three.js로 직접 연출한 항로 — 지구 워프에서 도착까지</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ── 05 퍼널 (다크 · 인용) ─────────────── -->
+<section class="sec sec--dark s-ink">
+  <div class="wrap">
+    <div class="split" data-reveal>
+      <div>
+        <p class="label">05 &nbsp; The Handoff</p>
+        <h2 class="title">Play Ends, the Funnel Begins</h2>
+        <p class="subtitle">가장 기분 좋은 순간에 전환을 붙였어요.</p>
+      </div>
+      <div class="split__body body">
+        <p>등급이 뜨는 결과 화면이 이 캠페인에서 <b>사용자 기분이 가장 좋은 지점</b>이에요. 쿠폰·공유·이벤트 응모·상품 보기를 정확히 여기에 붙였어요. 게임의 성취를 브랜드 전환으로 넘기는 자리예요.</p>
+        <p>한 번 하고 끝나지 않게 <b>업적 12종과 배송원 수첩</b>도 넣었어요. "S등급 한 번은 받아보고 나가자"가 재방문 장치예요.</p>
+      </div>
+    </div>
+    <div style="margin-top:130px" data-reveal>
+      <p class="quote">다만 포트폴리오 프로젝트라, <b>실제 전화번호 같은 개인정보는 저장하지 않도록 꺼뒀어요.</b> 퍼널 설계는 보여주되 실제 수집은 하지 않는 안전장치예요.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── 06 Decision (화이트) ──────────────── -->
+<section class="sec">
+  <div class="wrap">
+    <div class="split" data-reveal>
+      <div>
+        <p class="label">06 &nbsp; Scope</p>
+        <h2 class="title">Cut Scope, Again and Again</h2>
+        <p class="subtitle">설계안을 먼저 부숴보고, 남은 것만 넣었어요.</p>
+      </div>
+      <div class="split__body body">
+        <p>시작은 40초짜리 단일 세션이었어요. 튜토리얼 → 맵 선택 → 오더 선택 → 배송 → 결과로 넓히면서, 만들기 전에 <b>구현 제약부터 조사</b>했어요.</p>
+        <p>그 설계안을 일부러 <b>적대적으로 검수해 21건(치명 3건)</b>을 뽑았어요. 다 해결하려 들지 않고 <b>S1~S3로 범위를 잘라</b> 확정했어요. 직접 플레이하다가 룰 자체를 거리 완주형으로 바꾼 적도 있어요 — 재미없으면 규칙이 틀린 거니까요.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 07 Outcome (네이비 · 수치) ─────────── -->
+<section class="sec sec--dark s-navy">
+  <div class="wrap">
+    <div class="split" data-reveal>
+      <div>
+        <p class="label">07 &nbsp; Delivered</p>
+        <h2 class="title">Shipped, and Still Being Tuned</h2>
+        <p class="subtitle">브랜드를 규칙으로 옮기는 과정이 그대로 남은 프로젝트예요.</p>
+      </div>
+      <div class="split__body body">
+        <p>8스테이지·계측·브랜드 퍼널까지 실제로 <b>배포</b>했고, 지금도 직접 플레이하면서 수치를 만지고 있어요.</p>
+        <p>남은 건 게임이 아니라 <b>판단의 순서</b>예요. 브랜드를 경험으로 번역하고, 인터랙션 규칙을 정의하고, 리드 퍼널을 연결하고, 마지막에 범위를 자르는 것 — 클라이언트 캠페인에서도 같은 순서로 갑니다.</p>
+      </div>
+    </div>
+    <div class="figures" style="margin-top:130px" data-reveal>
+      <div><div class="figure__n">8</div><div class="figure__l">배포 스테이지</div></div>
+      <div><div class="figure__n">12</div><div class="figure__l">업적 · 배송원 커리어</div></div>
+      <div><div class="figure__n">S~C</div><div class="figure__l">배송 등급 계측</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Related ──────────────────────────── -->
+<section class="sec sec--tight">
+  <div class="wrap">
+    <h3 class="h3">Related Projects</h3>
+    <div class="next" data-reveal>
+      <a href="tomob.html"><img src="assets/tomob/intro-page.png" alt="tomob">
+        <div class="t">tomob</div><div class="d">게임형 제작 플랫폼</div></a>
+      <a href="lime.html"><img src="assets/lime/app-dash.png" alt="Lime">
+        <div class="t">Lime</div><div class="d">이커머스 운영 도구</div></a>
+      <a href="peach.html"><img src="assets/peach/cover.webp" alt="PEACH">
+        <div class="t">PEACH</div><div class="d">로컬 영업 리드 도구</div></a>
+    </div>
+  </div>
+</section>
+
+<nav class="pager">
+  <a href="lime.html"><div class="k">Previous</div><div class="t">Lime</div></a>
+  <a href="seedlog.html"><div class="k">Next</div><div class="t">SeedLog</div></a>
+</nav>
+
+<script>
+  const io = new IntersectionObserver((es) => es.forEach((e) => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { threshold: .08 });
+  document.querySelectorAll('[data-reveal],[data-reveal-media]').forEach((el) => io.observe(el));
+</script>
+</body>
+</html>

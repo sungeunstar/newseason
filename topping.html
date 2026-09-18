@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Topping Up — 서비스 기획 포트폴리오</title>
+  <link rel="stylesheet" href="topping.css">
+</head>
+<body>
+
+<!-- 01. Overview -->
+<section class="sheet sheet--cover">
+  <div class="page cover">
+    <div class="cover__copy">
+      <p class="kicker">PROJECT 01 · SERVICE PLANNING</p>
+      <h1>다른 사람의 준비를<br>내 실행 계획으로 바꾸는<br><em>커리어 준비 앱</em></h1>
+      <p class="cover__lead">토핑업은 다른 사람의 준비 일정을 찾아보고, 필요한 계획을 내 일정으로 가져와 실행하고 기록하는 서비스입니다.</p>
+      <div class="term-definition"><span>서비스 용어</span><p><b>토핑</b> — 포트폴리오 제작·면접 준비처럼, 하나의 목표에 필요한 기간과 세부 과제를 묶은 <strong>준비 일정</strong></p></div>
+      <dl class="project-meta">
+        <div><dt>Period</dt><dd>2021</dd></div>
+        <div><dt>Type</dt><dd>Team project</dd></div>
+        <div><dt>Role</dt><dd>PM · 사용자 인터뷰 · 문제 정의 · 서비스 구조 · 유저플로우 · 와이어프레임</dd></div>
+        <div><dt>Research</dt><dd>취업·이직 준비자 약 10명 대면 인터뷰 · 공유 기록 8건 재분석</dd></div>
+      </dl>
+    </div>
+    <figure class="cover__visual">
+      <span class="cover__index">TOPPING UP</span>
+      <img src="assets/topping/cover.png" alt="토핑업 월간 일정과 오늘의 할 일을 보여주는 모바일 화면">
+    </figure>
+  </div>
+  <span class="chap">Topping Up</span><span class="folio">01</span>
+</section>
+
+<!-- 02. Background -->
+<section class="sheet">
+  <div class="page">
+    <header class="section-head">
+      <p class="kicker">BACKGROUND</p>
+      <h2>입사 뒤에도 이직을 준비했지만,<br>준비할 시간과 기준이 부족했습니다.</h2>
+      <p>코로나19 이후 원하는 환경이 아니어도 먼저 입사하고 이직을 준비하는 사람이 늘었습니다. 공개된 조사에서 시간 부족과 일정 조율의 어려움이 반복해서 나타났습니다.</p>
+    </header>
+    <div class="evidence-grid">
+      <article class="evidence evidence--wide">
+        <p class="evidence__label">직장인 10명 중 4명</p>
+        <strong>37.5%</strong>
+        <p>현재 직장을 다니며 이직을 준비하는 ‘퇴준생’이라고 답했습니다.</p>
+        <small>출처 · 매일경제</small>
+      </article>
+      <article class="evidence">
+        <p class="evidence__label">이직 준비가 어려운 이유</p>
+        <div class="ratio"><strong>34%</strong><span>회사 생활과 병행할<br>시간이 부족해서</span></div>
+        <div class="ratio"><strong>30.9%</strong><span>일정을 조율하기<br>어려워서</span></div>
+        <small>출처 · 소싱타임스</small>
+      </article>
+      <article class="evidence evidence--bar">
+        <p class="evidence__label">이직 시도를 미룬 경험</p>
+        <strong>90.8%</strong>
+        <div class="bar"><i></i></div>
+        <p>계획은 있었지만 실제 이직 시도를 미룬 적이 있다고 답했습니다.</p>
+        <small>출처 · 매거진한경</small>
+      </article>
+    </div>
+    <p class="source-note">외부 통계는 문제의 배경을 이해하기 위한 자료이며, 토핑업의 출시 성과를 의미하지 않습니다.</p>
+  </div>
+  <span class="chap">Topping Up · Background</span><span class="folio">02</span>
+</section>
+
+<!-- 03. User research -->
+<section class="sheet sheet--research">
+  <div class="page">
+    <header class="section-head section-head--compact">
+      <p class="kicker">USER RESEARCH · ABOUT 10 INTERVIEWS · 8 RECORDS CODED</p>
+      <h2>직군은 달라도 준비는<br>정보·일정·지속에서 막혔습니다.</h2>
+    </header>
+    <div class="research-body">
+      <div class="quote-stack">
+        <blockquote><span>취업 준비생 · UX/UI</span><p>“혼자 하다 보니 피드백을 받기 어렵고, 시간 관리도 힘들어요.”</p></blockquote>
+        <blockquote><span>현직자 · 유치원 교사</span><p>“같이 준비하는 사람이 있으면 의지가 될 텐데, 혼자 하면 자료를 얻는 것도 힘들어요.”</p></blockquote>
+        <blockquote><span>현직자 · 개발자</span><p>“노션은 자세히 쓰면 일이 더 늘어나는 것 같아서, 일정이나 할 일을 체크하는 정도로만 써요.”</p></blockquote>
+        <p class="quote-source">2021.10 대면 인터뷰 기록 중 발췌 · 개인정보 비식별화</p>
+      </div>
+      <div class="findings">
+        <p class="findings__intro">약 10명을 인터뷰했고, 현재 확인 가능한 원문 8건을 다시 분류했습니다.</p>
+        <ol>
+          <li><span>01</span><p><b>정보와 선택 기준 부족</b>채용·직무 정보는 커뮤니티, 지인, SNS에 흩어져 있고 무엇을 고를지 판단하기 어려움</p></li>
+          <li><span>02</span><p><b>도구가 나뉜 일정 관리</b>캘린더, 메모장, 노션, 수기 플래너를 가볍게 병행해 전체 준비 흐름이 이어지지 않음</p></li>
+          <li><span>03</span><p><b>혼자 지속하기 어려움</b>업무와 병행하며 학습을 중단하거나, 피드백·동료가 없어 동기를 유지하기 어려움</p></li>
+        </ol>
+        <p class="insight"><span>INSIGHT</span>새 계획표를 하나 더 주기보다, 다른 사람의 실제 준비 과정을 참고해 내 일정으로 바꾸는 시작점이 필요했습니다.</p>
+      </div>
+    </div>
+  </div>
+  <span class="chap">Topping Up · Research</span><span class="folio">03</span>
+</section>
+
+<!-- 04. Requirements -->
+<section class="sheet sheet--goal">
+  <div class="page">
+    <header class="section-head section-head--row">
+      <div><p class="kicker">PROJECT GOAL</p><h2>세 가지 문제를<br>일정·탐색·편집 역할로 정리했습니다.</h2></div>
+      <p>일정 관리만 해결하지 않고, 다른 사람의 준비 과정을 탐색해 내 실행 조건으로 바꾸는 흐름까지 하나의 경험으로 연결했습니다.</p>
+    </header>
+    <div class="goal-stage">
+      <div class="goal-roles">
+        <article><span><b>01</b><em>SCHEDULE</em></span><div><small>문제</small><b>복잡한 일정 관리</b></div><h3>한눈에 보는 일정</h3><p>월간 캘린더와 오늘의 세부 과제를 한 화면에서 확인합니다.</p></article>
+        <article><span><b>02</b><em>DISCOVERY</em></span><div><small>문제</small><b>준비 방법을 찾기 어려움</b></div><h3>참고할 일정 탐색</h3><p>다른 사용자의 준비 일정과 사람을 검색하고 비교합니다.</p></article>
+        <article><span><b>03</b><em>CONFIGURE</em></span><div><small>문제</small><b>그대로 실행하기 어려움</b></div><h3>내 조건으로 편집</h3><p>기간·반복 요일·알림을 바꿔 내 실행 일정으로 만듭니다.</p></article>
+      </div>
+      <figure class="goal-product">
+        <figcaption><b>CORE PRODUCT FLOW</b><span>탐색한 준비 일정을 내 실행 조건으로 바꾸는 화면</span></figcaption>
+        <img class="goal-product__phone" src="assets/topping-chapter/mock-home.png" alt="월간 캘린더와 오늘의 과제가 함께 보이는 Topping Up 홈 화면">
+        <div class="goal-product__detail goal-product__detail--discover"><span>DISCOVERY</span><img src="assets/topping-chapter/el-result.png" alt="준비 일정 탐색 결과 카드"></div>
+        <div class="goal-product__detail goal-product__detail--configure"><span>CONFIGURE</span><img src="assets/topping-chapter/el-period.png" alt="기간과 알림 시간을 편집하는 설정 영역"></div>
+      </figure>
+    </div>
+  </div>
+  <span class="chap">Topping Up · Project Goal</span><span class="folio">04</span>
+</section>
+
+<!-- 05. Service flow -->
+<section class="sheet sheet--flow">
+  <div class="page">
+    <header class="section-head">
+      <p class="kicker">SERVICE JOURNEY · DESIGN HYPOTHESIS</p>
+      <h2>탐색과 실행 사이에<br>보관·편집 단계를 두었습니다.</h2>
+      <p>다른 사용자의 준비 일정(토핑)을 곧바로 내 캘린더에 넣지 않고, 먼저 리스트에 모은 뒤 필요한 것만 내 일정으로 추가해 조건을 편집합니다.</p>
+    </header>
+    <div class="journey-lanes">
+      <article><div class="journey-lanes__label"><span>01</span><b>DISCOVER</b><small>참고할 준비 과정 찾기</small></div><div class="journey-steps"><b>관심 분야 설정</b><i></i><b>전체 토핑·닉네임 검색</b><i></i><b>추천·카테고리 필터</b></div></article>
+      <article><div class="journey-lanes__label"><span>02</span><b>COLLECT</b><small>응원하고 리스트에 모으기</small></div><div class="journey-steps"><b>응원·보관</b><i></i><b>토핑 리스트 선택</b><i></i><b>내 토핑으로 추가</b></div></article>
+      <article><div class="journey-lanes__label"><span>03</span><b>CONFIGURE &amp; RUN</b><small>내 조건으로 바꾸고 실행하기</small></div><div class="journey-steps"><b>기간·요일·알림 편집</b><i></i><b>캘린더·세부 과제</b><i></i><b>오늘의 진행 상태 확인</b></div></article>
+    </div>
+    <p class="hypothesis"><b>검증 전 설계 가설</b> 빈 생성 화면보다 다른 사용자의 토핑을 먼저 탐색하게 하면 첫 준비 계획의 시작점을 제공할 수 있다고 가정했습니다.</p>
+  </div>
+  <span class="chap">Topping Up · Service Journey</span><span class="folio">05</span>
+</section>
+
+<!-- 06. Service object -->
+<section class="sheet sheet--state">
+  <div class="page">
+    <header class="section-head section-head--row section-head--object">
+      <div><p class="kicker">OBJECT &amp; STATE</p><h2>참고용 준비 일정과<br>내 실행 일정을 구분했습니다.</h2></div>
+      <p><b>토핑은 하나의 목표를 위한 준비 일정입니다.</b> 검색에서 보관한 일정은 참고 목록에 남고, 내 일정으로 추가한 뒤에만 기간·반복·세부 과제를 편집해 실행합니다.</p>
+    </header>
+    <div class="state-layout">
+      <div class="state-model">
+        <article><span>SHARED TOPPING</span><h3>공개된 준비 일정</h3><p>다른 사용자가 공개한 목표와 세부 과제 묶음</p><dl><div><dt>탐색 기준</dt><dd>일정 · 닉네임 · 카테고리</dd></div><div><dt>가능 행동</dt><dd>응원 · 보관</dd></div></dl></article>
+        <i aria-hidden="true"></i>
+        <article><span>TOPPING LIST</span><h3>참고용 보관 리스트</h3><p>관심 있는 준비 일정을 목적별로 모아두는 곳</p><dl><div><dt>상태</dt><dd>아직 캘린더에 반영되지 않음</dd></div><div><dt>다음 행동</dt><dd>내 일정으로 추가</dd></div></dl></article>
+        <i aria-hidden="true"></i>
+        <article class="state-model__active"><span>MY TOPPING</span><h3>내가 실행할 준비 일정</h3><p>내 조건으로 편집되어 캘린더에 표시되는 토핑</p><dl><div><dt>설정</dt><dd>기간 · 반복 요일 · 알림</dd></div><div><dt>구성</dt><dd>세부 과제 · 진행 상태</dd></div></dl></article>
+      </div>
+      <div class="state-screens">
+        <figure><img src="assets/topping-chapter/mock-save.png" alt="토핑을 목적별 리스트에 보관하는 화면"><figcaption><b>보관</b> 토핑 리스트 선택</figcaption></figure>
+        <figure><img src="assets/topping-chapter/mock-add.png" alt="토핑의 기간과 반복 조건을 설정하는 화면"><figcaption><b>실행</b> 기간·요일·알림 편집</figcaption></figure>
+      </div>
+    </div>
+  </div>
+  <span class="chap">Topping Up · Object &amp; State</span><span class="folio">06</span>
+</section>
+
+<!-- 07. Core screens -->
+<section class="sheet sheet--screens">
+  <div class="page">
+    <div class="screen-focus screen-focus--explore">
+      <div class="screen-focus__copy"><p class="kicker">CORE EXPERIENCE · 01</p><h2>검색 결과를 비교하고,<br>목적별 리스트에 보관합니다.</h2><p>전체 토핑과 닉네임을 나눠 검색하고 추천순·카테고리로 좁힙니다. 바로 캘린더에 넣지 않고, 먼저 참고할 준비 일정을 리스트에 모읍니다.</p><strong>DISCOVER <i>→</i> COLLECT</strong></div>
+      <div class="screen-focus__visual"><figure><img src="assets/topping-chapter/mock-search.png" alt="전체 토핑과 닉네임 검색 화면"><figcaption><b>01</b> 전체 토핑·닉네임 검색</figcaption></figure><figure><img src="assets/topping-chapter/mock-save.png" alt="토핑 리스트 보관 화면"><figcaption><b>02</b> 목적별 리스트 보관</figcaption></figure></div>
+    </div>
+  </div>
+  <span class="chap">Topping Up · Discover &amp; Collect</span><span class="folio">07</span>
+</section>
+
+<!-- 08. Configure and run -->
+<section class="sheet sheet--screens sheet--screens-manage">
+  <div class="page">
+    <div class="screen-focus screen-focus--manage">
+      <div class="screen-focus__copy"><p class="kicker">CORE EXPERIENCE · 02</p><h2>내 조건으로 편집하고,<br>오늘의 실행 화면으로 이어집니다.</h2><p>기간·반복 요일·알림을 정한 토핑은 월간 캘린더와 오늘의 세부 과제로 연결됩니다. 설정과 실행 화면은 같은 상태·색상 규칙을 공유합니다.</p><strong>CONFIGURE <i>→</i> RUN</strong></div>
+      <div class="screen-focus__visual"><figure><img src="assets/topping-chapter/mock-add.png" alt="토핑 기간과 반복 설정 화면"><figcaption><b>03</b> 기간·요일·알림 설정</figcaption></figure><figure><img src="assets/topping-chapter/mock-home.png" alt="월간 캘린더와 오늘의 세부 과제 화면"><figcaption><b>04</b> 캘린더·세부 과제 실행</figcaption></figure></div>
+    </div>
+  </div>
+  <span class="chap">Topping Up · Configure &amp; Run</span><span class="folio">08</span>
+</section>
+
+</body>
+</html>

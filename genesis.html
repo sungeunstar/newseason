@@ -5,10 +5,141 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Genesis — Parameterized Landing Builder</title>
     <link rel="stylesheet" href="case-study.css">
-    <style>:root { --accent: #1C150D; }</style>
+    <style>
+        :root { --accent: #1C150D; }
+
+        /* ─── STUDIO (Genesis product mockup — warm editorial) ─── */
+        .studio-shell {
+            margin-top: 44px;
+            border: 1px solid rgba(36,28,18,.16);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 20px 54px rgba(36,28,18,.12);
+        }
+        .studio-shell .browser-bar { background: #EFE6D3; border-bottom: 1px solid rgba(36,28,18,.14); }
+        .studio-shell .browser-dot { background: rgba(36,28,18,.2); }
+        .studio-shell .browser-url { color: rgba(36,28,18,.42); }
+        .studio {
+            width: 100%;
+            background: #F6F0E4;
+            color: #241C12;
+        }
+        .st-appbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 22px;
+            border-bottom: 1px solid rgba(36,28,18,.14);
+        }
+        .st-mark { font-size: 13px; font-weight: 600; letter-spacing: .01em; }
+        .st-mark span { color: #A5402E; }
+        .st-appbar-right { display: flex; align-items: center; gap: 12px; }
+        .st-proof-tag {
+            font-size: 10px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: #A5402E;
+            border: 1px solid rgba(165,64,46,.32);
+            padding: 5px 10px;
+            border-radius: 999px;
+        }
+        .st-avatar {
+            width: 24px; height: 24px; border-radius: 50%;
+            background: #A5402E; color: #fff; font-size: 10px; font-weight: 600;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+
+        .st-shell { display: flex; }
+        .st-sidenav {
+            width: 168px; flex-shrink: 0; padding: 14px 10px;
+            border-right: 1px solid rgba(36,28,18,.14);
+            display: flex; flex-direction: column; gap: 2px;
+        }
+        .st-nav-item {
+            font: inherit; font-size: 11.5px; color: rgba(36,28,18,.5);
+            background: none; border: 0; text-align: left; padding: 9px 10px;
+            border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 9px;
+        }
+        .st-nav-item i { width: 6px; height: 6px; border-radius: 50%; background: rgba(36,28,18,.25); flex-shrink: 0; }
+        .st-nav-item.active { background: rgba(165,64,46,.09); color: #241C12; font-weight: 500; }
+        .st-nav-item.active i { background: #A5402E; }
+        .st-main { flex: 1; min-width: 0; }
+
+        .st-screen { display: none; padding: 26px 24px; }
+        .st-screen.active { display: block; }
+        .st-screen-label { font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: rgba(36,28,18,.42); margin-bottom: 16px; }
+
+        /* Brief screen */
+        .st-status-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .st-status-row strong { font-size: 16px; font-weight: 500; }
+        .st-status { font-size: 10px; padding: 6px 11px; border-radius: 999px; border: 1px solid rgba(165,64,46,.3); color: #A5402E; }
+        .st-brief { position: relative; background: #EFE6D3; border: 1px solid rgba(36,28,18,.12); border-radius: 8px; padding: 20px; }
+        .st-brief p { font-size: 13px; line-height: 1.75; color: rgba(36,28,18,.78); }
+        .st-tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+        .st-tag { font-size: 10px; padding: 5px 9px; border-radius: 999px; background: rgba(36,28,18,.07); color: rgba(36,28,18,.6); }
+
+        /* Archetype screen */
+        .st-arch-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .st-arch-card { border: 1px solid rgba(36,28,18,.14); border-radius: 8px; padding: 18px; }
+        .st-arch-card.active { border-color: #A5402E; background: rgba(165,64,46,.05); }
+        .st-arch-swatch { width: 26px; height: 26px; border-radius: 6px; margin-bottom: 14px; }
+        .st-arch-card h4 { font-size: 13px; font-weight: 500; margin-bottom: 8px; }
+        .st-arch-card p { font-size: 12px; line-height: 1.7; color: rgba(36,28,18,.6); }
+
+        /* Parameters screen */
+        .st-dials { display: flex; justify-content: space-around; }
+        .st-dial { text-align: center; max-width: 160px; }
+        .st-dial-ring {
+            width: 64px; height: 64px; border-radius: 50%; margin: 0 auto 12px;
+            background: conic-gradient(#A5402E calc(var(--v) * 1%), rgba(36,28,18,.1) 0);
+            display: flex; align-items: center; justify-content: center; position: relative;
+        }
+        .st-dial-ring::after { content: ""; position: absolute; inset: 9px; border-radius: 50%; background: #F6F0E4; }
+        .st-dial-val { position: relative; font-size: 13px; font-weight: 600; z-index: 1; }
+        .st-dial-name { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: rgba(36,28,18,.5); margin-bottom: 8px; }
+        .st-dial p { font-size: 11.5px; line-height: 1.6; color: rgba(36,28,18,.55); margin-top: 8px; }
+
+        /* Output screen */
+        .st-canvas { background: #fff; border: 1px solid rgba(36,28,18,.12); border-radius: 8px; padding: 24px; position: relative; overflow: hidden; }
+        .st-canvas-top { display: flex; justify-content: space-between; font-size: 10px; color: rgba(36,28,18,.4); margin-bottom: 22px; }
+        .st-headline { font-size: clamp(22px, 2.6vw, 32px); font-weight: 300; line-height: 1.2; letter-spacing: -.02em; max-width: 80%; }
+        .st-sub { margin-top: 10px; font-size: 12.5px; color: rgba(36,28,18,.55); max-width: 70%; line-height: 1.7; }
+        .st-typeline { height: 1px; background: rgba(36,28,18,.16); margin-top: 22px; }
+        .st-typeline i { display: block; height: 1px; background: rgba(36,28,18,.5); width: 62%; }
+
+        .st-proofs { margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .st-proof { position: relative; border: 1px solid rgba(36,28,18,.12); border-radius: 8px; padding: 14px; }
+        .st-proof.selected { border-color: #A5402E; }
+        .st-proof-stamp {
+            position: absolute; top: 10px; right: 10px;
+            font-size: 9px; color: #A5402E; border: 1px solid #A5402E; border-radius: 999px;
+            padding: 2px 7px; transform: rotate(-6deg);
+        }
+        .st-proof h4 { font-size: 10px; margin-bottom: 8px; color: rgba(36,28,18,.4); letter-spacing: .1em; text-transform: uppercase; font-weight: 500; }
+        .st-proof-mini { height: 52px; border-radius: 4px; background: #F6F0E4; }
+
+        /* Review screen */
+        .st-toc { display: flex; flex-wrap: wrap; gap: 6px; }
+        .st-toc span { font-size: 10px; padding: 6px 10px; border-radius: 999px; background: rgba(36,28,18,.06); color: rgba(36,28,18,.4); }
+        .st-toc span.done { color: #A5402E; }
+        .st-toc span.now { background: #A5402E; color: #fff; }
+
+        .st-gate { margin-top: 18px; display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border: 1px dashed rgba(165,64,46,.42); border-radius: 8px; }
+        .st-gate b { font-size: 11px; color: #A5402E; letter-spacing: .04em; }
+        .st-gate span { font-size: 10px; color: rgba(36,28,18,.5); }
+
+        @media (max-width: 768px) {
+            .st-shell { flex-direction: column; }
+            .st-sidenav { width: 100%; flex-direction: row; overflow-x: auto; border-right: 0; border-bottom: 1px solid rgba(36,28,18,.14); }
+            .st-arch-grid { grid-template-columns: 1fr; }
+            .st-proofs { grid-template-columns: 1fr; }
+            .st-dials { flex-wrap: wrap; gap: 18px; }
+            .st-headline, .st-sub { max-width: 100%; }
+        }
+    </style>
 </head>
 <body>
-<nav class="nav"><a href="portfolio.html">Sungeun Jun</a><a href="portfolio.html#works">All works</a></nav>
+<nav class="nav" id="nav"><a href="portfolio.html">Sungeun Jun</a><a href="portfolio.html#works">All works</a></nav>
 <header class="hero">
     <p class="eyebrow">Internal System · Landing Automation</p>
     <h1>Genesis</h1>
@@ -47,56 +178,120 @@
         <p class="section-label">03 · Product Prototype</p>
         <h2>포트폴리오에서는 이 시스템을 실제 Landing Builder처럼 보이게 재구성했습니다.</h2>
         <p class="lead">전체 SaaS를 구현하는 대신, 핵심 의사결정이 드러나는 화면만 제품화했습니다. 사용자는 브리프를 넣고 아키타입과 파라미터를 조정한 뒤, 생성될 섹션 구조와 검수 게이트를 한 화면에서 확인합니다.</p>
-        <div class="builder-preview">
-            <div class="builder-sidebar">
-                <div class="builder-logo">Genesis</div>
-                <div class="builder-nav active">Brief</div>
-                <div class="builder-nav">Archetype</div>
-                <div class="builder-nav">Parameters</div>
-                <div class="builder-nav">Output</div>
-                <div class="builder-nav">Review Gate</div>
+        <div class="browser-shell studio-shell">
+            <div class="browser-bar">
+                <span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span>
+                <span class="browser-url">app.genesis.studio/rasa</span>
             </div>
-            <div class="builder-main">
-                <div class="builder-top">
-                    <div>
-                        <span class="builder-kicker">Project Input</span>
-                        <strong>RASA landing rebuild</strong>
+            <div class="studio" id="studio">
+                <div class="st-appbar">
+                    <div class="st-mark">GENESIS <span>· Studio</span></div>
+                    <div class="st-appbar-right">
+                        <span class="st-proof-tag">Proof · RASA</span>
+                        <span class="st-avatar">SJ</span>
                     </div>
-                    <span class="builder-status">Ready to generate</span>
                 </div>
-                <div class="builder-grid">
-                    <div class="builder-panel">
-                        <span>Brief</span>
-                        <p>AI와 사람의 감각을 함께 쓰는 브랜딩 에이전시. 속도보다 결과의 온도를 보여주는 랜딩.</p>
-                        <div class="builder-field">Target · 브랜드 리뉴얼을 고민하는 초기 팀</div>
-                        <div class="builder-field">Tone · confident / warm / precise</div>
-                    </div>
-                    <div class="builder-panel">
-                        <span>Archetype</span>
-                        <strong>Warm Editorial</strong>
-                        <p>브랜드 스토리와 작업 철학을 읽게 만드는 넓은 여백.</p>
-                    </div>
-                    <div class="builder-panel">
-                        <span>Parameters</span>
-                        <div class="meter"><b>Variance</b><span><i style="width:62%"></i></span></div>
-                        <div class="meter"><b>Motion</b><span><i style="width:38%"></i></span></div>
-                        <div class="meter"><b>Density</b><span><i style="width:54%"></i></span></div>
-                    </div>
-                    <div class="builder-panel wide landing-mock">
-                        <div class="landing-mock-top"><span>Generated landing preview</span><b>RASA</b></div>
-                        <h3>Brand systems with human temperature.</h3>
-                        <p>속도보다 결과의 온도를 보여주는 브랜드 랜딩 구조.</p>
-                        <div class="landing-mini-card"><span>SECTION</span><b>Hero → Proof → CTA</b></div>
-                    </div>
-                    <div class="builder-panel wide">
-                        <span>Generated Structure</span>
-                        <ol class="mini-flow">
-                            <li>Hero</li><li>Social</li><li>Pain</li><li>Solution</li><li>Process</li><li>Proof</li><li>FAQ</li><li>CTA</li>
-                        </ol>
-                    </div>
-                    <div class="builder-panel wide gate-pass">
-                        <span>Gate Review</span>
-                        <p>Font · CTA · Social proof · Motion count · Image usage checked</p>
+                <div class="st-shell">
+                    <nav class="st-sidenav">
+                        <button class="st-nav-item active" data-screen="brief"><i></i>Brief</button>
+                        <button class="st-nav-item" data-screen="archetype"><i></i>Archetype</button>
+                        <button class="st-nav-item" data-screen="parameters"><i></i>Parameters</button>
+                        <button class="st-nav-item" data-screen="output"><i></i>Output</button>
+                        <button class="st-nav-item" data-screen="review"><i></i>Review Gate</button>
+                    </nav>
+                    <div class="st-main">
+                        <div class="st-screen active" data-screen="brief">
+                            <p class="st-screen-label">01 · Brief</p>
+                            <div class="st-status-row">
+                                <strong>RASA landing rebuild</strong>
+                                <span class="st-status">Ready to generate</span>
+                            </div>
+                            <div class="st-brief">
+                                <p>AI와 사람의 감각을 함께 쓰는 브랜딩 에이전시. 속도보다 결과의 온도를 보여주는 랜딩.</p>
+                                <div class="st-tag-row">
+                                    <span class="st-tag">Target · 브랜드 리뉴얼을 고민하는 초기 팀</span>
+                                    <span class="st-tag">confident</span>
+                                    <span class="st-tag">warm</span>
+                                    <span class="st-tag">precise</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="st-screen" data-screen="archetype">
+                            <p class="st-screen-label">02 · Archetype</p>
+                            <div class="st-arch-grid">
+                                <div class="st-arch-card">
+                                    <div class="st-arch-swatch" style="background:#0B0B12"></div>
+                                    <h4>Vantablack Luxe</h4>
+                                    <p>프리미엄·하이엔드 브랜드를 위한 깊은 다크와 절제된 광택.</p>
+                                </div>
+                                <div class="st-arch-card active">
+                                    <div class="st-arch-swatch" style="background:#C98A52"></div>
+                                    <h4>Warm Editorial</h4>
+                                    <p>브랜드 스토리와 작업 철학을 읽게 만드는 넓은 여백과 따뜻한 톤.</p>
+                                </div>
+                                <div class="st-arch-card">
+                                    <div class="st-arch-swatch" style="background:#3E4A55"></div>
+                                    <h4>Clean Structural</h4>
+                                    <p>테크·전문 서비스를 위한 구조적 그리드와 명확한 정보 위계.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="st-screen" data-screen="parameters">
+                            <p class="st-screen-label">03 · Parameters</p>
+                            <div class="st-dials">
+                                <div class="st-dial">
+                                    <div class="st-dial-ring" style="--v:62"><span class="st-dial-val">62</span></div>
+                                    <p class="st-dial-name">Variance</p>
+                                    <p>레이아웃과 타이포가 기본 구조에서 얼마나 과감하게 변주되는지.</p>
+                                </div>
+                                <div class="st-dial">
+                                    <div class="st-dial-ring" style="--v:38"><span class="st-dial-val">38</span></div>
+                                    <p class="st-dial-name">Motion</p>
+                                    <p>스크롤·카드·이미지 연출의 빈도와 강도.</p>
+                                </div>
+                                <div class="st-dial">
+                                    <div class="st-dial-ring" style="--v:54"><span class="st-dial-val">54</span></div>
+                                    <p class="st-dial-name">Density</p>
+                                    <p>한 화면에 담기는 정보량과 여백의 밀도.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="st-screen" data-screen="output">
+                            <p class="st-screen-label">04 · Output</p>
+                            <div class="st-canvas">
+                                <div class="st-canvas-top"><span>Generated landing preview</span><b>RASA</b></div>
+                                <h3 class="st-headline">Brand systems with human temperature.</h3>
+                                <p class="st-sub">속도보다 결과의 온도를 보여주는 브랜드 랜딩 구조.</p>
+                                <div class="st-typeline"><i></i></div>
+                            </div>
+                            <div class="st-proofs">
+                                <div class="st-proof selected">
+                                    <span class="st-proof-stamp">Selected</span>
+                                    <h4>Proof A</h4>
+                                    <div class="st-proof-mini"></div>
+                                </div>
+                                <div class="st-proof">
+                                    <h4>Proof B</h4>
+                                    <div class="st-proof-mini"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="st-screen" data-screen="review">
+                            <p class="st-screen-label">05 · Review Gate</p>
+                            <div class="st-toc">
+                                <span class="done">Hero</span><span class="done">Social</span><span class="done">Pain</span>
+                                <span class="done">Solution</span><span class="done">Process</span><span class="now">Proof</span>
+                                <span>FAQ</span><span>CTA</span>
+                            </div>
+                            <div class="st-gate">
+                                <b>Gate Review · Pass</b>
+                                <span>Font · CTA · Social proof · Motion count · Image usage checked</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -179,5 +374,23 @@
     </div></section>
 </main>
 <footer class="footer"><div class="footer-inner"><a href="scene-director.html">← Scene Director</a><a class="next" href="tomob-seed.html">Next · TOMOB SEED →</a></div></footer>
+<script>
+    const nav = document.getElementById('nav');
+    let lastY = 0;
+    window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        nav.classList.toggle('hidden', y > lastY && y > 100);
+        lastY = y;
+    }, { passive: true });
+
+    const studio = document.getElementById('studio');
+    studio.querySelectorAll('.st-nav-item').forEach(tab => {
+        tab.addEventListener('click', () => {
+            const key = tab.dataset.screen;
+            studio.querySelectorAll('.st-nav-item').forEach(t => t.classList.toggle('active', t === tab));
+            studio.querySelectorAll('.st-screen').forEach(s => s.classList.toggle('active', s.dataset.screen === key));
+        });
+    });
+</script>
 </body>
 </html>

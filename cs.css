@@ -1,0 +1,196 @@
+/* ============================================================
+   cs.css — 에디토리얼 케이스스터디 공통 디자인 시스템
+   ref: NEUE JOURNAL(웜 에디토리얼) + MUGEN STUDIO(번호형/교차)
+   각 페이지는 :root 에서 --accent / --hero-bg / --hero-ink 만 지정
+   ============================================================ */
+
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400&family=Geist+Mono:wght@400;500&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --paper: #F3EFE6;
+  --paper-2: #ECE7DA;
+  --ink: #16130E;
+  --ink-soft: rgba(22,19,14,0.60);
+  --ink-faint: rgba(22,19,14,0.40);
+  --line: rgba(22,19,14,0.14);
+  --card: #FBFAF6;
+  --accent: #FF3D64;          /* 페이지에서 덮어씀 */
+  --hero-bg: #16130E;         /* 페이지에서 덮어씀 */
+  --hero-ink: #ffffff;
+  --pad: clamp(24px, 5vw, 96px);
+  --maxw: 1280px;
+  --readw: 720px;
+  --sans: 'Pretendard', -apple-system, sans-serif;
+  --serif: 'Fraunces', 'Pretendard', Georgia, serif;
+  --mono: 'Geist Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--paper);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  word-break: keep-all;
+  cursor: none;
+  overflow-x: hidden;
+}
+
+/* ── cursor ── */
+.cursor { position: fixed; top:0; left:0; width:8px; height:8px; background:#fff; border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); mix-blend-mode:difference; }
+.cursor-ring { position: fixed; top:0; left:0; width:34px; height:34px; border:1.5px solid #fff; border-radius:50%; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); mix-blend-mode:difference; transition:width .3s,height .3s; }
+
+/* ── nav ── */
+.cs-nav { position: fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding: 26px var(--pad); mix-blend-mode: difference; }
+.cs-nav a { text-decoration:none; color:#fff; }
+.cs-nav .logo { font-size:12px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; }
+.cs-nav .back { font-family: var(--mono); font-size:11px; letter-spacing:.04em; opacity:.7; transition:opacity .2s; }
+.cs-nav .back:hover { opacity:1; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.cs-hero { position:relative; min-height: 100vh; display:flex; flex-direction:column; justify-content:flex-end; padding: 140px var(--pad) 72px; color: var(--hero-ink); background: var(--hero-bg); overflow:hidden; }
+.cs-hero__bg { position:absolute; inset:0; z-index:0; background-size:cover; background-position:center; }
+.cs-hero__bg::after { content:''; position:absolute; inset:0; background: linear-gradient(to bottom, rgba(5,5,8,.30) 0%, rgba(5,5,8,.15) 42%, rgba(5,5,8,.82) 100%); }
+.cs-hero__glow { position:absolute; inset:0; z-index:0; background: radial-gradient(120% 80% at 80% 12%, color-mix(in srgb, var(--accent) 30%, transparent), transparent 55%); }
+.cs-hero > * { position:relative; z-index:1; }
+.cs-hero > .cs-hero__bg, .cs-hero > .cs-hero__glow { position:absolute; inset:0; z-index:0; }
+.cs-hero__tag { font-family: var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase; color: var(--accent); margin-bottom: 28px; }
+.cs-hero__title { font-family: var(--serif); font-weight:340; font-size: clamp(60px, 12vw, 168px); line-height:.92; letter-spacing:-.03em; margin-bottom: 28px; }
+.cs-hero__sub { font-size: clamp(17px, 1.9vw, 24px); font-weight:400; line-height:1.5; letter-spacing:-.01em; max-width: 680px; margin-bottom: 60px; color: color-mix(in srgb, var(--hero-ink) 74%, transparent); }
+.cs-hero__sub b { font-weight:600; color: var(--hero-ink); }
+.cs-hero__meta { display:flex; gap: clamp(28px,5vw,72px); border-top:1px solid color-mix(in srgb, var(--hero-ink) 18%, transparent); padding-top: 28px; flex-wrap:wrap; }
+.cs-hero__meta .mi { display:flex; flex-direction:column; gap:7px; }
+.cs-hero__meta .k { font-family: var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color: color-mix(in srgb, var(--hero-ink) 48%, transparent); }
+.cs-hero__meta .v { font-size:13.5px; color: color-mix(in srgb, var(--hero-ink) 88%, transparent); }
+
+/* ============================================================
+   SECTION (번호형)
+   ============================================================ */
+.cs-wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad); }
+.cs-sec { padding: clamp(80px,11vw,150px) 0; border-top:1px solid var(--line); }
+.cs-sec.first { border-top:0; }
+.cs-sec__head { display:grid; grid-template-columns: 96px 1fr; gap: clamp(20px,4vw,56px); align-items:start; }
+.cs-sec__num { font-family: var(--serif); font-weight:300; font-size:34px; line-height:1; color: var(--accent); }
+.cs-sec__label { font-family: var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color: var(--ink-faint); margin-bottom: 22px; }
+.cs-sec__title { font-size: clamp(28px, 4vw, 54px); font-weight:600; line-height:1.14; letter-spacing:-.03em; max-width: 16ch; }
+.cs-sec__title.thin { font-weight:340; }
+.cs-sec__title em { font-style:normal; color: var(--accent); }
+.cs-sec__body { max-width: var(--readw); margin-top: 30px; }
+.cs-sec__head .cs-sec__body { grid-column: 2; }
+.cs-sec__body p { font-size: 16px; line-height: 1.95; color: var(--ink-soft); }
+.cs-sec__body p + p { margin-top: 18px; }
+.cs-sec__body b { color: var(--ink); font-weight:600; }
+.cs-sec__body .accent { color: var(--accent); font-weight:600; }
+
+/* lead — 큰 도입 문장 */
+.cs-lead { font-family: var(--serif); font-weight:300; font-size: clamp(24px,3.2vw,40px); line-height:1.35; letter-spacing:-.02em; color: var(--ink); max-width: 20ch; }
+.cs-lead b { font-weight:500; }
+
+/* ============================================================
+   MEDIA / FIGURE
+   ============================================================ */
+.cs-figure { margin-top: clamp(40px,6vw,72px); }
+.cs-figure img { width:100%; display:block; }
+.cs-frame { position:relative; overflow:hidden; border-radius:14px; border:1px solid var(--line); background:#0d0d0f; box-shadow: 0 40px 90px -40px rgba(20,16,10,.4); }
+.cs-frame img { width:100%; display:block; }
+.cs-frame::after { content:''; position:absolute; inset:0; background: var(--paper); transform-origin:right; transition: transform 1s cubic-bezier(.16,1,.3,1); z-index:2; }
+.cs-frame.revealed::after { transform: scaleX(0); }
+.cs-cap { font-family: var(--mono); font-size:11px; letter-spacing:.02em; color: var(--ink-faint); margin-top: 14px; }
+
+/* 폰(모바일) 프레임 */
+.cs-frame.phone { max-width: 320px; margin: 0 auto; border-radius: 26px; }
+.cs-phones { display:flex; gap: clamp(16px,3vw,40px); justify-content:center; align-items:flex-start; flex-wrap:wrap; margin-top: clamp(40px,6vw,72px); }
+.cs-phones .cs-frame { flex: 0 1 300px; max-width: 300px; border-radius: 26px; }
+
+/* full-bleed showcase */
+.cs-bleed { position:relative; left:50%; width:100vw; transform:translateX(-50%); margin: clamp(60px,9vw,120px) 0; }
+.cs-bleed .cs-frame { border-radius:0; border-left:0; border-right:0; }
+.cs-bleed .cs-cap { padding: 0 var(--pad); text-align:center; margin-top:18px; }
+
+/* two-up */
+.cs-duo { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top: clamp(40px,6vw,72px); }
+.cs-duo.tall .cs-frame { aspect-ratio: 3/4; }
+.cs-duo.tall .cs-frame img { height:100%; object-fit:cover; object-position:top; }
+
+/* ============================================================
+   SPLIT (좌우 교차 zigzag)
+   ============================================================ */
+.cs-split { display:grid; grid-template-columns: 1fr 1.2fr; gap: clamp(32px,5vw,80px); align-items:center; margin-top: clamp(48px,7vw,90px); }
+.cs-split--reverse { grid-template-columns: 1.2fr 1fr; }
+.cs-split--reverse .cs-split__text { order:2; }
+.cs-split__num { font-family: var(--mono); font-size:11px; letter-spacing:.14em; color: var(--accent); margin-bottom:16px; }
+.cs-split__text h3 { font-size: clamp(22px,2.6vw,32px); font-weight:600; line-height:1.2; letter-spacing:-.025em; margin-bottom:18px; }
+.cs-split__text h3 em { font-style:normal; color: var(--accent); }
+.cs-split__text p { font-size:15px; line-height:1.9; color: var(--ink-soft); }
+.cs-split__text p + p { margin-top:14px; }
+.cs-split__text b { color: var(--ink); font-weight:600; }
+
+/* ============================================================
+   QUOTE / INSIGHT (에디토리얼 풀쿼트)
+   ============================================================ */
+.cs-quote { margin: clamp(48px,7vw,88px) 0 0; padding-left: clamp(20px,3vw,40px); border-left: 3px solid var(--accent); max-width: 680px; }
+.cs-quote p { font-family: var(--serif); font-weight:300; font-size: clamp(23px,2.9vw,36px); line-height:1.4; letter-spacing:-.02em; color: var(--ink); }
+.cs-quote b { font-weight:500; color: var(--accent); }
+
+/* ============================================================
+   METRICS BAND (다크 큰 숫자)
+   ============================================================ */
+.cs-metrics { position:relative; left:50%; width:100vw; transform:translateX(-50%); background: var(--ink); color:#fff; margin: clamp(72px,10vw,130px) 0; padding: clamp(60px,8vw,100px) var(--pad); }
+.cs-metrics__inner { max-width: var(--maxw); margin:0 auto; display:grid; grid-template-columns: repeat(auto-fit,minmax(190px,1fr)); gap: clamp(28px,4vw,56px); }
+.cs-metric .n { font-family: var(--serif); font-weight:300; font-size: clamp(52px,7vw,100px); line-height:.9; letter-spacing:-.03em; color:#fff; }
+.cs-metric .n.accent { color: var(--accent); }
+.cs-metric .l { font-size:13px; color: rgba(255,255,255,.5); margin-top:16px; letter-spacing:.01em; }
+
+/* inline stat chips */
+.cs-stats { display:flex; gap:12px; margin-top:36px; flex-wrap:wrap; }
+.cs-stat { flex:1; min-width:150px; background: var(--card); border:1px solid var(--line); border-radius:12px; padding:24px; }
+.cs-stat .n { font-family: var(--serif); font-weight:300; font-size:38px; letter-spacing:-.02em; }
+.cs-stat .n.accent { color: var(--accent); }
+.cs-stat .l { font-size:12px; color: var(--ink-faint); margin-top:8px; }
+
+/* ============================================================
+   COMPARE (before / after)
+   ============================================================ */
+.cs-compare { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top: clamp(40px,6vw,72px); }
+.cs-compare__col { background: var(--card); border:1px solid var(--line); border-radius:12px; padding: clamp(24px,3vw,36px); }
+.cs-compare__col .tag { font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; margin-bottom:14px; display:inline-block; padding:4px 10px; border-radius:100px; }
+.cs-compare__col.before .tag { background: rgba(22,19,14,.06); color: var(--ink-faint); }
+.cs-compare__col.after .tag { background: color-mix(in srgb,var(--accent) 14%,transparent); color: var(--accent); }
+.cs-compare__col h4 { font-size:17px; font-weight:600; margin-bottom:10px; letter-spacing:-.02em; }
+.cs-compare__col p { font-size:14px; line-height:1.8; color: var(--ink-soft); }
+
+/* ============================================================
+   PAGER
+   ============================================================ */
+.cs-pager { border-top:1px solid var(--line); padding: 56px var(--pad); display:flex; justify-content:space-between; align-items:center; max-width: var(--maxw); margin:0 auto; }
+.cs-pager a { text-decoration:none; color: var(--ink); transition:opacity .2s; }
+.cs-pager a:hover { opacity:.5; }
+.cs-pager .h { font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color: var(--ink-faint); margin-bottom:8px; }
+.cs-pager .t { font-family: var(--serif); font-size:24px; font-weight:300; }
+.cs-pager .next { text-align:right; }
+
+/* ── reveal ── */
+[data-reveal] { opacity:0; transform: translateY(24px); transition: opacity .9s ease, transform .9s ease; }
+[data-reveal].visible { opacity:1; transform:none; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+  .cs-split, .cs-split--reverse { grid-template-columns: 1fr; }
+  .cs-split--reverse .cs-split__text { order:0; }
+  .cs-compare, .cs-duo { grid-template-columns:1fr; }
+  .cs-sec__head { grid-template-columns: 1fr; gap:12px; }
+  .cs-sec__num { font-size:26px; }
+  .cs-sec__head .cs-sec__body { grid-column:1; }
+}
+@media (max-width: 768px) {
+  body { cursor:auto; }
+  .cursor, .cursor-ring { display:none; }
+  .cs-bleed, .cs-metrics { width:100%; left:0; transform:none; }
+}

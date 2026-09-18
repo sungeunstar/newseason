@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lime — Sungeun Jun</title>
+<link rel="stylesheet" href="cs2.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="portfolio.html">Sungeun Jun</a>
+  <a href="portfolio.html">Index</a>
+</nav>
+
+<!-- ── Hero ─────────────────────────────── -->
+<header class="hero">
+  <div class="wrap">
+    <h1 class="hero__title">Lime</h1>
+    <p class="hero__sub">공급처 상품을 번역·재구성하고, 상세페이지를 <b>자동으로 조립·편집</b>해 네이버까지 올리는 1인 이커머스 운영 ERP.</p>
+
+    <div class="hero__meta">
+      <div><span class="k">Role</span><span class="v">기획 · 빌드 · 스토어 운영 (1인)</span></div>
+      <div><span class="k">Type</span><span class="v">1인 이커머스 자체 운영 ERP</span></div>
+      <div><span class="k">Stack</span><span class="v">Next.js · Node · SQLite · OpenAI · 네이버 API</span></div>
+      <div><span class="k">Year</span><span class="v">2026</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ── 01 Overview (그레이지) ────────────── -->
+<section class="sec s-greige">
+  <div class="wrap">
+    <div class="split" data-reveal>
+      <div>
+        <p class="label">01 &nbsp; The Bottleneck</p>
+        <h2 class="title">The Detail Page Was the Bottleneck</h2>
+        <p class="subtitle">상품 하나 올리는 시간의 대부분이 상세페이지였어요.</p>
+      </div>
+      <div class="split__body body">
+        <p>Lime은 산지직송·구매대행 상품을 네이버 스마트스토어에 올려 운영하면서 직접 만든 도구예요. 상품을 고르는 건 금방인데, 외국어 공급처 자료를 번역하고 <b>매번 똑같은 구조를 손으로 다시 짜는 일</b>에서 항상 막혔어요.</p>
+        <p>구조가 매번 같다면 그건 사람이 할 일이 아니라고 봤어요. 그래서 <b>데이터를 한 번 넣으면 상세가 조립</b>되고, 손볼 데만 직접 고쳐 네이버로 넘기는 흐름을 만들었어요.</p>
+      </div>
+    </div>
+    <figure class="media" style="margin-top:110px" data-reveal-media>
+      <img class="shot" src="assets/lime/app-dash.png" alt="Lime 운영 콘솔 — 131개 상품, 상세 준비완료 123개">
+      <figcaption class="media__cap">운영 콘솔 — 131개 상품, 상세 준비완료 123개, 카테고리별 현황</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ── 02 Problem · 핵심 판단 (다크 · 비교) ── -->
+<section class="sec sec--dark s-ink">
+  <div class="wrap">
+    <div class="split" data-reveal>
+      <div>
+        <p class="label">02 &nbsp; The Rule</p>
+        <h2 class="title">All-AI Images Look Easy. They Aren't.</h2>
+        <p class="subtitle">제일 쉬워 보이는 길이 제일 위험했어요.</p>
+      </div>
+      <div class="split__body body">
+        <p>상세 한 장을 통째로 AI 이미지로 뽑으면 십 분이면 끝나요. 그런데 식품 상세엔 원산지·중량·인증처럼 <b>틀리면 법적 문제가 되는 값</b>이 들어가요.</p>
+        <p>무엇을 코드로 남기고 무엇을 AI에 맡길지 — 이 경계를 규칙으로 먼저 정하고 나서야 나머지 기능을 만들 수 있었어요.</p>
+      </div>
+    </div>
+
+    <div class="compare" style="margin-top:110px;max-width:1000px" data-reveal>
+      <div class="compare__col before">
+        <span class="compare__tag">쉬운 길</span>
+        <h4>상세를 통째로 AI 이미지 한 장</h4>
+        <p>빠르지만 <b>한글이 깨지고, 수정이 불가능하고,</b> 원산지·인증 같은 정보를 AI가 임의로 지어낼 위험이 있어요. 식품 상세에선 표시광고법 리스크예요.</p>
+      </div>
+      <div class="compare__col after">
+        <span class="compare__tag">Lime의 규칙</span>
+        <h4>한글·데이터는 항상 코드로</h4>
+        <p>텍스트·데이터는 <b>코드/HTML로 합성</b>하고, AI는 카피·구조 제안과 대표컷 생성까지만. <b>원산지·인증·수량은 AI가 절대 생성하지 않아요.</b></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 03 상품 관리 (화이트) ─────────────── -->
+<section class="sec">
+  <div class="wrap">
+    <div class="split" data-reveal>
+      <div>
+        <p class="label">03 &nbsp; Inventory</p>
+        <h2 class="title">Score Each Product, Then Sort</h2>
+        <p class="subtitle">'어떤 상품부터 손봐야 하지'를 점수로 바꿨어요.</p>
+      </div>
+      <div class="split__body body">
+        <p>상품이 백 개를 넘어가면 <b>뭐가 덜 됐는지</b>를 기억으로 관리할 수 없어요. 그래서 초안 → 검토 → 판매가능 상태와 별개로, 상품마다 <b>상세 등록준비도를 100점으로 점수화</b>했어요.</p>
+        <p>이미지가 없으면 몇 점, 원산지가 비면 몇 점씩 깎이는 식이에요. 점수가 낮은 순으로 정렬하면 오늘 할 일이 그대로 나와요.</p>
+      </div>
+    </div>
+    <figure class="media" style="margin-top:110px" data-reveal-media>
+      <img class="shot" src="assets/lime/app-products.png" alt="상품 목록 131개 — 상태·등록준비도 점수">
+      <figcaption class="media__cap">상품 목록 — 초안·검토·판매가능 상태와 등록준비도 100점</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ── 04 데이터 기반 상세 (다크) ────────── -->
+<section class="sec sec--dark s-ink">
+  <div class="wrap">
+    <div class="split" data-reveal>
+      <div>
+        <p class="label">04 &nbsp; Binding</p>
+        <h2 class="title">Enter Facts as Fields, Bind to the Page</h2>
+        <p class="subtitle">앞에서 정한 규칙을 실제로 지키는 방식이에요.</p>
+      </div>
+      <div class="split__body body">
+        <p>원산지·중량·가격을 문장이 아니라 <b>필드로 입력</b>하면 그 값이 상세 블록에 그대로 연결돼요. 이미지로 구워버리지 않으니까 <b>값이 바뀌면 값만 고치면</b> 돼요.</p>
+        <p>공급가가 오르면 상세를 다시 만드는 게 아니라 숫자 하나만 바꿔요. 상품 수가 늘어날수록 이 차이가 커졌어요.</p>
+      </div>
+    </div>
+    <figure class="media" style="margin-top:110px" data-reveal-media>
+      <img class="shot" src="assets/lime/app-editor-data.png" alt="상세 편집 + 실시간 미리보기">
+      <figcaption class="media__cap">데이터 입력 → 상세 블록에 실시간 바인딩·미리보기</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ── 05 자유 편집 에디터 (그레이지) ─────── -->
+<section class="sec s-greige">
+  <div class="wrap">
+    <div class="split" data-reveal>
+      <div>
+        <p class="label">05 &nbsp; The Canvas</p>
+        <h2 class="title">Edit It Yourself, Not by Chat</h2>
+        <p class="subtitle">"조금만 더 왼쪽"을 설명하느니 직접 끄는 게 빨라요.</p>
+      </div>
+      <div class="split__body body">
+        <p>AI 초안이 80%쯤 맞을 때가 제일 곤란했어요. 나머지 20%를 채팅으로 고치려면 왕복이 몇 번씩 생기는데, 마우스로 끌면 3초예요.</p>
+        <p>그래서 <b>피그마식 캔버스 에디터</b>를 붙였어요. 텍스트·이미지·도형·데이터블록을 직접 배치하고, 다 되면 <b>네이버 등록 화면 그대로</b> 미리 보고 상세 HTML을 복사해요.</p>
+      </div>
+    </div>
+    <figure class="media" style="margin-top:110px" data-reveal-media>
+      <img class="shot" src="assets/lime/app-editor-canvas.png" alt="상세 에디터 캔버스 — 드래그앤드롭">
+      <figcaption class="media__cap">상세 에디터 — 드래그앤드롭 캔버스 + AI 블록 + 네이버 등록 미리보기</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ── 06 결과물 (화이트) ────────────────── -->
+<section class="sec">
+  <div class="wrap">
+    <div class="split" data-reveal>
+      <div>
+        <p class="label">06 &nbsp; Handoff</p>
+        <h2 class="title">Assembled Detail, Straight to Sale</h2>
+        <p class="subtitle">마지막 한 걸음에서 깨지는 걸 막는 게 일이었어요.</p>
+      </div>
+      <div class="split__body body">
+        <p>네이버 에디터는 외부 CSS를 받지 않아요. 그래서 조립된 상세를 <b>CSS 인라인화</b>하고 이미지를 <b>CDN 주소로 치환</b>한 다음에야 붙여넣기가 깨지지 않았어요.</p>
+        <p>아래는 실제로 이 시스템이 만들어 올린 상세페이지예요.</p>
+      </div>
+    </div>
+    <div class="shot--duo" style="margin-top:110px;max-width:900px;margin-left:auto;margin-right:auto" data-reveal-media>
+      <div class="crop crop--tall"><img src="assets/lime/output-detail.png" alt="생성된 상세페이지"></div>
+      <div class="crop crop--tall"><img src="assets/lime/output-preview.png" alt="조립 미리보기"></div>
+    </div>
+    <p class="media__cap" style="max-width:900px;margin:20px auto 0">실제 생성·조립된 상세페이지 (피자두 2kg)</p>
+  </div>
+</section>
+
+<!-- ── 07 Outcome (네이비 · 수치) ─────────── -->
+<section class="sec sec--dark s-navy">
+  <div class="wrap">
+    <div class="split" data-reveal>
+      <div>
+        <p class="label">07 &nbsp; In Operation</p>
+        <h2 class="title">The Store Runs On It</h2>
+        <p class="subtitle">만들고 끝난 게 아니라, 매일 쓰면서 고치고 있어요.</p>
+      </div>
+      <div class="split__body body">
+        <p>Lime은 보여주려고 만든 게 아니라 <b>실제로 스토어를 굴리려고</b> 만들었어요. 지금 131개 상품이 이 시스템으로 등록돼 있고, 그중 123개는 상세까지 준비를 마쳤어요.</p>
+        <p>쓰는 사람이 저라서 불편한 지점이 바로 보여요. 기능이 늘어난 건 대부분 <b>제가 그날 짜증 났던 것</b>에서 시작됐어요.</p>
+      </div>
+    </div>
+    <div class="figures" style="margin-top:130px" data-reveal>
+      <div><div class="figure__n">131</div><div class="figure__l">실등록 상품</div></div>
+      <div><div class="figure__n">123</div><div class="figure__l">상세 준비완료</div></div>
+      <div><div class="figure__n">15</div><div class="figure__l">운영 카테고리</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Related ──────────────────────────── -->
+<section class="sec sec--tight">
+  <div class="wrap">
+    <h3 class="h3">Related Projects</h3>
+    <div class="next" data-reveal>
+      <a href="peach.html"><img src="assets/peach/cover.webp" alt="PEACH">
+        <div class="t">PEACH</div><div class="d">로컬 영업 리드 도구</div></a>
+      <a href="seedlog.html"><img src="assets/seedlog/shots/mobile-home.png" alt="SeedLog">
+        <div class="t">SeedLog</div><div class="d">농업 데이터 기록 웹앱</div></a>
+      <a href="tomob-seed.html"><img src="assets/seed/overview.png" alt="TOMOB SEED">
+        <div class="t">TOMOB SEED</div><div class="d">AI 인풋 구조화 도구</div></a>
+    </div>
+  </div>
+</section>
+
+<nav class="pager">
+  <a href="peach.html"><div class="k">Previous</div><div class="t">PEACH</div></a>
+  <a href="starlight-delivery.html"><div class="k">Next</div><div class="t">스타딜리버리</div></a>
+</nav>
+
+<script>
+  const io = new IntersectionObserver((es) => es.forEach((e) => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { threshold: .08 });
+  document.querySelectorAll('[data-reveal],[data-reveal-media]').forEach((el) => io.observe(el));
+</script>
+</body>
+</html>

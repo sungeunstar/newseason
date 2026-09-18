@@ -1,243 +1,315 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>tomob — Three.js Web Game Build</title>
-    <link rel="stylesheet" href="case-study.css">
-    <style>:root { --accent: #07121A; }</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tomob — Sungeun Jun</title>
+<link rel="stylesheet" href="cs2.css">
 </head>
 <body>
-<nav class="nav"><a href="portfolio.html">Sungeun Jun</a><a href="portfolio.html#works">All works</a></nav>
+
+<nav class="nav">
+  <a href="portfolio.html">Sungeun Jun</a>
+  <a href="portfolio.html">Index</a>
+</nav>
+
+<!-- ── Hero ─────────────────────────────── -->
 <header class="hero">
-    <p class="eyebrow">Featured Work · AI Product Build</p>
-    <h1>tomob</h1>
-    <p class="hero-copy">게임에서 재화를 얻고, 그 재화로 실제 프로덕트 제작을 의뢰하는 게임형 제작 플랫폼입니다. 이 제품을 브라우저에서 구현하며 게임 시스템과 외주 제작 경험을 하나의 루프로 연결했습니다.</p>
-    <div class="hero-meta">
-        <div><span>Role</span><strong>Product Strategy · System Design · Build</strong></div>
-        <div><span>Stack</span><strong>Three.js · Rapier · JavaScript</strong></div>
-        <div><span>Type</span><strong>Game-based Product Commission Platform</strong></div>
+  <div class="wrap">
+    <h1 class="hero__title">tomob</h1>
+    <p class="hero__sub">게임에서 재화를 얻고, 그 재화로 <b>실제 프로덕트 제작을 의뢰</b>하는 게임형 제작 플랫폼. 게임 시스템과 외주 제작 경험을 하나의 루프로 연결했어요.</p>
+
+    <div class="hero__meta">
+      <div><span class="k">Role</span><span class="v">Product Strategy · System Design · Build</span></div>
+      <div><span class="k">Type</span><span class="v">Game-based Product Commission Platform</span></div>
+      <div><span class="k">Stack</span><span class="v">Three.js · Rapier · JavaScript</span></div>
+      <div><span class="k">Year</span><span class="v">2026</span></div>
     </div>
+  </div>
 </header>
 
-<main>
-    <section class="section"><div class="section-inner">
-        <p class="section-label">01 · Product Idea</p>
-        <h2>게임에서 얻은 성취가 실제 프로덕트 제작으로 이어질 수 있을까?</h2>
-        <p class="lead">tomob의 핵심은 게임 자체가 아니었습니다. 탐험과 전투, 항해를 통해 재화를 모으고 그 재화로 디자인·개발 같은 외주 프로덕트를 의뢰하는 경험을 구상했습니다. 놀이의 동기와 실제 제작 서비스를 하나의 경제 안에 연결하려는 제품 실험이었습니다.</p>
-    </div></section>
+<!-- ── 01 Product Idea (그레이지) ────────── -->
+<section class="sec s-greige">
+  <div class="wrap">
+    <div class="split" data-reveal>
+      <div>
+        <p class="label">01 &nbsp; Product Idea</p>
+        <h2 class="title">Can Play Turn Into Real Products?</h2>
+        <p class="subtitle">게임에서 얻은 성취가 실제 프로덕트 제작으로 이어질 수 있을까?</p>
+      </div>
+      <div class="split__body body">
+        <p>tomob의 핵심은 게임 자체가 아니었어요. 탐험·전투·항해로 재화를 모으고 그 재화로 <b>디자인·개발 같은 외주 프로덕트를 의뢰</b>하는 경험을 구상했어요. 놀이의 동기와 실제 제작 서비스를 하나의 경제 안에 연결하려는 제품 실험이었어요.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <section class="section"><div class="section-inner">
-        <p class="section-label">02 · Core Loop</p>
-        <h2>플레이가 끝나는 지점을 보상이 아니라 제작 의뢰로 바꿨습니다.</h2>
-        <div class="product-loop">
-            <div class="loop-item"><span>01 · PLAY</span><strong>탐험과 전투</strong><p>월드를 이동하고 전투·항해·채집 활동을 수행합니다.</p></div>
-            <div class="loop-item"><span>02 · EARN</span><strong>게임 재화 획득</strong><p>플레이 결과로 제작 의뢰에 사용할 수 있는 재화를 축적합니다.</p></div>
-            <div class="loop-item"><span>03 · COMMISSION</span><strong>프로덕트 의뢰</strong><p>필요한 디자인·개발 작업의 범위와 조건을 선택합니다.</p></div>
-            <div class="loop-item"><span>04 · BUILD</span><strong>실제 결과물</strong><p>게임 밖에서 사용할 수 있는 실제 프로덕트 제작으로 연결됩니다.</p></div>
+<!-- ── 02 Core Loop (다크) ───────────────── -->
+<section class="sec sec--dark s-ink">
+  <div class="wrap">
+    <div class="split" data-reveal>
+      <div>
+        <p class="label">02 &nbsp; Core Loop</p>
+        <h2 class="title">Play Ends in a Commission, Not a Reward</h2>
+        <p class="subtitle">플레이가 끝나는 지점을 보상이 아니라 제작 의뢰로 바꿨어요.</p>
+      </div>
+      <div class="split__body body">
+        <p>게임의 성취를 게임 밖에서 쓸 수 있는 결과물로 넘기는 게 이 제품의 루프예요.</p>
+      </div>
+    </div>
+    <div class="rows" style="margin-top:100px" data-reveal>
+      <div class="row"><span class="row__n">01 · PLAY</span><span class="row__k">탐험과 전투</span><span class="row__v">월드를 이동하고 전투·항해·채집 활동을 수행해요.</span></div>
+      <div class="row"><span class="row__n">02 · EARN</span><span class="row__k">게임 재화 획득</span><span class="row__v">플레이 결과로 제작 의뢰에 사용할 수 있는 재화를 축적해요.</span></div>
+      <div class="row"><span class="row__n">03 · COMMISSION</span><span class="row__k">프로덕트 의뢰</span><span class="row__v">필요한 디자인·개발 작업의 범위와 조건을 선택해요.</span></div>
+      <div class="row"><span class="row__n">04 · BUILD</span><span class="row__k">실제 결과물</span><span class="row__v">게임 밖에서 사용할 수 있는 실제 프로덕트 제작으로 연결돼요.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 03 Live Experience (화이트 · iframe) ── -->
+<section class="sec">
+  <div class="wrap">
+    <div class="split" data-reveal>
+      <div>
+        <p class="label">03 &nbsp; Live Experience</p>
+        <h2 class="title">Try the Real Three.js Intro First</h2>
+        <p class="subtitle">설명보다 먼저, 실제 Three.js 인트로를 체험할 수 있게 했어요.</p>
+      </div>
+      <div class="split__body body">
+        <p>아래 화면에서 직접 스크롤하면 바다에서 동굴과 차원문으로 이어지는 인트로 연출을 확인할 수 있어요.</p>
+      </div>
+    </div>
+    <div class="embed" style="margin-top:110px" data-reveal-media>
+      <div class="embed__bar"><span class="embed__dot"></span><span class="embed__dot"></span><span class="embed__dot"></span><span class="embed__url">deploy-lovat-three-83.vercel.app/voyage/intro/_journey.html</span></div>
+      <iframe class="embed__frame" src="https://deploy-lovat-three-83.vercel.app/voyage/intro/_journey.html" title="tomob 실제 Three.js 인트로" loading="lazy" allow="autoplay; fullscreen" sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-popups"></iframe>
+    </div>
+    <p class="media__cap" style="margin-top:20px">미리보기 안에서 스크롤해 인트로를 체험할 수 있어요 · <a href="https://deploy-lovat-three-83.vercel.app/voyage/intro/_journey.html" target="_blank" rel="noopener" style="border-bottom:1px solid currentColor">실제 사이트 보기 ↗</a></p>
+  </div>
+</section>
+
+<!-- ── 04 Evolution — Phase 1 Top View (그레이지) ── -->
+<section class="sec s-greige">
+  <div class="wrap">
+    <div class="split" data-reveal>
+      <div>
+        <p class="label">04 &nbsp; Evolution</p>
+        <h2 class="title">The Tech Changed With the Question</h2>
+        <p class="subtitle">게임의 형태보다, 지금 검증할 게 무엇인지에 따라 기술을 바꿨어요.</p>
+      </div>
+      <div class="split__body body">
+        <p>tomob는 처음부터 지금 모습이 아니었어요. 탑뷰로 핵심 루프를 확인한 뒤 공간 경험을 위해 Voxel로 전환했고, 프레임·표현의 한계를 확인한 뒤 Mesh 월드로 다시 옮겼어요.</p>
+        <div class="tags" style="margin-top:32px">
+          <span>Top View</span><span>Voxel World</span><span>Mesh World</span><span>Modular Build</span><span>Harness Refactor</span>
         </div>
-    </div></section>
+      </div>
+    </div>
+    <figure class="media" style="margin-top:110px" data-reveal-media>
+      <p class="label" style="margin-bottom:24px">Phase 01 · Top View</p>
+      <h3 class="h3" style="margin-bottom:24px">처음에는 위에서 내려다보는 작은 월드였어요.</h3>
+      <img class="shot" src="assets/tomob/early-stage.jpg" alt="tomob 극초기 탑뷰 게임과 맵 에디터">
+      <figcaption class="media__cap">초기 탑뷰 프로토타입과 브라우저 맵 에디터 — 이동·건설·월드 편집 루프 검증</figcaption>
+    </figure>
+  </div>
+</section>
 
-    <section class="section"><div class="section-inner">
-        <p class="section-label">03 · Live Experience</p>
-        <h2>설명보다 먼저, 실제 Three.js 인트로를 체험할 수 있게 했습니다.</h2>
-        <p class="lead">아래 화면에서 직접 스크롤하면 바다에서 동굴과 차원문으로 이어지는 인트로 연출을 확인할 수 있습니다.</p>
-        <div class="site-list">
-            <article class="site-case">
-                <div class="browser-shell">
-                    <div class="browser-bar"><span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-url">deploy-lovat-three-83.vercel.app/voyage/intro/_journey.html</span></div>
-                    <iframe class="site-frame" src="https://deploy-lovat-three-83.vercel.app/voyage/intro/_journey.html" title="tomob 실제 Three.js 인트로" loading="lazy" allow="autoplay; fullscreen" sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-popups"></iframe>
-                </div>
-                <div class="site-case-foot"><span>미리보기 안에서 스크롤해 인트로를 체험할 수 있습니다.</span><a href="https://deploy-lovat-three-83.vercel.app/voyage/intro/_journey.html" target="_blank" rel="noreferrer">실제 사이트 보기 ↗</a></div>
-            </article>
-        </div>
-    </div></section>
+<!-- ── Phase 2 Voxel (다크) ──────────────── -->
+<section class="sec sec--dark s-ink">
+  <div class="wrap">
+    <div style="max-width:var(--text)" data-reveal>
+      <p class="label">Phase 02 · Voxel</p>
+      <h3 class="h3" style="margin-top:20px">직접 탐험하고 만드는 감각을 위해 Voxel 월드로 전환했어요.</h3>
+      <p class="body">1인칭 공간, 블록 지형, Seed 월드, 제작·항해를 한 환경에 넣었어요. 범위는 빠르게 넓어졌지만 블록 수가 늘수록 프레임 비용과 장면 관리 복잡도가 함께 커졌어요.</p>
+    </div>
+    <div class="shot--duo" style="margin-top:80px" data-reveal-media>
+      <img class="shot" src="assets/tomob/voxel-map.png" alt="Voxel 기반 섬과 항해 월드">
+      <img class="shot" src="assets/tomob/voxel-seed.png" alt="Voxel Seed 월드 시스템">
+    </div>
+    <figure class="media" style="margin-top:28px" data-reveal-media>
+      <video class="shot" controls muted playsinline preload="metadata"><source src="assets/tomob/voxel-early.mp4" type="video/mp4"></video>
+      <figcaption class="media__cap">Voxel 버전 초기 플레이 기록</figcaption>
+    </figure>
+    <div class="shot--duo" style="margin-top:28px" data-reveal-media>
+      <img class="shot" src="assets/tomob/early-map-plan.png" alt="tomob 초기 월드맵 구상">
+      <img class="shot" src="assets/tomob/early-map-impl.png" alt="초기 월드맵 게임 내 구현">
+    </div>
+    <p class="media__cap" style="margin-top:20px">섬의 역할·항로를 먼저 정의한 월드맵 구상(좌) → 게임 내 탐색 지도로 옮긴 구현(우)</p>
+  </div>
+</section>
 
-    <section class="section archive-section"><div class="section-inner">
-        <p class="section-label">04 · Evolution</p>
-        <h2>게임의 형태보다, 지금 단계에서 무엇을 검증해야 하는지에 따라 기술을 바꿨습니다.</h2>
-        <p class="lead">tomob는 처음부터 지금의 모습이 아니었습니다. 탑뷰로 핵심 루프를 확인한 뒤 공간 경험을 위해 Voxel로 전환했고, 프레임과 표현의 한계를 확인한 뒤 Mesh 기반 월드로 다시 옮겼습니다.</p>
+<!-- ── Phase 3 Mesh (화이트) ─────────────── -->
+<section class="sec">
+  <div class="wrap">
+    <div style="max-width:var(--text)" data-reveal>
+      <p class="label">Phase 03 · Mesh</p>
+      <h3 class="h3" style="margin-top:20px">프레임·표현의 한계를 해결하려고 Mesh 기반 월드로 업그레이드했어요.</h3>
+      <p class="body">Voxel을 끝까지 최적화하는 대신, 이미 만들어진 3D 에셋과 Mesh 지형을 쓰는 방향으로 기술 선택을 바꿨어요. 한 화면에 더 많은 시스템을 올리면서도 인트로·전투·항해의 연출 밀도를 높일 수 있었어요.</p>
+    </div>
+    <div class="shot--duo" style="margin-top:80px" data-reveal-media>
+      <img class="shot" src="assets/tomob/intro-page.png" alt="Mesh 기반 tomob 인트로 페이지">
+      <img class="shot" src="assets/tomob/tutorial-test.png" alt="Mesh 기반 게임 튜토리얼 테스트">
+    </div>
+    <figure class="media" style="margin-top:28px" data-reveal-media>
+      <video class="shot" controls muted playsinline preload="metadata"><source src="assets/tomob/physics-test.mp4" type="video/mp4"></video>
+      <figcaption class="media__cap">Mesh 리뉴얼 이후 Three.js 월드에 물리 규칙을 다시 설정한 테스트</figcaption>
+    </figure>
+  </div>
+</section>
 
-        <div class="evolution-arrow">
-            <b>Top View</b><span>→</span><b>Voxel World</b><span>→</span><b>Mesh World</b><span>→</span><b>Modular Build</b><span>→</span><b>Harness Refactor</b>
-        </div>
+<!-- ── Phase 4 Modular (다크) ────────────── -->
+<section class="sec sec--dark s-ink">
+  <div class="wrap">
+    <div style="max-width:var(--text)" data-reveal>
+      <p class="label">Phase 04 · Modular</p>
+      <h3 class="h3" style="margin-top:20px">기능을 모듈로 분리하면서 병렬 개발이 가능해졌어요.</h3>
+      <p class="body">전투·항해·스킬·크루·세이브를 각 모듈로 나누고 공통 컨텍스트로 연결했어요. 독립적인 기능은 동시에, 의존성 있는 작업만 순서대로 이어갔어요.</p>
+    </div>
+    <div class="shot--duo" style="margin-top:80px" data-reveal-media>
+      <video class="shot" controls muted playsinline preload="metadata"><source src="assets/tomob/combat.mp4" type="video/mp4"></video>
+      <video class="shot" controls muted playsinline preload="metadata"><source src="assets/tomob/sailing.mp4" type="video/mp4"></video>
+    </div>
+    <div class="shot--duo" style="margin-top:28px" data-reveal-media>
+      <video class="shot" controls muted playsinline preload="metadata"><source src="assets/tomob/skill-system.mp4" type="video/mp4"></video>
+      <video class="shot" controls muted playsinline preload="metadata"><source src="assets/tomob/naval-combat.mp4" type="video/mp4"></video>
+    </div>
+    <p class="media__cap" style="margin-top:20px">전투 · 항해 · 스킬 · 항해전투를 독립 모듈로 분리한 뒤 공통 컨텍스트로 연결</p>
+  </div>
+</section>
 
-        <div class="archive-flow">
-            <article class="archive-stage">
-                <p class="archive-index">Phase 01 · Top View</p>
-                <div class="archive-body">
-                    <h3>처음에는 위에서 내려다보는 작은 월드였습니다.</h3>
-                    <p>이 단계의 목적은 그래픽 완성도가 아니라 이동, 건설, 월드 편집처럼 게임의 기본 루프가 브라우저에서 작동하는지 빠르게 확인하는 것이었습니다.</p>
-                    <figure class="media-block">
-                        <img src="assets/tomob/early-stage.jpg" alt="tomob 극초기 탑뷰 게임과 맵 에디터">
-                        <figcaption class="media-caption">초기 탑뷰 프로토타입과 브라우저 맵 에디터</figcaption>
-                    </figure>
-                </div>
-            </article>
+<!-- ── Phase 5 Harness + 05 Product System (화이트) ── -->
+<section class="sec">
+  <div class="wrap">
+    <div class="split" data-reveal>
+      <div>
+        <p class="label">05 &nbsp; Product System</p>
+        <h2 class="title">Systems Behind the Screen</h2>
+        <p class="subtitle">게임 화면 뒤에는 서로 영향을 주는 시스템이 있었어요.</p>
+      </div>
+      <div class="split__body body">
+        <p><b>Phase 05 · Harness</b> — 병렬 개발은 속도를 높였지만 모듈 사이 회귀 버그도 늘렸어요. 문법 검사로 안 잡히는 입력 충돌·세이브 복원·물리 상태·보상·밸런스를 <b>자동 Check와 시뮬레이션 불변식</b>으로 검증했어요.</p>
+      </div>
+    </div>
+    <div class="cards cards--3" style="margin-top:100px" data-reveal>
+      <div class="card"><p class="card__k">World</p><p class="card__t">섬과 지형</p><p>스트리밍 섬·지면 판정·항구·채집을 하나의 월드 규칙으로 연결.</p></div>
+      <div class="card"><p class="card__k">Combat</p><p class="card__t">전투와 AI</p><p>지각·공격 토큰·디렉터를 공통 AI 코어로 묶어 행동 규칙을 정리.</p></div>
+      <div class="card"><p class="card__k">Voyage</p><p class="card__t">항해와 크루</p><p>파도·부력·조타·갑판 크루가 같은 공간에서 작동하도록 구성.</p></div>
+      <div class="card"><p class="card__k">State</p><p class="card__t">세이브와 복원</p><p>순수 JSON 스냅샷과 모듈별 복원 훅으로 상태가 이어지도록.</p></div>
+      <div class="card"><p class="card__k">Input</p><p class="card__t">입력 모드</p><p>도보·조타·건설·컷신의 입력 충돌을 라우터에서 차단, 키맵 단일 문서화.</p></div>
+      <div class="card"><p class="card__k">Balance</p><p class="card__t">밸런스 SSOT</p><p>레벨·공격·성장 수치를 한곳에서만 조정, 값 복제 방지.</p></div>
+    </div>
+  </div>
+</section>
 
-            <article class="archive-stage">
-                <p class="archive-index">Phase 02 · Voxel</p>
-                <div class="archive-body">
-                    <h3>직접 탐험하고 만드는 감각을 위해 Voxel 월드로 전환했습니다.</h3>
-                    <p>1인칭 공간, 블록 기반 지형, Seed 월드, 제작과 항해를 한 환경에 넣었습니다. 게임의 범위는 빠르게 넓어졌지만, 블록 수가 늘수록 프레임 비용과 장면 관리 복잡도가 함께 커졌습니다.</p>
-                    <div class="media-grid">
-                        <figure class="media-block">
-                            <img src="assets/tomob/voxel-map.png" alt="Voxel 기반 섬과 항해 월드">
-                            <figcaption class="media-caption">Voxel 기반 섬·배·월드 탐색</figcaption>
-                        </figure>
-                        <figure class="media-block">
-                            <img src="assets/tomob/voxel-seed.png" alt="Voxel Seed 월드 시스템">
-                            <figcaption class="media-caption">Seed 기반 월드 생성 시스템</figcaption>
-                        </figure>
-                    </div>
-                    <figure class="media-block">
-                        <video controls muted playsinline preload="metadata">
-                            <source src="assets/tomob/voxel-early.mp4" type="video/mp4">
-                        </video>
-                        <figcaption class="media-caption">Voxel 버전 초기 플레이 기록</figcaption>
-                    </figure>
-                    <figure class="media-block">
-                        <img src="assets/tomob/early-map-plan.png" alt="tomob 초기 월드맵 구상">
-                        <figcaption class="media-caption">먼저 섬의 역할과 항로를 정의한 초기 월드맵 구상</figcaption>
-                    </figure>
-                    <figure class="media-block">
-                        <img src="assets/tomob/early-map-impl.png" alt="초기 월드맵을 게임 안에 구현한 화면">
-                        <figcaption class="media-caption">구상한 월드 구조를 게임 내 탐색 지도로 옮긴 초기 구현</figcaption>
-                    </figure>
-                </div>
-            </article>
+<!-- ── 06 Key Decision (다크) ────────────── -->
+<section class="sec sec--dark s-ink">
+  <div class="wrap">
+    <div class="split" data-reveal>
+      <div>
+        <p class="label">06 &nbsp; Key Decision</p>
+        <h2 class="title">Structure That Catches AI's Mistakes</h2>
+        <p class="subtitle">프롬프트를 잘 쓰는 것보다, AI가 틀려도 발견되는 구조가 필요했어요.</p>
+      </div>
+      <div class="split__body body">
+        <p>작업이 커질수록 긴 지시문보다 <b>단일 진실 공급원, 명시적 모듈 경계, 자동 검증</b>이 더 중요했어요. 새 입력은 입력 라우터로, 새 이벤트는 이벤트 시스템으로, 새 밸런스 값은 BAL로 들어가게 규칙을 고정했어요.</p>
+      </div>
+    </div>
+    <div class="rows" style="margin-top:100px" data-reveal>
+      <div class="row"><span class="row__n">01</span><span class="row__k">작업 범위 정의</span><span class="row__v">한 번에 건드릴 파일과 건드리지 않을 파일을 먼저 적어요. 범위가 넓으면 뭐가 깨졌는지 못 찾아요.</span></div>
+      <div class="row"><span class="row__n">02</span><span class="row__k">SSOT 확인</span><span class="row__v">밸런스 수치는 BAL, 키 바인딩은 키맵 문서. 값이 두 곳에 생기려 하면 그 자리에서 막아요.</span></div>
+      <div class="row"><span class="row__n">03</span><span class="row__k">작은 단위 구현</span><span class="row__v">기능 하나씩 넣고 바로 돌려봐요. 여러 개를 한꺼번에 넣으면 원인 추적이 불가능해져요.</span></div>
+      <div class="row"><span class="row__n">04</span><span class="row__k">자동 Check</span><span class="row__v">부팅·키 충돌·세이브 복원·보상 불변식을 스크립트가 검사해요. 사람 눈으로 안 잡히는 회귀를 여기서 걸러요.</span></div>
+      <div class="row"><span class="row__n">05</span><span class="row__k">실플레이 판정</span><span class="row__v">자동 검사를 통과해도 손맛은 직접 해봐야 알아요. 통과와 재미는 다른 판정이에요.</span></div>
+    </div>
+  </div>
+</section>
 
-            <article class="archive-stage">
-                <p class="archive-index">Phase 03 · Mesh</p>
-                <div class="archive-body">
-                    <h3>프레임과 표현의 한계를 해결하기 위해 Mesh 기반 월드로 업그레이드했습니다.</h3>
-                    <p>Voxel을 끝까지 최적화하는 대신, 이미 만들어진 3D 에셋과 Mesh 지형을 활용하는 방향으로 기술 선택을 바꿨습니다. 한 화면에 더 많은 시스템을 올리면서도 인트로, 전투, 항해의 연출 밀도를 높일 수 있었습니다.</p>
-                    <div class="media-grid">
-                        <figure class="media-block">
-                            <img src="assets/tomob/intro-page.png" alt="Mesh 기반 tomob 인트로 페이지">
-                            <figcaption class="media-caption">Mesh 월드 기반 인트로 연출</figcaption>
-                        </figure>
-                        <figure class="media-block">
-                            <img src="assets/tomob/tutorial-test.png" alt="Mesh 기반 게임 튜토리얼 테스트">
-                            <figcaption class="media-caption">튜토리얼과 카메라 연출 테스트</figcaption>
-                        </figure>
-                    </div>
-                    <figure class="media-block">
-                        <video controls muted playsinline preload="metadata">
-                            <source src="assets/tomob/physics-test.mp4" type="video/mp4">
-                        </video>
-                        <figcaption class="media-caption">Mesh 리뉴얼 이후 Three.js 월드에 물리 규칙을 다시 설정한 테스트</figcaption>
-                    </figure>
-                </div>
-            </article>
+<!-- ── 07 3D Production (화이트) ─────────── -->
+<section class="sec">
+  <div class="wrap">
+    <div class="split" data-reveal>
+      <div>
+        <p class="label">07 &nbsp; 3D Production</p>
+        <h2 class="title">Decide by Looking, Not by Describing</h2>
+        <p class="subtitle">화면을 보며 결정할 일은 직접 조정할 수 있게 만들었어요.</p>
+      </div>
+      <div class="split__body body">
+        <p>문장으로 반복 설명하는 대신, 실제 화면에서 움직이며 확정하는 도구를 직접 만들었어요.</p>
+      </div>
+    </div>
+    <div class="cards cards--3" style="margin-top:100px" data-reveal>
+      <div class="card"><p class="card__k">Camera Picker</p><p class="card__t">WASD로 구도 잡고 좌표 복사</p><p>카메라 위치를 문장으로 반복 설명하는 대신 화면에서 움직이며 확정.</p></div>
+      <div class="card"><p class="card__k">Object Fader</p><p class="card__t">위치·회전·크기를 슬라이더로</p><p>오브젝트를 선택해 transform 값을 바꾸며 장면 안에서 즉시 확인.</p></div>
+      <div class="card"><p class="card__k">Asset</p><p class="card__t">에셋 분류</p><p>수백 개 3D 에셋을 용도별로 분류하고 미리보기 도구로 확인.</p></div>
+      <div class="card"><p class="card__k">VFX</p><p class="card__t">셰이더와 효과</p><p>기본 파티클 대신 장면 목적에 맞는 셰이더·포스트프로세싱 적용.</p></div>
+      <div class="card"><p class="card__k">Performance</p><p class="card__t">렌더링 최적화</p><p>draw call·라이트 재컴파일·블룸 패스를 추적해 체감 끊김을 줄임.</p></div>
+    </div>
+  </div>
+</section>
 
-            <article class="archive-stage">
-                <p class="archive-index">Phase 04 · Modular</p>
-                <div class="archive-body">
-                    <h3>기능을 모듈로 분리하면서 병렬 개발이 가능해졌습니다.</h3>
-                    <p>전투, 항해, 스킬, 크루, 세이브를 각 모듈로 나누고 공통 컨텍스트를 통해 연결했습니다. 서로 독립적인 기능은 동시에 개발하고, 의존성이 있는 작업만 순서대로 이어갈 수 있게 됐습니다.</p>
-                    <div class="media-grid">
-                        <figure class="media-block">
-                            <video controls muted playsinline preload="metadata">
-                                <source src="assets/tomob/combat.mp4" type="video/mp4">
-                            </video>
-                            <figcaption class="media-caption">전투 시스템</figcaption>
-                        </figure>
-                        <figure class="media-block">
-                            <video controls muted playsinline preload="metadata">
-                                <source src="assets/tomob/sailing.mp4" type="video/mp4">
-                            </video>
-                            <figcaption class="media-caption">항해 시스템</figcaption>
-                        </figure>
-                        <figure class="media-block">
-                            <video controls muted playsinline preload="metadata">
-                                <source src="assets/tomob/skill-system.mp4" type="video/mp4">
-                            </video>
-                            <figcaption class="media-caption">캐릭터 스킬 시스템</figcaption>
-                        </figure>
-                        <figure class="media-block">
-                            <video controls muted playsinline preload="metadata">
-                                <source src="assets/tomob/naval-combat.mp4" type="video/mp4">
-                            </video>
-                            <figcaption class="media-caption">항해와 전투의 시스템 연결</figcaption>
-                        </figure>
-                    </div>
-                    <figure class="media-block">
-                        <video controls muted playsinline preload="metadata">
-                            <source src="assets/tomob/monster-system.mp4" type="video/mp4">
-                        </video>
-                        <figcaption class="media-caption">독립 모듈로 분리하기 전후를 비교할 수 있는 초기 몬스터 시스템</figcaption>
-                    </figure>
-                </div>
-            </article>
+<!-- ── 08 Verification (다크) ────────────── -->
+<section class="sec sec--dark s-ink">
+  <div class="wrap">
+    <div class="split" data-reveal>
+      <div>
+        <p class="label">08 &nbsp; Verification</p>
+        <h2 class="title">A Harness, Not a Gut Feel</h2>
+        <p class="subtitle">AI가 만든 버그를 감으로 찾지 않도록 검사 하네스를 만들었어요.</p>
+      </div>
+      <div class="split__body body">
+        <p>문법 검사만으로는 물리·상태 버그를 못 찾았어요. 부팅·키 충돌·아이템·세이브·밸런스·몹·퀘스트를 자동 검사하고, 장시간 시뮬레이션으로 <b>배 보상·항구 상태 같은 불변식</b>을 확인했어요.</p>
+      </div>
+    </div>
+    <div class="cards cards--3" style="margin-top:100px" data-reveal>
+      <div class="card"><p class="card__k">Case 01</p><p class="card__t">Rapier 이중 제거</p><p>같은 rigid body를 두 번 제거해 나던 크래시를 수명주기 규칙으로 차단.</p></div>
+      <div class="card"><p class="card__k">Case 02</p><p class="card__t">공유 머티리얼</p><p>복제 몬스터가 머티리얼을 공유해 피격 상태가 번지던 문제를 개별 복제로 해결.</p></div>
+      <div class="card"><p class="card__k">Case 03</p><p class="card__t">백그라운드 렌더</p><p>숨겨진 탭의 rAF 정지가 만든 가짜 VFX 결과를 발견, 검증 방법을 분리.</p></div>
+    </div>
+    <div style="margin-top:120px" data-reveal>
+      <p class="quote">tomob를 만들며 배운 건 <b>AI가 코드를 얼마나 많이 쓰는가</b>보다, 복잡한 작업을 어떤 구조로 통제하는가였어요.</p>
+    </div>
+  </div>
+</section>
 
-            <article class="archive-stage">
-                <p class="archive-index">Phase 05 · Harness</p>
-                <div class="archive-body">
-                    <h3>빠르게 만든 모듈을 하네스로 검증하며 리팩터링했습니다.</h3>
-                    <p>병렬 개발은 속도를 높였지만 모듈 사이의 회귀 버그도 늘렸습니다. 문법 검사만으로 잡히지 않는 입력 충돌, 세이브 복원, 물리 상태, 보상과 밸런스를 자동 Check와 시뮬레이션 불변식으로 검증했습니다.</p>
-                </div>
-            </article>
-        </div>
-    </div></section>
+<!-- ── 09 Next Product (네이비) ──────────── -->
+<section class="sec sec--dark s-navy">
+  <div class="wrap">
+    <div class="split" data-reveal>
+      <div>
+        <p class="label">09 &nbsp; Next Product</p>
+        <h2 class="title">The Tools Became Scene Director</h2>
+        <p class="subtitle">반복해서 만든 카메라·오브젝트 도구는 Scene Director의 출발점이 됐어요.</p>
+      </div>
+      <div class="split__body body">
+        <p>tomob는 결과물이고, Scene Director는 그 결과물을 만들며 발견한 <b>제작 병목을 독립 제품으로 전환</b>한 다음 단계예요.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <section class="section dark"><div class="section-inner">
-        <p class="section-label">05 · Product System</p>
-        <h2>게임 화면 뒤에는 서로 영향을 주는 시스템이 있었습니다.</h2>
-        <div class="grid">
-            <article class="card"><span class="card-num">WORLD</span><h3>섬과 지형</h3><p>스트리밍되는 섬, 지면 판정, 항구와 채집 시스템을 하나의 월드 규칙으로 연결했습니다.</p></article>
-            <article class="card"><span class="card-num">COMBAT</span><h3>전투와 AI</h3><p>지각, 공격 토큰, 디렉터를 공통 AI 코어로 묶어 적마다 달라지던 행동 규칙을 정리했습니다.</p></article>
-            <article class="card"><span class="card-num">VOYAGE</span><h3>항해와 크루</h3><p>파도, 부력, 조타, 갑판 크루의 이동과 역할 지시가 같은 공간에서 작동하도록 구성했습니다.</p></article>
-            <article class="card"><span class="card-num">STATE</span><h3>세이브와 복원</h3><p>순수 JSON 스냅샷과 모듈별 복원 훅으로 전투·배·조선소 상태가 이어지도록 만들었습니다.</p></article>
-            <article class="card"><span class="card-num">INPUT</span><h3>입력 모드</h3><p>도보·조타·건설·컷신의 입력 충돌을 라우터에서 차단하고 키맵을 단일 문서로 관리했습니다.</p></article>
-            <article class="card"><span class="card-num">BALANCE</span><h3>밸런스 SSOT</h3><p>레벨·공격·성장 수치를 한곳에서만 조정해 AI가 여러 파일에 값을 복제하지 못하게 했습니다.</p></article>
-        </div>
-    </div></section>
+<!-- ── Related ──────────────────────────── -->
+<section class="sec sec--tight">
+  <div class="wrap">
+    <h3 class="h3">Related Projects</h3>
+    <div class="next" data-reveal>
+      <a href="tomob-seed.html"><img src="assets/seed/overview.png" alt="TOMOB SEED">
+        <div class="t">TOMOB SEED</div><div class="d">AI 인풋 구조화 도구</div></a>
+      <a href="starlight-delivery.html"><img src="assets/starlight/menu.png" alt="스타딜리버리">
+        <div class="t">스타딜리버리</div><div class="d">브랜드 참여형 웹게임</div></a>
+      <a href="peach.html"><img src="assets/peach/cover.webp" alt="PEACH">
+        <div class="t">PEACH</div><div class="d">로컬 영업 리드 도구</div></a>
+    </div>
+  </div>
+</section>
 
-    <section class="section"><div class="section-inner">
-        <p class="section-label">06 · Key Decision</p>
-        <h2>프롬프트를 잘 쓰는 것보다, AI가 틀려도 발견되는 구조가 필요했습니다.</h2>
-        <p class="lead">작업이 커질수록 긴 지시문보다 단일 진실 공급원, 명시적인 모듈 경계, 자동 검증이 더 중요했습니다. 새 입력은 입력 라우터로, 새 이벤트는 이벤트 시스템으로, 새 밸런스 값은 BAL로 들어가게 규칙을 고정했습니다.</p>
-        <div class="flow">
-            <div class="flow-step"><span>01</span><b>작업 범위 정의</b></div>
-            <div class="flow-step"><span>02</span><b>SSOT 확인</b></div>
-            <div class="flow-step"><span>03</span><b>작은 단위 구현</b></div>
-            <div class="flow-step"><span>04</span><b>자동 Check</b></div>
-            <div class="flow-step"><span>05</span><b>실플레이 판정</b></div>
-        </div>
-    </div></section>
+<nav class="pager">
+  <a href="portfolio.html"><div class="k">Index</div><div class="t">전체 보기</div></a>
+  <a href="tomob-seed.html"><div class="k">Next</div><div class="t">TOMOB SEED</div></a>
+</nav>
 
-    <section class="section dark"><div class="section-inner">
-        <p class="section-label">07 · 3D Production</p>
-        <h2>화면을 보며 결정해야 하는 일은 직접 조정할 수 있게 만들었습니다.</h2>
-        <div class="grid">
-            <article class="card wide"><span class="card-num">CAMERA PICKER</span><h3>WASD로 카메라 구도를 잡고 좌표를 복사</h3><p>문장으로 카메라 위치를 반복 설명하는 대신 실제 화면에서 움직이며 확정했습니다.</p></article>
-            <article class="card wide"><span class="card-num">OBJECT FADER</span><h3>위치·회전·크기를 슬라이더로 조정</h3><p>오브젝트를 선택하고 transform 값을 직접 바꾸며 장면 안에서 즉시 확인했습니다.</p></article>
-            <article class="card"><span class="card-num">ASSET</span><h3>에셋 분류</h3><p>수백 개의 3D 에셋을 용도별로 분류하고 미리보기 도구로 확인했습니다.</p></article>
-            <article class="card"><span class="card-num">VFX</span><h3>셰이더와 효과</h3><p>기본 파티클 대신 장면의 목적에 맞는 셰이더와 포스트프로세싱을 적용했습니다.</p></article>
-            <article class="card"><span class="card-num">PERFORMANCE</span><h3>렌더링 최적화</h3><p>draw call, 라이트 재컴파일, 블룸 패스를 추적해 체감 끊김을 줄였습니다.</p></article>
-        </div>
-    </div></section>
-
-    <section class="section"><div class="section-inner">
-        <p class="section-label">08 · Verification</p>
-        <h2>AI가 만든 버그를 감으로 찾지 않도록 검사 하네스를 만들었습니다.</h2>
-        <p class="lead">문법 검사만으로는 물리와 상태 버그를 찾을 수 없었습니다. 부팅·키 충돌·아이템·세이브·밸런스·몹·퀘스트를 자동 검사하고, 장시간 시뮬레이션으로 배 보상과 항구 상태 같은 불변식을 확인했습니다.</p>
-        <div class="grid">
-            <article class="card"><span class="card-num">CASE 01</span><h3>Rapier 이중 제거</h3><p>같은 rigid body를 두 번 제거해 발생하던 크래시를 수명주기 규칙으로 차단했습니다.</p></article>
-            <article class="card"><span class="card-num">CASE 02</span><h3>공유 머티리얼</h3><p>복제된 몬스터가 머티리얼을 공유해 피격 상태가 번지던 문제를 개별 복제로 해결했습니다.</p></article>
-            <article class="card"><span class="card-num">CASE 03</span><h3>백그라운드 렌더</h3><p>숨겨진 탭의 rAF 정지가 만든 가짜 VFX 결과를 발견하고 검증 방법을 분리했습니다.</p></article>
-        </div>
-    </div></section>
-
-    <blockquote class="quote">tomob를 만들며 배운 것은 <em>AI가 코드를 얼마나 많이 쓰는가</em>보다, 복잡한 작업을 어떤 구조로 통제하는가였습니다.</blockquote>
-
-    <section class="section dark"><div class="section-inner">
-        <p class="section-label">09 · Next Product</p>
-        <h2>반복해서 직접 만든 카메라·오브젝트 도구는 Scene Director의 출발점이 됐습니다.</h2>
-        <p class="lead">tomob는 결과물이고, Scene Director는 그 결과물을 만들면서 발견한 제작 병목을 독립 제품으로 전환한 다음 단계입니다.</p>
-    </div></section>
-</main>
-<footer class="footer"><div class="footer-inner"><a href="portfolio.html">← Portfolio</a><a class="next" href="scene-director.html">Next · Scene Director →</a></div></footer>
+<script>
+  const io = new IntersectionObserver((es) => es.forEach((e) => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { threshold: .08 });
+  document.querySelectorAll('[data-reveal],[data-reveal-media]').forEach((el) => io.observe(el));
+</script>
 </body>
 </html>
